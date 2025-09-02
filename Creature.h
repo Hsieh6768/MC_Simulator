@@ -3,8 +3,13 @@
 
 class Creature {
 public:
+	Creature();  // default constructor
+	Creature(int hp_max, int hp_cur, int atk);  // constructor
+	~Creature();
+
 private:
-	int health;
+	int health_max;
+	int health_cur;
 	int attack;
 };
 
