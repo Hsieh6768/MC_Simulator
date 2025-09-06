@@ -12,8 +12,8 @@ public:
     int dropMoney(int random_number) const override;
 
 private:
-    static const int health_max = 20;
-    static const int attack = 3;
+    static const int health_max = MonsterBaseAttributes::ZOMBIE_MAX_HEALTH;
+    static const int attack = MonsterBaseAttributes::ZOMBIE_ATTACK;
 };
 
 #endif

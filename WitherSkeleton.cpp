@@ -1,12 +1,12 @@
 #include "WitherSkeleton.h"
 
-WitherSkeleton::WitherSkeleton() : Monster("凋零骷髅", health_max, health_max, attack, "普通", true) {}
+WitherSkeleton::WitherSkeleton() : Monster("凋零骷髅", health_max, health_max, attack, "普通", true, {"凋零诅咒"}) {}
 
 void WitherSkeleton::showInfo() const {
     std::cout << "生命值：" << health_cur
               << "\t攻击力：" << attack
               << "\n级别：" << type
-              << "\t特殊能力：" << "凋零诅咒" << std::endl;
+              << "\t特殊能力：1、" << special_ability[0] << std::endl;
 }
 
 bool WitherSkeleton::useSpecialAbility(int random_number) const {

@@ -12,8 +12,8 @@ public:
     int dropMoney(int random_number) const override;
 
 private:
-    static const int health_max = 20;
-    static const int attack = 4;
+    static const int health_max = MonsterBaseAttributes::PIGLIN_MAX_HEALTH;
+    static const int attack = MonsterBaseAttributes::PIGLIN_ATTACK;
 };
 
 #endif

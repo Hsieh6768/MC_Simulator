@@ -1,6 +1,37 @@
 #ifndef MONSTER_CONSTANTS_H
 #define MONSTER_CONSTANTS_H
 
+// 怪物基础属性（最大生命值，攻击力）
+namespace MonsterBaseAttributes {
+    // 僵尸 Zombie
+    const int ZOMBIE_MAX_HEALTH = 20;
+    const int ZOMBIE_ATTACK = 3;
+
+    // 猪灵 Piglin
+    const int PIGLIN_MAX_HEALTH = 20;
+    const int PIGLIN_ATTACK = 4;
+
+    // 蜘蛛 Spider
+    const int SPIDER_MAX_HEALTH = 24;
+    const int SPIDER_ATTACK = 4;
+
+    // 凋零骷髅 Wither Skeleton
+    const int WITHER_SKELETON_MAX_HEALTH = 40;
+    const int WITHER_SKELETON_ATTACK = 7;
+
+    // 终界使者 Enderman
+    const int ENDERMAN_MAX_HEALTH = 45;
+    const int ENDERMAN_ATTACK = 9;
+
+    // 烈焰使者 Blaze
+    const int BLAZE_MAX_HEALTH = 25;
+    const int BLAZE_ATTACK = 10;
+
+    // 终界龙 Ender Dragon
+    const int ENDER_DRAGON_MAX_HEALTH = 150;
+    const int ENDER_DRAGON_ATTACK = 15;
+}
+
 // 怪物掉落绿宝石的基础值和范围
 namespace DropConstants {
     // 僵尸 Zombie

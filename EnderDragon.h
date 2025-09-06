@@ -12,8 +12,8 @@ public:
     int dropMoney(int random_number) const override;
 
 private:
-    static const int health_max = 150;
-    static const int attack = 15;
+    static const int health_max = MonsterBaseAttributes::ENDER_DRAGON_MAX_HEALTH;
+    static const int attack = MonsterBaseAttributes::ENDER_DRAGON_ATTACK;
 };
 
 #endif

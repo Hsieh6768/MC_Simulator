@@ -20,26 +20,26 @@ public:
 	);
 	~Player();
 
-	void showInfo() const;
-	int getDefense() const;
-	void setDefense(int defense);
-	int getMagicPowerMax() const;
-	void setMagicPowerMax(int magic_power_max);
-	int getMagicPowerCur() const;
-	void setMagicPowerCur(int magic_power_cur);
-	int getMoney() const;
-	void setMoney(int money);
-	Equipment getEquipment() const;
-	void setEquipment(const Equipment &equipment);
-	Skill getSkill() const;
-	void setSkill(const Skill &skill);
-	void useSkill();
+	void showInfo() const;  // 查看玩家属性
+	int getDefense() const;  // 获取玩家护甲值
+	void setDefense(int defense);  // 设定玩家护甲值
+	int getMagicPowerMax() const;  // 获取玩家最大魔力值
+	void setMagicPowerMax(int magic_power_max);  // 设定玩家最大魔力值
+	int getMagicPowerCur() const;  // 获取当前魔力值
+	void setMagicPowerCur(int magic_power_cur);  // 设定当前魔力值
+	int getMoney() const;  // 获取玩家绿宝石数量
+	void setMoney(int money);  // 设定玩家绿宝石数量
+	Equipment getEquipment() const;  // 获取玩家护甲
+	void setEquipment(const Equipment &equipment);  // 设定玩家护甲
+	Skill getSkill() const;  // 获取玩家技能
+	void setSkill(const Skill &skill);  // 设定玩家技能
+	void useSkill(std::string skill);
 
 private:
-	int defense;
-	int magic_power_max;
-	int magic_power_cur;
-	int money;
+	int defense;  // 玩家护甲值
+	int magic_power_max;  // 玩家最大魔力值
+	int magic_power_cur;  // 玩家最大魔力值
+	int money;  // 玩家绿宝石数量
 	Equipment equipment;
 	Skill skill;
 };

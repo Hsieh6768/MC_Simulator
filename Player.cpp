@@ -63,21 +63,21 @@ void Player::setMoney(int money) {
 }
 
 Equipment Player::getEquipment() const {
-    return this->equipment.name;
+    return this->equipment;
 }
 
 void Player::setEquipment(const Equipment &equipment) {
-    this->equipment.name = equipment.name;
+    this->equipment = equipment;
 }
 
 Skill Player::getSkill() const {
-    return this->skill.name;
+    return this->skill;
 }
 
 void Player::setSkill(const Skill &skill) {
-    this->skill.name = skill.name;
+    this->skill = skill;
 }
 
-void Player::useSkill() {
+void Player::useSkill(std::string skill) {
 
 }

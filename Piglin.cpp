@@ -1,12 +1,12 @@
 #include "Piglin.h"
 
-Piglin::Piglin() : Monster("猪灵", health_max, health_max, attack, "普通", false) {}
+Piglin::Piglin() : Monster("猪灵", health_max, health_max, attack, "普通", false, {"无"}) {}
 
 void Piglin::showInfo() const {
     std::cout << "生命值：" << health_cur
               << "\t攻击力：" << attack
               << "\n级别：" << type
-              << "\t特殊能力：" << "无" << std::endl;
+              << "\t特殊能力：" << special_ability[0] << std::endl;
 }
 
 bool Piglin::useSpecialAbility(int random_number) const {
