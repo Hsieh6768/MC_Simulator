@@ -1,12 +1,12 @@
 // µòÁã÷¼÷Ã Wither Skeleton
-#ifndef WITHERSKELETON_H
-#define WITHERSKELETON_H
+#ifndef WITHER_SKELETON_H
+#define WITHER_SKELETON_H
 #include "Monster.h"
 
 class WitherSkeleton : public Monster {
 public:
     WitherSkeleton();
-    int dropMoney(int random_number);
+    int dropMoney(int random_number) const;
 
 private:
     static const int health_max = 40;

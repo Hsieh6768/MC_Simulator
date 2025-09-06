@@ -1,12 +1,12 @@
 // Ä©Ó°Áú Ender Dragon
-#ifndef ENDERDRAGON_H
-#define ENDERDRAGON_H
+#ifndef ENDER_DRAGON_H
+#define ENDER_DRAGON_H
 #include "Monster.h"
 
 class EnderDragon : public Monster {
 public:
     EnderDragon();
-    int dropMoney(int random_number);
+    int dropMoney(int random_number) const;
 
 private:
     static const int health_max = 150;

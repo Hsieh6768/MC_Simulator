@@ -1,8 +1,18 @@
 #include "Piglin.h"
 
-Piglin::Piglin() {}
+Piglin::Piglin() : Monster("猪灵", health_max, health_max, attack, "普通", false) {}
 
-int dropMoney(int random_number) {
-    return random_number % 4 + 1;
+void Piglin::showInfo() const {
+    std::cout << "生命值：" << health_cur
+              << "\t攻击力：" << attack
+              << "\n级别：" << type
+              << "\t特殊能力：" << "无" << std::endl;
 }
 
+bool Piglin::useSpecialAbility(int random_number) const {
+    return false;
+}
+
+int Piglin::dropMoney(int random_number) const {
+    return DropConstants::PIGLIN_BASE_DROP + random_number % DropConstants::PIGLIN_DROP_RANGE;
+}

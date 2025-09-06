@@ -6,7 +6,7 @@
 class Spider : public Monster {
 public:
     Spider();
-    int dropMoney(int random_number);
+    int dropMoney(int random_number) const;
 
 private:
     static const int health_max = 24;

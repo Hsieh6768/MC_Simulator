@@ -6,7 +6,7 @@
 class Enderman : public Monster {
 public:
     Enderman();
-    int dropMoney(int random_number);
+    int dropMoney(int random_number) const;
 
 private:
     static const int health_max = 45;

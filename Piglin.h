@@ -6,7 +6,10 @@
 class Piglin : public Monster {
 public:
     Piglin();
-    int dropMoney(int random_number);
+
+    void showInfo() const override;
+    bool useSpecialAbility(int random_number) const override;
+    int dropMoney(int random_number) const override;
 
 private:
     static const int health_max = 20;
