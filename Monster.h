@@ -18,7 +18,7 @@ public:
 	virtual void showInfo() const = 0;
 	virtual bool useSpecialAbility(int random_number) const = 0;
 	bool hasSpecialAbility() const;
-	virtual int dropMoney(int random_number) const = 0;  // éšæœºæ‰è½ç»¿å®çŸ³
+	virtual int dropMoney(int random_number) const = 0;  // Ëæ»úµôÂäÂÌ±¦Ê¯
 
 private:
 	std::string type;

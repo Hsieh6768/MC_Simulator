@@ -38,7 +38,7 @@ namespace SpecialAbilityConstants {
     const int WITHER_SKELETON_N = 3;
 
     // 终界使者 Enderman
-    // const int ENDERMAN_N = 3;
+    const int ENDERMAN_N = 3;
 
     // 烈焰使者 Blaze
     const int BLAZE_N = 4;

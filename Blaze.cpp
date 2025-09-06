@@ -13,6 +13,6 @@ bool Blaze::useSpecialAbility(int random_number) const {
     return random_number % SpecialAbilityConstants::BLAZE_N == 1;
 }
 
-int Blaze::dropMoney(int random_number) const override {
+int Blaze::dropMoney(int random_number) const {
     return DropConstants::BLAZE_BASE_DROP + random_number % DropConstants::BLAZE_DROP_RANGE;
 }

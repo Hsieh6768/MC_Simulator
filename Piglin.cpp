@@ -1,12 +1,12 @@
 #include "Piglin.h"
 
-Piglin::Piglin() : Monster("çŒªçµ", health_max, health_max, attack, "æ™®é€š", false) {}
+Piglin::Piglin() : Monster("ÖíÁé", health_max, health_max, attack, "ÆÕÍ¨", false) {}
 
 void Piglin::showInfo() const {
-    std::cout << "ç”Ÿå‘½å€¼ï¼š" << health_cur
-              << "\tæ”»å‡»åŠ›ï¼š" << attack
-              << "\nçº§åˆ«ï¼š" << type
-              << "\tç‰¹æ®Šèƒ½åŠ›ï¼š" << "æ— " << std::endl;
+    std::cout << "ÉúÃüÖµ£º" << health_cur
+              << "\t¹¥»÷Á¦£º" << attack
+              << "\n¼¶±ğ£º" << type
+              << "\tÌØÊâÄÜÁ¦£º" << "ÎŞ" << std::endl;
 }
 
 bool Piglin::useSpecialAbility(int random_number) const {
