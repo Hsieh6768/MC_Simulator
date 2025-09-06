@@ -1,12 +1,12 @@
 #include "EnderDragon.h"
 
-EnderDragon::EnderDragon() : Monster("æœ«å½±é¾™", health_max, health_max, attack, "å²è¯—") {}
+EnderDragon::EnderDragon() : Monster("ÖÕ½çÁú", health_max, health_max, attack, "Ê·Ê«", true) {}
 
 void EnderDragon::showInfo() const {
-    std::cout << "ç”Ÿå‘½å€¼ï¼š" << health_cur
-              << "\tæ”»å‡»åŠ›ï¼š" << attack
-              << "\nçº§åˆ«ï¼š" << type
-              << "\tç‰¹æ®Šèƒ½åŠ›ï¼š" << "å†²æ’æ”»å‡»ï¼›é¾™æ¯è…èš€" << std::endl;
+    std::cout << "ÉúÃüÖµ£º" << health_cur
+              << "\t¹¥»÷Á¦£º" << attack
+              << "\n¼¶±ğ£º" << type
+              << "\tÌØÊâÄÜÁ¦£º" << "³å×²¹¥»÷£»ÁúÏ¢¸¯Ê´" << std::endl;
 }
 
 bool EnderDragon::useSpecialAbility(int random_number) const {

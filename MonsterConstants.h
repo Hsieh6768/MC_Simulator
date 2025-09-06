@@ -27,7 +27,7 @@ namespace DropConstants {
     const int BLAZE_BASE_DROP = 15;
     const int BLAZE_DROP_RANGE = 16;  // µôÂä·¶Î§: 15-30
 
-    // Ä©Ó°Áú Ender Dragon
+    // ÖÕ½çÁú Ender Dragon
     const int ENDER_DRAGON_BASE_DROP = 100;
     const int ENDER_DRAGON_DROP_RANGE = 101;  // µôÂä·¶Î§: 100-200
 }
@@ -43,7 +43,7 @@ namespace SpecialAbilityConstants {
     // ÁÒÑæÊ¹Õß Blaze
     const int BLAZE_N = 4;
 
-    // Ä©Ó°Áú Ender Dragon
+    // ÖÕ½çÁú Ender Dragon
     const int ENDER_DRAGON_N = 6;
 }
 

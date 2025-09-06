@@ -1,4 +1,4 @@
-// Ä©Ó°Áú Ender Dragon
+// ÖÕ½çÁú Ender Dragon
 #ifndef ENDER_DRAGON_H
 #define ENDER_DRAGON_H
 #include "Monster.h"
@@ -6,7 +6,7 @@
 class EnderDragon : public Monster {
 public:
     EnderDragon();
-    
+
     void showInfo() const override;
     bool useSpecialAbility(int random_number) const override;
     int dropMoney(int random_number) const override;

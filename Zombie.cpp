@@ -1,12 +1,12 @@
 #include "Zombie.h"
 
-Zombie::Zombie() : Monster("åƒµå°¸", health_max, health_max, attack, "æ™®é€š") {}
+Zombie::Zombie() : Monster("½©Ê¬", health_max, health_max, attack, "ÆÕÍ¨", false) {}
 
 void Zombie::showInfo() const {
-    std::cout << "ç”Ÿå‘½å€¼ï¼š" << health_cur
-              << "\tæ”»å‡»åŠ›ï¼š" << attack
-              << "\nçº§åˆ«ï¼š" << type
-              << "\tç‰¹æ®Šèƒ½åŠ›ï¼š" << "æ— " << std::endl;
+    std::cout << "ÉúÃüÖµ£º" << health_cur
+              << "\t¹¥»÷Á¦£º" << attack
+              << "\n¼¶±ð£º" << type
+              << "\tÌØÊâÄÜÁ¦£º" << "ÎÞ" << std::endl;
 }
 
 bool Zombie::useSpecialAbility(int random_number) const {

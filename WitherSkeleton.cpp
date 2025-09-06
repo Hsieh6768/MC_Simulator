@@ -1,12 +1,12 @@
 #include "WitherSkeleton.h"
 
-WitherSkeleton::WitherSkeleton() : Monster("å‡‹é›¶éª·é«…", health_max, health_max, attack, "æ™®é€š") {}
+WitherSkeleton::WitherSkeleton() : Monster("µòÁã÷¼÷Ã", health_max, health_max, attack, "ÆÕÍ¨", true) {}
 
 void WitherSkeleton::showInfo() const {
-    std::cout << "ç”Ÿå‘½å€¼ï¼š" << health_cur
-              << "\tæ”»å‡»åŠ›ï¼š" << attack
-              << "\nçº§åˆ«ï¼š" << type
-              << "\tç‰¹æ®Šèƒ½åŠ›ï¼š" << "å‡‹é›¶è¯…å’’" << std::endl;
+    std::cout << "ÉúÃüÖµ£º" << health_cur
+              << "\t¹¥»÷Á¦£º" << attack
+              << "\n¼¶±ð£º" << type
+              << "\tÌØÊâÄÜÁ¦£º" << "µòÁã×çÖä" << std::endl;
 }
 
 bool WitherSkeleton::useSpecialAbility(int random_number) const {

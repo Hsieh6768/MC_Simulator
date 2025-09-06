@@ -1,12 +1,12 @@
 #include "Blaze.h"
 
-Blaze::Blaze() : Monster("çƒˆç„°ä½¿è€…", health_max, health_max, attack, "ç²¾è‹±") {}
+Blaze::Blaze() : Monster("ÁÒÑæÊ¹Õß", health_max, health_max, attack, "¾«Ó¢", true) {}
 
 void Blaze::showInfo() const {
-    std::cout << "ç”Ÿå‘½å€¼ï¼š" << health_cur
-              << "\tæ”»å‡»åŠ›ï¼š" << attack
-              << "\nçº§åˆ«ï¼š" << type
-              << "\tç‰¹æ®Šèƒ½åŠ›ï¼š" << "ç«çƒæ”»å‡»" << std::endl;
+    std::cout << "ÉúÃüÖµ£º" << health_cur
+              << "\t¹¥»÷Á¦£º" << attack
+              << "\n¼¶±ð£º" << type
+              << "\tÌØÊâÄÜÁ¦£º" << "»ðÇò¹¥»÷" << std::endl;
 }
 
 bool Blaze::useSpecialAbility(int random_number) const {

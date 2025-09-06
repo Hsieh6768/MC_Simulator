@@ -23,11 +23,11 @@ Player::Player(
 Player::~Player() {}
 
 void Player::showInfo() const {
-    std::cout << "ç”Ÿå‘½å€¼ï¼š" << health_cur 
-              << "\tæ”»å‡»åŠ›ï¼š" << attack + equipment.attack
-              << "\té˜²å¾¡åŠ›" << defense + equipment.defense
-              << "\né­”åŠ›ï¼š" << magic_power_cur
-              << "\tç»¿å®çŸ³ï¼š" << money << std::endl;
+    std::cout << "ÉúÃüÖµ£º" << health_cur 
+              << "\t¹¥»÷Á¦£º" << attack + equipment.attack
+              << "\t»¤¼×Öµ£º" << defense + equipment.defense
+              << "\nÄ§Á¦Öµ£º" << magic_power_cur
+              << "\tÂÌ±¦Ê¯£º" << money << std::endl;
 }
 
 int Player::getDefense() const {
