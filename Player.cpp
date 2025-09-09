@@ -23,8 +23,8 @@ skill(skill) {}
 Player::~Player() {}
 
 void Player::showInfo() const {
-    std::cout << "生命值：" << health_cur
-        << "\t攻击力：" << attack + equipment.attack
+    std::cout << "生命值：" << getHealthCur()
+        << "\t攻击力：" << getAttack() + equipment.attack
         << "\t护甲值：" << defense + equipment.defense
         << "\n魔力值：" << magic_power_cur
         << "\t绿宝石：" << money << std::endl;

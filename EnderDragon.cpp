@@ -3,10 +3,10 @@
 EnderDragon::EnderDragon() : Monster("终界龙", health_max, health_max, attack, "史诗", true, { "冲撞攻击", "龙息腐蚀" }) {}
 
 void EnderDragon::showInfo() const {
-    std::cout << "生命值：" << health_cur
+    std::cout << "生命值：" << getHealthCur()
         << "\t攻击力：" << attack
-        << "\n级别：" << type
-        << "\t特殊能力：1、" << special_ability[0] << "；2、" << special_ability[1]
+        << "\n级别：" << getType()
+        << "\t特殊能力：1、" << getAbility(0) << "；2、" << getAbility(1)
         << std::endl;
 }
 

@@ -22,3 +22,7 @@ std::string Monster::getType() const {
 bool Monster::hasSpecialAbility() const {
     return this->has_special_ability;
 }
+
+std::string Monster::getAbility(int index) const {
+    return special_ability[index];
+}

@@ -23,6 +23,7 @@ public:
 
 	std::string getType() const;  // 获取怪物级别
 	bool hasSpecialAbility() const;  // 判断是否拥有特殊能力
+	std::string getAbility(int index) const;  // 获取怪物特殊能力
 
 private:
 	std::string type;  // 级别
