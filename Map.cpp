@@ -61,7 +61,66 @@ void Map::initializeMap() {
     // 设置初始区域为已访问
     areas[0]->visited = true;
     currentAreaId = 0;
+    // 生成固定怪物
+    spawnFixedMonsters();
 }
+void Map::spawnFixedMonsters() {
+    // 清空所有区域的怪物
+    for (auto& pair : areas) {
+        pair.second->creatures.clear();
+    }
+
+    // 为每个区域生成固定怪物
+    spawnMonstersInArea(2, { "Zombie", "Zombie" }); // 平原：2只僵尸
+    spawnMonstersInArea(3, { "Zombie", "Spider", "Zombie" }); // 矿井：2僵尸1蜘蛛
+    spawnMonstersInArea(4, { "WitherSkeleton", "WitherSkeleton", "Spider" }); // 地牢：2凋零骷髅1蜘蛛
+    spawnMonstersInArea(6, { "Spider", "Spider", "Piglin" }); // 黑森林入口：2蜘蛛1猪灵
+    spawnMonstersInArea(7, { "Spider", "Enderman", "Piglin" }); // 森林深处：1蜘蛛1末影人1猪灵
+    spawnMonstersInArea(8, { "Blaze", "Blaze", "WitherSkeleton" }); // 堡垒：2烈焰使者1凋零骷髅
+    spawnMonstersInArea(9, { "Zombie", "Spider", "Piglin", "Zombie" }); // 洞穴：2僵尸1蜘蛛1猪灵
+    spawnMonstersInArea(5, { "EnderDragon" }); // 终界：1终界龙（BOSS）
+
+    // 安全区域没有怪物
+    areas[0]->creatures.clear(); // 村庄
+    areas[1]->creatures.clear(); // 铁匠铺
+}
+void Map::spawnMonstersInArea(int areaId, const vector<string>& monsterTypes) {
+    Area* area = getArea(areaId);
+    if (!area) return;
+
+    for (const auto& monsterType : monsterTypes) {
+        auto monster = createMonsterByType(monsterType);
+        if (monster) {
+            area->creatures.push_back(monster);
+        }
+    }
+}
+
+shared_ptr<Monster> Map::createMonsterByType(const string& monsterType) {
+    if (monsterType == "Zombie") {
+        return make_shared<Zombie>();
+    }
+    else if (monsterType == "Spider") {
+        return make_shared<Spider>();
+    }
+    else if (monsterType == "Piglin") {
+        return make_shared<Piglin>();
+    }
+    else if (monsterType == "WitherSkeleton") {
+        return make_shared<WitherSkeleton>();
+    }
+    else if (monsterType == "Enderman") {
+        return make_shared<Enderman>();
+    }
+    else if (monsterType == "Blaze") {
+        return make_shared<Blaze>();
+    }
+    else if (monsterType == "EnderDragon") {
+        return make_shared<EnderDragon>();
+    }
+    return nullptr;
+}
+
 
 void Map::displayCurrentArea() const {
     Area* area = getCurrentArea();

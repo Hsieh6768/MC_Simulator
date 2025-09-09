@@ -1,35 +1,50 @@
 #include "Equipment.h"
-#include "Player.h" // 需要包含Player类的定义
+#include <iostream>
 
-// 构造函数
-Equipment::Equipment(int atk, int def) : ATK(atk), DEF(def) {}
+using namespace std;
 
-// 获取穿上装备后的玩家攻击力
-int Equipment::getPlayerATK(const Player& player) const {
-    // 假设Player类有getBaseATK()方法获取基础攻击力
-    return player.getBaseATK() + ATK;
+Equipment::Equipment(string name, int atk, int def, int value, string type)
+    : name(name), attack(atk), defense(def), value(value), type(type) {}
+
+void Equipment::displayInfo() const {
+    cout << "装备: " << name << " [" << type << "]" << endl;
+    if (attack > 0) {
+        cout << "攻击: +" << attack << endl;
+    }
+    if (defense > 0) {
+        cout << "防御: +" << defense << endl;
+    }
+    cout << "价值: " << value << " 绿宝石" << endl;
 }
 
-// 获取穿上装备后的玩家防御力
-int Equipment::getPlayerDEF(const Player& player) const {
-    // 假设Player类有getBaseDEF()方法获取基础防御力
-    return player.getBaseDEF() + DEF;
+int Equipment::getValue() const {
+    return value;
 }
 
-// 设置装备属性
-void Equipment::setATK(int atk) {
-    ATK = atk;
+void Equipment::upgrade(int atkBonus, int defBonus) {
+    attack += atkBonus;
+    defense += defBonus;
+    value += (atkBonus + defBonus) * 5; // 价值提升
 }
 
-void Equipment::setDEF(int def) {
-    DEF = def;
+string Equipment::getType() const {
+    return type;
 }
 
-// 获取装备属性
-int Equipment::getATK() const {
-    return ATK;
+bool Equipment::operator<(const Equipment& other) const {
+    // 按价值排序
+    return value < other.value;
 }
 
-int Equipment::getDEF() const {
-    return DEF;
+// 预定义装备实现
+namespace EquipmentTypes {
+    // 武器
+    const Equipment WOODEN_SWORD("木剑", 3, 0, 10, "weapon");
+    const Equipment IRON_SWORD("铁剑", 8, 1, 40, "weapon");
+    const Equipment DIAMOND_SWORD("钻石剑", 12, 2, 80, "weapon");
+
+    // 防具
+    const Equipment LEATHER_ARMOR("皮革甲", 0, 3, 15, "armor");
+    const Equipment IRON_ARMOR("铁甲", 0, 6, 35, "armor");
+    const Equipment DIAMOND_ARMOR("钻石甲", 0, 10, 70, "armor");
 }

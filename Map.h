@@ -4,6 +4,13 @@
 #include "Creature.h"
 #include "Player.h"
 #include "Monster.h"
+#include "Zombie.h"
+#include "Spider.h"
+#include "Piglin.h"
+#include "WitherSkeleton.h"
+#include "Enderman.h"
+#include "Blaze.h"
+#include "EnderDragon.h"
 #include <vector>
 #include <memory>
 #include <string>
@@ -63,6 +70,9 @@ public:
     bool removeCreatureFromArea(int areaId, const std::string& creatureName);
     std::vector<std::shared_ptr<Creature>> getCreaturesInArea(int areaId) const;
 
+    // 固定怪物生成
+    void spawnFixedMonsters(); // 生成固定怪物
+
     // 区域信息
     Area* getArea(int areaId);
     Area* getCurrentArea();
@@ -82,8 +92,9 @@ private:
     std::map<int, Area*> areas;
     int currentAreaId;
 
-    std::string getDirectionName(int fromAreaId, int toAreaId) const;
-    std::string getAreaSymbol(AreaType type) const;
+    // 固定怪物生成辅助方法
+    void spawnMonstersInArea(int areaId, const std::vector<std::string>& monsterTypes);
+    std::shared_ptr<Monster> createMonsterByType(const std::string& monsterType);
 };
 
 #endif // MAP_H

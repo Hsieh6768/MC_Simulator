@@ -1,4 +1,3 @@
-#pragma once
 #ifndef SKILL_H
 #define SKILL_H
 
@@ -7,60 +6,90 @@
 
 class Skill {
 protected:
-    std::string name;    // 技能名称
-    int cost;            // 技能消耗
-    int round;           // 技能持续回合数
-    int effect;          // 技能效果值
+    std::string name;
+    std::string description;
+    int cost;           // 魔法消耗
+    int cooldown;       // 冷却回合
+    int currentCooldown;// 当前冷却
+    int level;          // 技能等级
 
 public:
-    // 构造函数
-    Skill(const std::string& name = "", int cost = 0, int round = 0, int effect = 0);
+    Skill(const std::string& name = "", const std::string& desc = "",
+        int cost = 0, int cooldown = 0, int level = 1);
     virtual ~Skill() = default;
 
-    // 纯虚函数：使用技能
-    virtual void use(Player& player) = 0;
+    // 使用技能（纯虚函数）
+    virtual bool use(Player& caster) = 0;
 
-    // 虚函数：每回合效果（可选实现）
-    virtual void applyRoundEffect(Player& player);
+    // 升级技能
+    virtual void upgrade();
 
-    // 虚函数：结束效果（可选实现）
-    virtual void endEffect(Player& player);
+    // 冷却处理
+    void reduceCooldown();
+    void resetCooldown();
 
-    // 获取技能信息
+    // 获取信息
     std::string getName() const;
+    std::string getDescription() const;
     int getCost() const;
-    int getRound() const;
-    int getEffect() const;
+    int getCooldown() const;
+    int getCurrentCooldown() const;
+    int getLevel() const;
+    bool isReady() const;
 
-    // 减少持续回合数
-    void decreaseRound();
-
-    // 检查技能是否还在持续
-    bool isActive() const;
+    // 显示技能信息
+    virtual void displayInfo() const;
 };
 
-// 增加攻击力的技能
-class PowerSkill : public Skill {
+// 攻击技能
+class AttackSkill : public Skill {
+private:
+    int damage;
+    double multiplier;  // 攻击倍率
+
 public:
-    PowerSkill();
-    void use(Player& player) override;
-    void endEffect(Player& player) override;
+    AttackSkill(const std::string& name, const std::string& desc,
+        int cost, int cooldown, int damage, double multiplier = 1.0);
+
+    bool use(Player& caster) override;
+    void upgrade() override;
+    void displayInfo() const override;
 };
 
-// 增加防御力的技能
-class DefendSkill : public Skill {
+// 治疗技能
+class HealSkill : public Skill {
+private:
+    int healAmount;
+
 public:
-    DefendSkill();
-    void use(Player& player) override;
-    void endEffect(Player& player) override;
+    HealSkill(const std::string& name, const std::string& desc,
+        int cost, int cooldown, int healAmount);
+
+    bool use(Player& caster) override;
+    void upgrade() override;
+    void displayInfo() const override;
 };
 
-// 回复生命的技能
-class HealingSkill : public Skill {
+// 增益技能
+class BuffSkill : public Skill {
+private:
+    int duration;
+    int attackBonus;
+    int defenseBonus;
+
 public:
-    HealingSkill();
-    void use(Player& player) override;
-    void applyRoundEffect(Player& player) override;
+    BuffSkill(const std::string& name, const std::string& desc,
+        int cost, int cooldown, int duration, int atkBonus, int defBonus);
+
+    bool use(Player& caster) override;
+    void upgrade() override;
+    void displayInfo() const override;
+};
+
+// 技能管理器
+class SkillManager {
+public:
+    static Skill* createSkill(const std::string& skillType, int level = 1);
 };
 
 #endif // SKILL_H
