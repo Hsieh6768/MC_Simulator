@@ -1,14 +1,14 @@
 #include "Creature.h"
 
 Creature::Creature(
-    std::string name, 
-    int health_max, 
-    int health_cur, 
+    std::string name,
+    int health_max,
+    int health_cur,
     int attack
-) : name(name), 
-    health_max(health_max), 
-    health_cur(health_cur), 
-    attack(attack) {}
+) : name(name),
+health_max(health_max),
+health_cur(health_cur),
+attack(attack) {}
 
 Creature::~Creature() {}
 

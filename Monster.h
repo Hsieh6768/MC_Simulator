@@ -17,17 +17,17 @@ public:
 	);
 	~Monster() {}
 
-	virtual void showInfo() const = 0;
-	virtual bool useSpecialAbility(int random_number) const = 0;
+	virtual void showInfo() const = 0;  // 显示怪物属性面板
+	virtual bool useSpecialAbility(int random_number) const = 0;  // 判断该回合是否使用特殊能力
 	virtual int dropMoney(int random_number) const = 0;  // 随机掉落绿宝石
 
-	std::string getType() const;
-	bool hasSpecialAbility() const;
+	std::string getType() const;  // 获取怪物级别
+	bool hasSpecialAbility() const;  // 判断是否拥有特殊能力
 
 private:
-	std::string type;
-	bool has_special_ability;
-	std::vector<std::string> special_ability;
+	std::string type;  // 级别
+	bool has_special_ability;  // 是否拥有特殊能力
+	std::vector<std::string> special_ability;  // 特殊能力列表
 };
 
 #endif

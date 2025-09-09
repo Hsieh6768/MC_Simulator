@@ -5,9 +5,9 @@
 class Creature {
 public:
 	Creature(
-		std::string name = "", 
-		int health_max = 0, 
-		int health_cur = 0, 
+		std::string name = "",
+		int health_max = 0,
+		int health_cur = 0,
 		int attack = 0
 	);
 	virtual ~Creature();

@@ -1,7 +1,7 @@
 #ifndef MONSTER_CONSTANTS_H
 #define MONSTER_CONSTANTS_H
 
-// 怪物基础属性（最大生命值，攻击力）
+// 怪物基础属性（最大生命值，基础攻击力）
 namespace MonsterBaseAttributes {
     // 僵尸 Zombie
     const int ZOMBIE_MAX_HEALTH = 20;
