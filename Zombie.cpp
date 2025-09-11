@@ -1,19 +1,19 @@
-#include "Zombie.h"
+ï»¿#include "Zombie.h"
 
-Zombie::Zombie() : Monster("½©Ê¬", health_max, health_max, attack, "ÆÕÍ¨", false, { "ÎÞ" }) {}
+Zombie::Zombie() : Monster("åƒµå°¸", health_max, health_max, attack, "æ™®é€š", false, { "æ— " }) {}
 
 void Zombie::showInfo() const {
-    std::cout << "ÉúÃüÖµ£º" << getHealthCur()
-        << "\t¹¥»÷Á¦£º" << attack
-        << "\n¼¶±ð£º" << getType()
-        << "\tÌØÊâÄÜÁ¦£º" << getAbility(0) << std::endl;
+    std::cout << "ç”Ÿå‘½å€¼ï¼š" << getHealthCur()
+        << "\tæ”»å‡»åŠ›ï¼š" << attack
+        << "\nçº§åˆ«ï¼š" << getType()
+        << "\tç‰¹æ®Šèƒ½åŠ›ï¼š" << getAbility(0) << std::endl;
 }
 
 bool Zombie::useSpecialAbility(int random_number) const {
-    return false;  // ÎÞÌØÊâÄÜÁ¦
+    return false;  // æ— ç‰¹æ®Šèƒ½åŠ›
 }
 
 int Zombie::dropMoney(int random_number) const {
-    // ÂÌ±¦Ê¯µôÂäÖµ=»ù´¡µôÂäÖµ+·¶Î§²¨¶¯Öµ
+    // ç»¿å®çŸ³æŽ‰è½å€¼=åŸºç¡€æŽ‰è½å€¼+èŒƒå›´æ³¢åŠ¨å€¼
     return DropConstants::ZOMBIE_BASE_DROP + random_number % DropConstants::ZOMBIE_DROP_RANGE;
 }

@@ -1,19 +1,19 @@
-#include "Piglin.h"
+ï»¿#include "Piglin.h"
 
-Piglin::Piglin() : Monster("ÖíÁé", health_max, health_max, attack, "ÆÕÍ¨", false, { "ÎŞ" }) {}
+Piglin::Piglin() : Monster("çŒªçµ", health_max, health_max, attack, "æ™®é€š", false, { "æ— " }) {}
 
 void Piglin::showInfo() const {
-    std::cout << "ÉúÃüÖµ£º" << getHealthCur()
-        << "\t¹¥»÷Á¦£º" << attack
-        << "\n¼¶±ğ£º" << getType()
-        << "\tÌØÊâÄÜÁ¦£º" << getAbility(0) << std::endl;
+    std::cout << "ç”Ÿå‘½å€¼ï¼š" << getHealthCur()
+        << "\tæ”»å‡»åŠ›ï¼š" << attack
+        << "\nçº§åˆ«ï¼š" << getType()
+        << "\tç‰¹æ®Šèƒ½åŠ›ï¼š" << getAbility(0) << std::endl;
 }
 
 bool Piglin::useSpecialAbility(int random_number) const {
-    return false;  // ÎŞÌØÊâÄÜÁ¦
+    return false;  // æ— ç‰¹æ®Šèƒ½åŠ›
 }
 
 int Piglin::dropMoney(int random_number) const {
-    // ÂÌ±¦Ê¯µôÂäÖµ=»ù´¡µôÂäÖµ+·¶Î§²¨¶¯Öµ
+    // ç»¿å®çŸ³æ‰è½å€¼=åŸºç¡€æ‰è½å€¼+èŒƒå›´æ³¢åŠ¨å€¼
     return DropConstants::PIGLIN_BASE_DROP + random_number % DropConstants::PIGLIN_DROP_RANGE;
 }

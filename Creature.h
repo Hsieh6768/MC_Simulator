@@ -1,5 +1,6 @@
-#ifndef CREATURE_H
+ï»¿#ifndef CREATURE_H
 #define CREATURE_H
+
 #include <iostream>
 #include <string>
 
@@ -13,20 +14,20 @@ public:
 	);
 	virtual ~Creature();
 
-	std::string getName() const;  // »ñÈ¡ÉúÎïÃû³Æ
-	void setName(std::string name);  // Éè¶¨ÉúÎïÃû³Æ
-	int getHealthMax() const;  // »ñÈ¡×î´óÉúÃüÖµ
-	void setHealthMax(int health_max);  // Éè¶¨×î´óÉúÃüÖµ
-	int getHealthCur() const;  // »ñÈ¡µ±Ç°ÉúÃüÖµ
-	void setHealthCur(int health_cur);  // Éè¶¨µ±Ç°ÉúÃüÖµ
-	int getAttack() const;  // »ñÈ¡¹¥»÷Á¦
-	void setAttack(int attack);  // Éè¶¨¹¥»÷Á¦
+	std::string getName() const;  // è·å–ç”Ÿç‰©åç§°
+	void setName(std::string name);  // è®¾å®šç”Ÿç‰©åç§°
+	int getHealthMax() const;  // è·å–æœ€å¤§ç”Ÿå‘½å€¼
+	void setHealthMax(int health_max);  // è®¾å®šæœ€å¤§ç”Ÿå‘½å€¼
+	int getHealthCur() const;  // è·å–å½“å‰ç”Ÿå‘½å€¼
+	void setHealthCur(int health_cur);  // è®¾å®šå½“å‰ç”Ÿå‘½å€¼
+	int getAttack() const;  // è·å–æ”»å‡»åŠ›
+	void setAttack(int attack);  // è®¾å®šæ”»å‡»åŠ›
 
 private:
-	std::string name;  // ÉúÎïÃû³Æ
-	int health_max;  // ×î´óÉúÃüÖµ
-	int health_cur;  // µ±Ç°ÉúÃüÖµ
-	int attack;  // ¹¥»÷Á¦
+	std::string name;  // ç”Ÿç‰©åç§°
+	int health_max;  // æœ€å¤§ç”Ÿå‘½å€¼
+	int health_cur;  // å½“å‰ç”Ÿå‘½å€¼
+	int attack;  // æ”»å‡»åŠ›
 };
 
 #endif

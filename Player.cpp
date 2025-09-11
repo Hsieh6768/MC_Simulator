@@ -1,4 +1,4 @@
-#include "Player.h"
+ï»¿#include "Player.h"
 #include <iostream>
 
 Player::Player(
@@ -9,25 +9,29 @@ Player::Player(
     int defense,
     int magic_power_max,
     int magic_power_cur,
-    int money,
-    Equipment equipment,
-    Skill skill
+    int money, 
+    Weapon weapon,
+    Armor armor,
+    std::vector<std::unique_ptr<Skill>> skill,
+    struct TemporaryBuff buff
 ) : Creature(name, health_max, health_cur, attack),
 defense(defense),
 magic_power_max(magic_power_max),
 magic_power_cur(magic_power_cur),
 money(money),
-equipment(equipment),
-skill(skill) {}
+weapon(weapon),
+armor(armor),
+skill(skill),
+buff(buff) {}
 
 Player::~Player() {}
 
 void Player::showInfo() const {
-    std::cout << "ÉúÃüÖµ£º" << getHealthCur()
-        << "\t¹¥»÷Á¦£º" << getAttack() + equipment.attack
-        << "\t»¤¼×Öµ£º" << defense + equipment.defense
-        << "\nÄ§Á¦Öµ£º" << magic_power_cur
-        << "\tÂÌ±¦Ê¯£º" << money << std::endl;
+    std::cout << "ç”Ÿå‘½å€¼ï¼š" << getHealthCur()
+        << "\tæ”»å‡»åŠ›ï¼š" << getAttack() + equipment.attack + buff.attack_bonus
+        << "\tæŠ¤ç”²å€¼ï¼š" << defense + equipment.defense + buff.defense_bonus
+        << "\né­”åŠ›å€¼ï¼š" << magic_power_cur
+        << "\tç»¿å®çŸ³ï¼š" << money << std::endl;
 }
 
 int Player::getDefense() const {
@@ -62,22 +66,52 @@ void Player::setMoney(int money) {
     this->money = money;
 }
 
-Equipment Player::getEquipment() const {
-    return this->equipment;
+const Weapon& Player::getWeapon() const {
+    return this->weapon;
 }
 
-void Player::setEquipment(const Equipment& equipment) {
-    this->equipment = equipment;
+void Player::setWeapon(const Weapon& weapon) {
+    this->weapon = weapon;
 }
 
-Skill Player::getSkill() const {
+const Armor& Player::getArmor() const {
+    return this->armor;
+}
+
+void Player::setArmor(const Armor& armor) {
+    this->armor = armor;
+}
+
+std::vector<std::unique_ptr<Skill>>& Player::getSkill() {
     return this->skill;
 }
 
-void Player::setSkill(const Skill& skill) {
-    this->skill = skill;
+const std::vector<std::unique_ptr<Skill>>& Player::getSkill() const {
+    return this->skill;
 }
 
-void Player::useSkill(std::string skill) {
+void Player::addSkill(std::unique_ptr<Skill> skill) {
+    this->skill.push_back(std::move(skill));
+}
 
+void Player::clearSkills() {
+    this->skill.clear();
+}
+
+TemporaryBuff Player::getTemporaryBuff() const {
+    return this->buff;
+}
+
+void Player::setTemporaryBuff(const TemporaryBuff buff) {
+    this->buff = buff;
+}
+
+void Player::updateBuffs() {
+    if (buff.duration > 0) {
+        buff.duration--;
+        if (buff.duration == 0) {  // å¢ç›ŠæŒç»­æ—¶é—´ç»“æŸ
+            buff.attack_bonus = 0;
+            buff.defense_bonus = 0;
+        }
+    }
 }

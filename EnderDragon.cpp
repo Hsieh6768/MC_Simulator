@@ -1,26 +1,26 @@
-#include "EnderDragon.h"
+ï»¿#include "EnderDragon.h"
 
-EnderDragon::EnderDragon() : Monster("ÖÕ½çÁú", health_max, health_max, attack, "Ê·Ê«", true, { "³å×²¹¥»÷", "ÁúÏ¢¸¯Ê´" }) {}
+EnderDragon::EnderDragon() : Monster("ç»ˆç•Œé¾™", health_max, health_max, attack, "å²è¯—", true, { "å†²æ’æ”»å‡»", "é¾™æ¯è…èš€" }) {}
 
 void EnderDragon::showInfo() const {
-    std::cout << "ÉúÃüÖµ£º" << getHealthCur()
-        << "\t¹¥»÷Á¦£º" << attack
-        << "\n¼¶±ğ£º" << getType()
-        << "\tÌØÊâÄÜÁ¦£º1¡¢" << getAbility(0) << "£»2¡¢" << getAbility(1)
+    std::cout << "ç”Ÿå‘½å€¼ï¼š" << getHealthCur()
+        << "\tæ”»å‡»åŠ›ï¼š" << attack
+        << "\nçº§åˆ«ï¼š" << getType()
+        << "\tç‰¹æ®Šèƒ½åŠ›ï¼š1ã€" << getAbility(0) << "ï¼›2ã€" << getAbility(1)
         << std::endl;
 }
 
 bool EnderDragon::useSpecialAbility(int random_number) const {
-    // ÓàÊıÎª1Ê±ÔÚ±¾»ØºÏÊ¹ÓÃÌØÊâÄÜÁ¦
+    // ä½™æ•°ä¸º1æ—¶åœ¨æœ¬å›åˆä½¿ç”¨ç‰¹æ®Šèƒ½åŠ›
     return random_number % SpecialAbilityConstants::ENDER_DRAGON_N == 1;
 }
 
 int EnderDragon::selectAbility(int random_number) const {
-    // ´¥·¢ÌØÊâÄÜÁ¦Ê±Ëæ»úÑ¡ÔñÆäÒ»
+    // è§¦å‘ç‰¹æ®Šèƒ½åŠ›æ—¶éšæœºé€‰æ‹©å…¶ä¸€
     return random_number % 2;
 }
 
 int EnderDragon::dropMoney(int random_number) const {
-    // ÂÌ±¦Ê¯µôÂäÖµ=»ù´¡µôÂäÖµ+·¶Î§²¨¶¯Öµ
+    // ç»¿å®çŸ³æ‰è½å€¼=åŸºç¡€æ‰è½å€¼+èŒƒå›´æ³¢åŠ¨å€¼
     return DropConstants::ENDER_DRAGON_BASE_DROP + random_number % DropConstants::ENDER_DRAGON_DROP_RANGE;
 }

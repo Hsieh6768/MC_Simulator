@@ -1,20 +1,20 @@
-#include "Enderman.h"
+ï»¿#include "Enderman.h"
 
-Enderman::Enderman() : Monster("ÖÕ½çÊ¹Õß", health_max, health_max, attack, "¾«Ó¢", true, { "Ë²¼äÒÆ¶¯" }) {}
+Enderman::Enderman() : Monster("ç»ˆç•Œä½¿è€…", health_max, health_max, attack, "ç²¾è‹±", true, { "ç¬é—´ç§»åŠ¨" }) {}
 
 void Enderman::showInfo() const {
-    std::cout << "ÉúÃüÖµ£º" << getHealthCur()
-        << "\t¹¥»÷Á¦£º" << attack
-        << "\n¼¶±ğ£º" << getType()
-        << "\tÌØÊâÄÜÁ¦£º1¡¢" << getAbility(0) << std::endl;
+    std::cout << "ç”Ÿå‘½å€¼ï¼š" << getHealthCur()
+        << "\tæ”»å‡»åŠ›ï¼š" << attack
+        << "\nçº§åˆ«ï¼š" << getType()
+        << "\tç‰¹æ®Šèƒ½åŠ›ï¼š1ã€" << getAbility(0) << std::endl;
 }
 
 bool Enderman::useSpecialAbility(int random_number) const {
-    // ÓàÊıÎª1Ê±ÔÚ±¾»ØºÏÊ¹ÓÃÌØÊâÄÜÁ¦
+    // ä½™æ•°ä¸º1æ—¶åœ¨æœ¬å›åˆä½¿ç”¨ç‰¹æ®Šèƒ½åŠ›
     return random_number % SpecialAbilityConstants::ENDERMAN_N == 1;
 }
 
 int Enderman::dropMoney(int random_number) const {
-    // ÂÌ±¦Ê¯µôÂäÖµ=»ù´¡µôÂäÖµ+·¶Î§²¨¶¯Öµ
+    // ç»¿å®çŸ³æ‰è½å€¼=åŸºç¡€æ‰è½å€¼+èŒƒå›´æ³¢åŠ¨å€¼
     return DropConstants::ENDERMAN_BASE_DROP + random_number % DropConstants::ENDERMAN_DROP_RANGE;
 }

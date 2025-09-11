@@ -1,5 +1,6 @@
-#ifndef MONSTER_H
+ï»¿#ifndef MONSTER_H
 #define MONSTER_H
+
 #include "Creature.h"
 #include "MonsterConstants.h"
 #include <vector>
@@ -17,18 +18,18 @@ public:
 	);
 	~Monster() {}
 
-	virtual void showInfo() const = 0;  // ÏÔÊ¾¹ÖÎïÊôĞÔÃæ°å
-	virtual bool useSpecialAbility(int random_number) const = 0;  // ÅĞ¶Ï¸Ã»ØºÏÊÇ·ñÊ¹ÓÃÌØÊâÄÜÁ¦
-	virtual int dropMoney(int random_number) const = 0;  // Ëæ»úµôÂäÂÌ±¦Ê¯
+	virtual void showInfo() const = 0;  // æ˜¾ç¤ºæ€ªç‰©å±æ€§é¢æ¿
+	virtual bool useSpecialAbility(int random_number) const = 0;  // åˆ¤æ–­è¯¥å›åˆæ˜¯å¦ä½¿ç”¨ç‰¹æ®Šèƒ½åŠ›
+	virtual int dropMoney(int random_number) const = 0;  // éšæœºæ‰è½ç»¿å®çŸ³
 
-	std::string getType() const;  // »ñÈ¡¹ÖÎï¼¶±ğ
-	bool hasSpecialAbility() const;  // ÅĞ¶ÏÊÇ·ñÓµÓĞÌØÊâÄÜÁ¦
-	std::string getAbility(int index) const;  // »ñÈ¡¹ÖÎïÌØÊâÄÜÁ¦
+	std::string getType() const;  // è·å–æ€ªç‰©çº§åˆ«
+	bool hasSpecialAbility() const;  // åˆ¤æ–­æ˜¯å¦æ‹¥æœ‰ç‰¹æ®Šèƒ½åŠ›
+	std::string getAbility(int index = 0) const;  // è·å–æ€ªç‰©ç‰¹æ®Šèƒ½åŠ›
 
 private:
-	std::string type;  // ¼¶±ğ
-	bool has_special_ability;  // ÊÇ·ñÓµÓĞÌØÊâÄÜÁ¦
-	std::vector<std::string> special_ability;  // ÌØÊâÄÜÁ¦ÁĞ±í
+	std::string type;  // çº§åˆ«
+	bool has_special_ability;  // æ˜¯å¦æ‹¥æœ‰ç‰¹æ®Šèƒ½åŠ›
+	std::vector<std::string> special_ability;  // ç‰¹æ®Šèƒ½åŠ›åˆ—è¡¨
 };
 
 #endif

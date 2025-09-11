@@ -1,20 +1,20 @@
-#include "WitherSkeleton.h"
+ï»¿#include "WitherSkeleton.h"
 
-WitherSkeleton::WitherSkeleton() : Monster("µòÁã÷¼÷Ã", health_max, health_max, attack, "ÆÕÍ¨", true, { "µòÁã×çÖä" }) {}
+WitherSkeleton::WitherSkeleton() : Monster("å‡‹é›¶éª·é«…", health_max, health_max, attack, "æ™®é€š", true, { "å‡‹é›¶è¯…å’’" }) {}
 
 void WitherSkeleton::showInfo() const {
-    std::cout << "ÉúÃüÖµ£º" << getHealthCur()
-        << "\t¹¥»÷Á¦£º" << attack
-        << "\n¼¶±ð£º" << getType()
-        << "\tÌØÊâÄÜÁ¦£º1¡¢" << getAbility(0) << std::endl;
+    std::cout << "ç”Ÿå‘½å€¼ï¼š" << getHealthCur()
+        << "\tæ”»å‡»åŠ›ï¼š" << attack
+        << "\nçº§åˆ«ï¼š" << getType()
+        << "\tç‰¹æ®Šèƒ½åŠ›ï¼š1ã€" << getAbility(0) << std::endl;
 }
 
 bool WitherSkeleton::useSpecialAbility(int random_number) const {
-    // ÓàÊýÎª1Ê±ÔÚ±¾»ØºÏÊ¹ÓÃÌØÊâÄÜÁ¦
+    // ä½™æ•°ä¸º1æ—¶åœ¨æœ¬å›žåˆä½¿ç”¨ç‰¹æ®Šèƒ½åŠ›
     return random_number % SpecialAbilityConstants::WITHER_SKELETON_N == 1;
 }
 
 int WitherSkeleton::dropMoney(int random_number) const {
-    // ÂÌ±¦Ê¯µôÂäÖµ=»ù´¡µôÂäÖµ+·¶Î§²¨¶¯Öµ
+    // ç»¿å®çŸ³æŽ‰è½å€¼=åŸºç¡€æŽ‰è½å€¼+èŒƒå›´æ³¢åŠ¨å€¼
     return DropConstants::WITHER_SKELETON_BASE_DROP + random_number % DropConstants::WITHER_SKELETON_DROP_RANGE;
 }

@@ -1,20 +1,20 @@
-#include "Blaze.h"
+ï»¿#include "Blaze.h"
 
-Blaze::Blaze() : Monster("ÁÒÑæÊ¹Õß", health_max, health_max, attack, "¾«Ó¢", true, { "»ğÇò¹¥»÷" }) {}
+Blaze::Blaze() : Monster("çƒˆç„°ä½¿è€…", health_max, health_max, attack, "ç²¾è‹±", true, { "ç«çƒæ”»å‡»" }) {}
 
 void Blaze::showInfo() const {
-    std::cout << "ÉúÃüÖµ£º" << getHealthCur()
-        << "\t¹¥»÷Á¦£º" << attack
-        << "\n¼¶±ğ£º" << getType()
-        << "\tÌØÊâÄÜÁ¦£º1¡¢" << getAbility(0) << std::endl;
+    std::cout << "ç”Ÿå‘½å€¼ï¼š" << getHealthCur()
+        << "\tæ”»å‡»åŠ›ï¼š" << attack
+        << "\nçº§åˆ«ï¼š" << getType()
+        << "\tç‰¹æ®Šèƒ½åŠ›ï¼š1ã€" << getAbility(0) << std::endl;
 }
 
 bool Blaze::useSpecialAbility(int random_number) const {
-    // ÓàÊıÎª1Ê±ÔÚ±¾»ØºÏÊ¹ÓÃÌØÊâÄÜÁ¦
+    // ä½™æ•°ä¸º1æ—¶åœ¨æœ¬å›åˆä½¿ç”¨ç‰¹æ®Šèƒ½åŠ›
     return random_number % SpecialAbilityConstants::BLAZE_N == 1;
 }
 
 int Blaze::dropMoney(int random_number) const {
-    // ÂÌ±¦Ê¯µôÂäÖµ=»ù´¡µôÂäÖµ+·¶Î§²¨¶¯Öµ
+    // ç»¿å®çŸ³æ‰è½å€¼=åŸºç¡€æ‰è½å€¼+èŒƒå›´æ³¢åŠ¨å€¼
     return DropConstants::BLAZE_BASE_DROP + random_number % DropConstants::BLAZE_DROP_RANGE;
 }

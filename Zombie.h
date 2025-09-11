@@ -1,6 +1,7 @@
-// ½©Ê¬ Zombie
+ï»¿// åƒµå°¸ Zombie
 #ifndef ZOMBIE_H
 #define ZOMBIE_H
+
 #include "Monster.h"
 
 class Zombie : public Monster {
@@ -12,8 +13,8 @@ public:
     int dropMoney(int random_number) const override;
 
 private:
-    static const int health_max = MonsterBaseAttributes::ZOMBIE_MAX_HEALTH;  // Í¬ÖÖ¹ÖÎï¹Ì¶¨×î´óÉúÃüÖµ
-    static const int attack = MonsterBaseAttributes::ZOMBIE_ATTACK;  // Í¬ÖÖ¹ÖÎï¹Ì¶¨»ù´¡¹¥»÷Á¦
+    static const int health_max = MonsterBaseAttributes::ZOMBIE_MAX_HEALTH;  // åŒç§æ€ªç‰©å›ºå®šæœ€å¤§ç”Ÿå‘½å€¼
+    static const int attack = MonsterBaseAttributes::ZOMBIE_ATTACK;  // åŒç§æ€ªç‰©å›ºå®šåŸºç¡€æ”»å‡»åŠ›
 };
 
 #endif

@@ -1,6 +1,7 @@
-// ÖÕ½çÁú Ender Dragon
+ï»¿// ç»ˆç•Œé¾™ Ender Dragon
 #ifndef ENDER_DRAGON_H
 #define ENDER_DRAGON_H
+
 #include "Monster.h"
 
 class EnderDragon : public Monster {
@@ -9,12 +10,12 @@ public:
 
     void showInfo() const override;
     bool useSpecialAbility(int random_number) const override;
-    int selectAbility(int random_number) const;  // ±¾»ØºÏ´¥·¢ÌØÊâÄÜÁ¦Ê±Ñ¡ÔñÓ¦´¥·¢ÄÄ¸öÌØÊâÄÜÁ¦
+    int selectAbility(int random_number) const;  // æœ¬å›åˆè§¦å‘ç‰¹æ®Šèƒ½åŠ›æ—¶é€‰æ‹©åº”è§¦å‘å“ªä¸ªç‰¹æ®Šèƒ½åŠ›
     int dropMoney(int random_number) const override;
 
 private:
-    static const int health_max = MonsterBaseAttributes::ENDER_DRAGON_MAX_HEALTH;  // Í¬ÖÖ¹ÖÎï¹Ì¶¨×î´óÉúÃüÖµ
-    static const int attack = MonsterBaseAttributes::ENDER_DRAGON_ATTACK;  // Í¬ÖÖ¹ÖÎï¹Ì¶¨»ù´¡¹¥»÷Á¦
+    static const int health_max = MonsterBaseAttributes::ENDER_DRAGON_MAX_HEALTH;  // åŒç§æ€ªç‰©å›ºå®šæœ€å¤§ç”Ÿå‘½å€¼
+    static const int attack = MonsterBaseAttributes::ENDER_DRAGON_ATTACK;  // åŒç§æ€ªç‰©å›ºå®šåŸºç¡€æ”»å‡»åŠ›
 };
 
 #endif

@@ -1,11 +1,20 @@
-#ifndef PLAYER_H
+ï»¿#ifndef PLAYER_H
 #define PLAYER_H
+
 #include "Creature.h"
 #include "Equipment.h"
 #include "Skill.h"
+#include <vector>
+
+struct TemporaryBuff {
+	int attack_bonus;
+	int defense_bonus;
+	int duration;
+};
 
 class Player : public Creature {
 public:
+
 	Player(
 		std::string name = "",
 		int health_max = 0,
@@ -15,33 +24,51 @@ public:
 		int magic_power_max = 0,
 		int magic_power_cur = 0,
 		int money = 0,
-		Equipment equipment = Equipment(),
-		Skill skill = Skill()
+		Weapon weapon = Weapon(), 
+		Armor armor = Armor(), 
+		std::vector<std::unique_ptr<Skill>> skill = {},
+		TemporaryBuff buff = {0, 0, 0}
 	);
 	~Player();
 
-	void showInfo() const;  // ²é¿´Íæ¼ÒÊôĞÔ
-	int getDefense() const;  // »ñÈ¡Íæ¼Ò»¤¼×Öµ
-	void setDefense(int defense);  // Éè¶¨Íæ¼Ò»¤¼×Öµ
-	int getMagicPowerMax() const;  // »ñÈ¡Íæ¼Ò×î´óÄ§Á¦Öµ
-	void setMagicPowerMax(int magic_power_max);  // Éè¶¨Íæ¼Ò×î´óÄ§Á¦Öµ
-	int getMagicPowerCur() const;  // »ñÈ¡µ±Ç°Ä§Á¦Öµ
-	void setMagicPowerCur(int magic_power_cur);  // Éè¶¨µ±Ç°Ä§Á¦Öµ
-	int getMoney() const;  // »ñÈ¡Íæ¼ÒÂÌ±¦Ê¯ÊıÁ¿
-	void setMoney(int money);  // Éè¶¨Íæ¼ÒÂÌ±¦Ê¯ÊıÁ¿
-	Equipment getEquipment() const;  // »ñÈ¡Íæ¼Ò»¤¼×
-	void setEquipment(const Equipment& equipment);  // Éè¶¨Íæ¼Ò»¤¼×
-	Skill getSkill() const;  // »ñÈ¡Íæ¼Ò¼¼ÄÜ
-	void setSkill(const Skill& skill);  // Éè¶¨Íæ¼Ò¼¼ÄÜ
-	void useSkill(std::string skill);
+	void showInfo() const;  // æŸ¥çœ‹ç©å®¶å±æ€§
+
+	int getDefense() const;  // è·å–ç©å®¶æŠ¤ç”²å€¼
+	void setDefense(int defense);  // è®¾å®šç©å®¶æŠ¤ç”²å€¼
+
+	int getMagicPowerMax() const;  // è·å–ç©å®¶æœ€å¤§é­”åŠ›å€¼
+	void setMagicPowerMax(int magic_power_max);  // è®¾å®šç©å®¶æœ€å¤§é­”åŠ›å€¼
+
+	int getMagicPowerCur() const;  // è·å–å½“å‰é­”åŠ›å€¼
+	void setMagicPowerCur(int magic_power_cur);  // è®¾å®šå½“å‰é­”åŠ›å€¼
+
+	int getMoney() const;  // è·å–ç©å®¶ç»¿å®çŸ³æ•°é‡
+	void setMoney(int money);  // è®¾å®šç©å®¶ç»¿å®çŸ³æ•°é‡
+
+	const Weapon& getWeapon() const;  // è·å–ç©å®¶æ­¦å™¨
+	void setWeapon(const Weapon& weapon);  // è®¾å®šç©å®¶æ­¦å™¨
+
+	const Armor& getArmor() const;  // è·å–ç©å®¶æŠ¤ç”²
+	void setArmor(const Armor& armor);  // è®¾å®šç©å®¶æŠ¤ç”²
+
+	std::vector<std::unique_ptr<Skill>>& getSkill();  // è·å–ç©å®¶æŠ€èƒ½ï¼ˆå¯ä¿®æ”¹å¼•ç”¨ï¼‰
+	const std::vector<std::unique_ptr<Skill>>& getSkill() const;  // è·å–ç©å®¶æŠ€èƒ½ï¼ˆåªè¯»å¼•ç”¨ï¼‰
+	void addSkill(std::unique_ptr<Skill> skill);  // æ·»åŠ ç©å®¶æŠ€èƒ½
+	void clearSkills();  // æ¸…é™¤ç©å®¶æŠ€èƒ½
+
+	TemporaryBuff getTemporaryBuff() const;  // è·å–ç©å®¶å¢ç›Š
+	void setTemporaryBuff(const TemporaryBuff buff);  // è®¾å®šç©å®¶å¢ç›Š
+	void updateBuffs();  // æ£€æŸ¥å¢ç›Šæ˜¯å¦ç»“æŸ
 
 private:
-	int defense;  // Íæ¼Ò»¤¼×Öµ
-	int magic_power_max;  // Íæ¼Ò×î´óÄ§Á¦Öµ
-	int magic_power_cur;  // Íæ¼Ò×î´óÄ§Á¦Öµ
-	int money;  // Íæ¼ÒÂÌ±¦Ê¯ÊıÁ¿
-	Equipment equipment;
-	Skill skill;
+	int defense;  // ç©å®¶æŠ¤ç”²å€¼
+	int magic_power_max;  // ç©å®¶æœ€å¤§é­”åŠ›å€¼
+	int magic_power_cur;  // ç©å®¶æœ€å¤§é­”åŠ›å€¼
+	int money;  // ç©å®¶ç»¿å®çŸ³æ•°é‡
+	Weapon weapon;  // ç©å®¶ä½©æˆ´çš„æ­¦å™¨
+	Armor armor;  // ç©å®¶ç©¿æˆ´çš„æŠ¤ç”²
+	std::vector<std::unique_ptr<Skill>> skill;  // ç©å®¶æ‹¥æœ‰çš„æŠ€èƒ½
+	TemporaryBuff buff;  // ç©å®¶çŸ­æ—¶å¢ç›Š
 };
 
 #endif

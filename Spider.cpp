@@ -1,19 +1,19 @@
-#include "Spider.h"
+ï»¿#include "Spider.h"
 
-Spider::Spider() : Monster("Ö©Öë", health_max, health_max, attack, "ÆÕÍ¨", false, { "ÎÞ" }) {}
+Spider::Spider() : Monster("èœ˜è››", health_max, health_max, attack, "æ™®é€š", false, { "æ— " }) {}
 
 void Spider::showInfo() const {
-    std::cout << "ÉúÃüÖµ£º" << getHealthCur()
-        << "\t¹¥»÷Á¦£º" << attack
-        << "\n¼¶±ð£º" << getType()
-        << "\tÌØÊâÄÜÁ¦£º" << getAbility(0) << std::endl;
+    std::cout << "ç”Ÿå‘½å€¼ï¼š" << getHealthCur()
+        << "\tæ”»å‡»åŠ›ï¼š" << attack
+        << "\nçº§åˆ«ï¼š" << getType()
+        << "\tç‰¹æ®Šèƒ½åŠ›ï¼š" << getAbility(0) << std::endl;
 }
 
 bool Spider::useSpecialAbility(int random_number) const {
-    return false;  // ÎÞÌØÊâÄÜÁ¦
+    return false;  // æ— ç‰¹æ®Šèƒ½åŠ›
 }
 
 int Spider::dropMoney(int random_number) const {
-    // ÂÌ±¦Ê¯µôÂäÖµ=»ù´¡µôÂäÖµ+·¶Î§²¨¶¯Öµ
+    // ç»¿å®çŸ³æŽ‰è½å€¼=åŸºç¡€æŽ‰è½å€¼+èŒƒå›´æ³¢åŠ¨å€¼
     return DropConstants::SPIDER_BASE_DROP + random_number % DropConstants::SPIDER_DROP_RANGE;
 }

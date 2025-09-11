@@ -1,6 +1,7 @@
-// µòÁã÷¼÷Ã Wither Skeleton
+ï»¿// å‡‹é›¶éª·é«… Wither Skeleton
 #ifndef WITHER_SKELETON_H
 #define WITHER_SKELETON_H
+
 #include "Monster.h"
 
 class WitherSkeleton : public Monster {
@@ -12,8 +13,8 @@ public:
     int dropMoney(int random_number) const override;
 
 private:
-    static const int health_max = MonsterBaseAttributes::WITHER_SKELETON_MAX_HEALTH;  // Í¬ÖÖ¹ÖÎï¹Ì¶¨×î´óÉúÃüÖµ
-    static const int attack = MonsterBaseAttributes::WITHER_SKELETON_ATTACK;  // Í¬ÖÖ¹ÖÎï¹Ì¶¨»ù´¡¹¥»÷Á¦
+    static const int health_max = MonsterBaseAttributes::WITHER_SKELETON_MAX_HEALTH;  // åŒç§æ€ªç‰©å›ºå®šæœ€å¤§ç”Ÿå‘½å€¼
+    static const int attack = MonsterBaseAttributes::WITHER_SKELETON_ATTACK;  // åŒç§æ€ªç‰©å›ºå®šåŸºç¡€æ”»å‡»åŠ›
 };
 
 #endif

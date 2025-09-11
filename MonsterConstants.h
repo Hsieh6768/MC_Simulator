@@ -1,80 +1,80 @@
-#ifndef MONSTER_CONSTANTS_H
+ï»¿#ifndef MONSTER_CONSTANTS_H
 #define MONSTER_CONSTANTS_H
 
-// ¹ÖÎï»ù´¡ÊôĞÔ£¨×î´óÉúÃüÖµ£¬»ù´¡¹¥»÷Á¦£©
+// æ€ªç‰©åŸºç¡€å±æ€§ï¼ˆæœ€å¤§ç”Ÿå‘½å€¼ï¼ŒåŸºç¡€æ”»å‡»åŠ›ï¼‰
 namespace MonsterBaseAttributes {
-    // ½©Ê¬ Zombie
+    // åƒµå°¸ Zombie
     const int ZOMBIE_MAX_HEALTH = 20;
     const int ZOMBIE_ATTACK = 3;
 
-    // ÖíÁé Piglin
+    // çŒªçµ Piglin
     const int PIGLIN_MAX_HEALTH = 20;
     const int PIGLIN_ATTACK = 4;
 
-    // Ö©Öë Spider
+    // èœ˜è›› Spider
     const int SPIDER_MAX_HEALTH = 24;
     const int SPIDER_ATTACK = 4;
 
-    // µòÁã÷¼÷Ã Wither Skeleton
+    // å‡‹é›¶éª·é«… Wither Skeleton
     const int WITHER_SKELETON_MAX_HEALTH = 40;
     const int WITHER_SKELETON_ATTACK = 7;
 
-    // ÖÕ½çÊ¹Õß Enderman
+    // ç»ˆç•Œä½¿è€… Enderman
     const int ENDERMAN_MAX_HEALTH = 45;
     const int ENDERMAN_ATTACK = 9;
 
-    // ÁÒÑæÊ¹Õß Blaze
+    // çƒˆç„°ä½¿è€… Blaze
     const int BLAZE_MAX_HEALTH = 25;
     const int BLAZE_ATTACK = 10;
 
-    // ÖÕ½çÁú Ender Dragon
+    // ç»ˆç•Œé¾™ Ender Dragon
     const int ENDER_DRAGON_MAX_HEALTH = 150;
     const int ENDER_DRAGON_ATTACK = 15;
 }
 
-// ¹ÖÎïµôÂäÂÌ±¦Ê¯µÄ»ù´¡ÖµºÍ·¶Î§
+// æ€ªç‰©æ‰è½ç»¿å®çŸ³çš„åŸºç¡€å€¼å’ŒèŒƒå›´
 namespace DropConstants {
-    // ½©Ê¬ Zombie
+    // åƒµå°¸ Zombie
     const int ZOMBIE_BASE_DROP = 1;
-    const int ZOMBIE_DROP_RANGE = 4;  // µôÂä·¶Î§: 1-4
+    const int ZOMBIE_DROP_RANGE = 4;  // æ‰è½èŒƒå›´: 1-4
 
-    // ÖíÁé Piglin
+    // çŒªçµ Piglin
     const int PIGLIN_BASE_DROP = 3;
-    const int PIGLIN_DROP_RANGE = 5;  // µôÂä·¶Î§: 3-7
+    const int PIGLIN_DROP_RANGE = 5;  // æ‰è½èŒƒå›´: 3-7
 
-    // Ö©Öë Spider
+    // èœ˜è›› Spider
     const int SPIDER_BASE_DROP = 2;
-    const int SPIDER_DROP_RANGE = 5;  // µôÂä·¶Î§: 2-6
+    const int SPIDER_DROP_RANGE = 5;  // æ‰è½èŒƒå›´: 2-6
 
-    // µòÁã÷¼÷Ã Wither Skeleton
+    // å‡‹é›¶éª·é«… Wither Skeleton
     const int WITHER_SKELETON_BASE_DROP = 8;
-    const int WITHER_SKELETON_DROP_RANGE = 8;  // µôÂä·¶Î§: 8-15
+    const int WITHER_SKELETON_DROP_RANGE = 8;  // æ‰è½èŒƒå›´: 8-15
 
-    // ÖÕ½çÊ¹Õß Enderman
+    // ç»ˆç•Œä½¿è€… Enderman
     const int ENDERMAN_BASE_DROP = 10;
-    const int ENDERMAN_DROP_RANGE = 11;  // µôÂä·¶Î§: 10-20
+    const int ENDERMAN_DROP_RANGE = 11;  // æ‰è½èŒƒå›´: 10-20
 
-    // ÁÒÑæÊ¹Õß Blaze
+    // çƒˆç„°ä½¿è€… Blaze
     const int BLAZE_BASE_DROP = 15;
-    const int BLAZE_DROP_RANGE = 16;  // µôÂä·¶Î§: 15-30
+    const int BLAZE_DROP_RANGE = 16;  // æ‰è½èŒƒå›´: 15-30
 
-    // ÖÕ½çÁú Ender Dragon
+    // ç»ˆç•Œé¾™ Ender Dragon
     const int ENDER_DRAGON_BASE_DROP = 100;
-    const int ENDER_DRAGON_DROP_RANGE = 101;  // µôÂä·¶Î§: 100-200
+    const int ENDER_DRAGON_DROP_RANGE = 101;  // æ‰è½èŒƒå›´: 100-200
 }
 
-// ÓÃÓÚ¼ÆËã¹ÖÎïÊÇ·ñ´¥·¢ÌØÊâÄÜÁ¦µÄ³ıÊıN£¬Ëæ»úÊı¶ÔNÇóÓàÇÒÓàÊıÎª1Ê±´¥·¢
+// ç”¨äºè®¡ç®—æ€ªç‰©æ˜¯å¦è§¦å‘ç‰¹æ®Šèƒ½åŠ›çš„é™¤æ•°Nï¼Œéšæœºæ•°å¯¹Næ±‚ä½™ä¸”ä½™æ•°ä¸º1æ—¶è§¦å‘
 namespace SpecialAbilityConstants {
-    // µòÁã÷¼÷Ã Wither Skeleton
+    // å‡‹é›¶éª·é«… Wither Skeleton
     const int WITHER_SKELETON_N = 3;
 
-    // ÖÕ½çÊ¹Õß Enderman
+    // ç»ˆç•Œä½¿è€… Enderman
     const int ENDERMAN_N = 3;
 
-    // ÁÒÑæÊ¹Õß Blaze
+    // çƒˆç„°ä½¿è€… Blaze
     const int BLAZE_N = 4;
 
-    // ÖÕ½çÁú Ender Dragon
+    // ç»ˆç•Œé¾™ Ender Dragon
     const int ENDER_DRAGON_N = 6;
 }
 
