@@ -1,11 +1,13 @@
 ﻿#ifndef SKILL_H
 #define SKILL_H
 
-#include "Player.h"
-#include "Monster.h"
 #include <string>
 #include <memory>
 #include <algorithm>
+
+// 前向声明
+class Player;
+class Monster;
 
 class Skill {
 protected:

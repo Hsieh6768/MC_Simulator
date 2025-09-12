@@ -5,6 +5,7 @@
 #include "Equipment.h"
 #include "Skill.h"
 #include <vector>
+#include <memory>
 
 struct TemporaryBuff {
 	int attack_bonus;
@@ -30,6 +31,11 @@ public:
 		TemporaryBuff buff = {0, 0, 0}
 	);
 	~Player();
+
+	Player(Player&& other) noexcept;  // 添加移动构造函数
+	Player& operator=(Player&& other) noexcept;  // 添加移动赋值运算符
+	Player(const Player&) = delete;  // 删除拷贝构造函数
+	Player& operator=(const Player&) = delete;  // 删除拷贝赋值运算符
 
 	void showInfo() const;  // 查看玩家属性
 
@@ -58,7 +64,7 @@ public:
 
 	TemporaryBuff getTemporaryBuff() const;  // 获取玩家增益
 	void setTemporaryBuff(const TemporaryBuff buff);  // 设定玩家增益
-	void updateBuffs();  // 检查增益是否结束
+	void updateBuffs();  // 更新玩家增益状态
 
 private:
 	int defense;  // 玩家护甲值

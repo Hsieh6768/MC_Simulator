@@ -3,10 +3,10 @@
 Enderman::Enderman() : Monster("终界使者", health_max, health_max, attack, "精英", true, { "瞬间移动" }) {}
 
 void Enderman::showInfo() const {
-    std::cout << "生命值：" << getHealthCur()
-        << "\t攻击力：" << attack
-        << "\n级别：" << getType()
-        << "\t特殊能力：1、" << getAbility(0) << std::endl;
+    std::cout << "生命值: " << getHealthCur()
+              << "\t攻击力: " << attack
+              << "\n级别: " << getType()
+              << "\t特殊能力: 1. " << getAbility(0) << std::endl;
 }
 
 bool Enderman::useSpecialAbility(int random_number) const {

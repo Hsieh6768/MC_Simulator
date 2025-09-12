@@ -3,10 +3,10 @@
 Blaze::Blaze() : Monster("烈焰使者", health_max, health_max, attack, "精英", true, { "火球攻击" }) {}
 
 void Blaze::showInfo() const {
-    std::cout << "生命值：" << getHealthCur()
-        << "\t攻击力：" << attack
-        << "\n级别：" << getType()
-        << "\t特殊能力：1、" << getAbility(0) << std::endl;
+    std::cout << "生命值: " << getHealthCur()
+              << "\t攻击力: " << attack
+              << "\n级别: " << getType()
+              << "\t特殊能力: 1. " << getAbility(0) << std::endl;
 }
 
 bool Blaze::useSpecialAbility(int random_number) const {

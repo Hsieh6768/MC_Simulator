@@ -46,9 +46,9 @@ Weapon::Weapon(string name, int atk, int value)
     : Equipment(name, atk, 0, value, "weapon") {}
 
 void Weapon::displayInfo() const {
-    cout << "武器: " << getName() << endl;
-    cout << "攻击: +" << getAttack() << endl;
-    cout << "价值: " << getValue() << " 绿宝石" << endl;
+    cout << "武器: " << getName();
+    cout << "\t攻击: +" << getAttack();
+    cout << "\t价值: " << getValue() << " 绿宝石" << endl;
 }
 
 // Armor 实现
@@ -56,9 +56,9 @@ Armor::Armor(string name, int def, int value)
     : Equipment(name, 0, def, value, "armor") {}
 
 void Armor::displayInfo() const {
-    cout << "护甲: " << getName() << endl;
-    cout << "防御: +" << getDefense() << endl;
-    cout << "价值: " << getValue() << " 绿宝石" << endl;
+    cout << "护甲: " << getName();
+    cout << "\t防御: +" << getDefense();
+    cout << "\t价值: " << getValue() << " 绿宝石" << endl;
 }
 
 // 预定义装备实现

@@ -1,4 +1,5 @@
 ﻿#include "Map.h"
+#include <iostream>
 #include <algorithm>
 
 using namespace std;
@@ -7,35 +8,28 @@ Map::Map() : currentAreaId(0) {
     initializeMap();
 }
 
-Map::~Map() {
-    // 清理所有区域内存
-    for (auto& pair : areas) {
-        delete pair.second;
-    }
-    areas.clear();
-}
 
 void Map::initializeMap() {
     // 创建所有区域
-    areas[0] = new Area(0, VILLAGE, "村庄",
+    areas[0] = std::make_unique<Area>(0, VILLAGE, "村庄",
         "一个宁静的小村庄，村民们正在忙碌。这里是冒险的起点。", true);
-    areas[1] = new Area(1, BLACKSMITH, "铁匠铺",
+    areas[1] = std::make_unique<Area>(1, BLACKSMITH, "铁匠铺",
         "铁匠正在打造武器，炉火熊熊燃烧。可以在这里升级装备。", true);
-    areas[2] = new Area(2, PLAIN, "平原",
+    areas[2] = std::make_unique<Area>(2, PLAIN, "平原",
         "广阔的平原，风吹草低见牛羊。");
-    areas[3] = new Area(3, MINE, "矿井",
+    areas[3] = std::make_unique<Area>(3, MINE, "矿井",
         "废弃的矿井，深处传来奇怪的声音。");
-    areas[4] = new Area(4, DUNGEON, "地牢",
+    areas[4] = std::make_unique<Area>(4, DUNGEON, "地牢",
         "阴暗潮湿的地牢，漫步着未知的生物。");
-    areas[5] = new Area(5, END, "终界",
+    areas[5] = std::make_unique<Area>(5, END, "终界",
         "世界的尽头，充满了神秘的力量与无尽的虚空。");
-    areas[6] = new Area(6, DARK_FOREST, "黑森林入口",
+    areas[6] = std::make_unique<Area>(6, DARK_FOREST, "黑森林入口",
         "黑暗森林的入口，树木茂密，光线昏暗。");
-    areas[7] = new Area(7, DEEP_FOREST, "森林深处",
+    areas[7] = std::make_unique<Area>(7, DEEP_FOREST, "森林深处",
         "黑森林的深处，充满了未知的危险。");
-    areas[8] = new Area(8, FORTRESS, "堡垒",
+    areas[8] = std::make_unique<Area>(8, FORTRESS, "堡垒",
         "坚固的堡垒，来自地狱的怪物便驻于此。");
-    areas[9] = new Area(9, CAVE, "洞穴",
+    areas[9] = std::make_unique<Area>(9, CAVE, "洞穴",
         "深邃的洞穴，可能藏有宝藏或怪物。");
 
     // 设置区域连接关系
@@ -59,13 +53,14 @@ void Map::initializeMap() {
     // 设置初始区域为已访问
     areas[0]->visited = true;
     currentAreaId = 0;
+
     // 生成固定怪物
     spawnFixedMonsters();
 }
 void Map::spawnFixedMonsters() {
     // 清空所有区域的怪物
     for (auto& pair : areas) {
-        pair.second->creatures.clear();
+        if (pair.second) pair.second->creatures.clear();
     }
 
     // 为每个区域生成固定怪物
@@ -79,8 +74,8 @@ void Map::spawnFixedMonsters() {
     spawnMonstersInArea(5, { "EnderDragon" });  // 终界：1终界龙（BOSS）
 
     // 安全区域没有怪物
-    areas[0]->creatures.clear(); // 村庄
-    areas[1]->creatures.clear(); // 铁匠铺
+    if (areas[0]) areas[0]->creatures.clear(); // 村庄
+    if (areas[1]) areas[1]->creatures.clear(); // 铁匠铺
 }
 void Map::spawnMonstersInArea(int areaId, const vector<string>& monsterTypes) {
     Area* area = getArea(areaId);
@@ -125,22 +120,22 @@ void Map::displayCurrentArea() const {
     if (!area) return;
 
     cout << "\n════════════════════════════════════════" << endl;
-    cout << "📍 " << area->name << " [" << getAreaTypeName(area->type) << "]" << endl;
+    cout << "位置: " << area->name << " [" << getAreaTypeName(area->type) << "]" << endl;
     cout << "════════════════════════════════════════" << endl;
     cout << area->description << endl;
 
     if (area->hasTreasure) {
-        cout << "\n💎 这里似乎藏有宝藏！" << endl;
+        cout << "\n[宝藏] 这里似乎藏有宝藏！" << endl;
     }
 
     if (!area->creatures.empty()) {
-        cout << "\n👥 这里的生物：" << endl;
+        cout << "\n生物列表：" << endl;
         for (const auto& creature : area->creatures) {
             if (auto monster = dynamic_pointer_cast<Monster>(creature)) {
-                cout << "   🐺 " << creature->getName() << "（怪物）" << endl;
+                cout << "   [怪物] " << creature->getName() << endl;
             }
             else if (auto player = dynamic_pointer_cast<Player>(creature)) {
-                cout << "   👤 " << creature->getName() << "（玩家）" << endl;
+                cout << "   [玩家] " << creature->getName() << endl;
             }
         }
     }
@@ -153,35 +148,33 @@ void Map::displayMinimap() const {
     cout
         << "    ╔══════════════════════════════════╗" << endl;
     cout
-        << "    ║             终界(5)              ║" << endl;
+        << "    ║            终界(5)               ║" << endl;
     cout
-        << "    ║                │                 ║" << endl;
+        << "    ║               │                  ║" << endl;
     cout
-        << "    ║              地牢(4)             ║" << endl;
+        << "    ║             地牢(4)              ║" << endl;
     cout
-        << "    ║                │                 ║" << endl;
+        << "    ║               │                  ║" << endl;
     cout
-        << "    ║              矿井(3)             ║" << endl;
+        << "    ║             矿井(3)              ║" << endl;
     cout
-        << "    ║                │                 ║" << endl;
+        << "    ║               │                  ║" << endl;
     cout
-        << "    ║    铁匠(1)───村庄(0)───平原(2)   ║" << endl;
+        << "    ║   铁匠(1)───村庄(0)───平原(2)    ║" << endl;
     cout
         << "    ║                        ╱         ║" << endl;
     cout
-        << "    ║                    黑森林入口(6) ║" << endl;
+        << "    ║                   黑森林入口(6)  ║" << endl;
     cout
-        << "    ║                     ╱    │       ║" << endl;
+        << "    ║                    ╱     |       ║" << endl;
     cout
-        << "    ║                洞穴(9)森林深处(7)║" << endl;
+        << "    ║              洞穴(9)  森林深处(7)║" << endl;
     cout
         << "    ║                          │       ║" << endl;
     cout
         << "    ║                         堡垒(8)  ║" << endl;
     cout
         << "    ╚══════════════════════════════════╝" << endl;
-
-
 }
 
 void Map::displayAvailableDirections() const {
@@ -191,15 +184,15 @@ void Map::displayAvailableDirections() const {
         return;
     }
 
-    cout << "\n🚪 可前往的区域：" << endl;
+    cout << "\n可前往的区域：" << endl;
     for (size_t i = 0; i < area->connectedAreas.size(); i++) {
         int targetId = area->connectedAreas[i];
         Area* targetArea = getArea(targetId);
         if (targetArea) {
-            string visitedMark = targetArea->visited ? "✓ " : "? ";
+            string visitedMark = targetArea->visited ? "[已探索] " : "[未探索] ";
             cout << "  " << i + 1 << ". " << visitedMark << targetArea->name;
-            if (targetArea->isSafe) cout << " 🏠";
-            if (targetArea->hasTreasure) cout << " 💎";
+            if (targetArea->isSafe) cout << " [安全区域]";
+            if (targetArea->hasTreasure) cout << " [宝藏]";
             cout << endl;
         }
     }
@@ -217,7 +210,6 @@ bool Map::moveToArea(int areaId) {
 
     Area* targetArea = getArea(areaId);
     if (!targetArea) return false;
-
     currentAreaId = areaId;
     markAreaVisited(areaId);
     return true;
@@ -255,15 +247,17 @@ bool Map::removeCreatureFromArea(int areaId, const string& creatureName) {
     if (!area) return false;
 
     auto& creatures = area->creatures;
-    creatures.erase(
-        remove_if(creatures.begin(), creatures.end(),
-            [&](const shared_ptr<Creature>& creature) {
-                return creature->getName() == creatureName;
-            }),
-        creatures.end()
-    );
+    auto it = find_if(creatures.begin(), creatures.end(),
+        [&](const shared_ptr<Creature>& creature) {
+            return creature->getName() == creatureName;
+        });
 
-    return true;
+    if (it != creatures.end()) {
+        creatures.erase(it);
+        return true;
+    }
+
+    return false;
 }
 
 vector<shared_ptr<Creature>> Map::getCreaturesInArea(int areaId) const {
@@ -277,7 +271,7 @@ vector<shared_ptr<Creature>> Map::getCreaturesInArea(int areaId) const {
 Area* Map::getArea(int areaId) const {
     auto it = areas.find(areaId);
     if (it != areas.end()) {
-        return it->second;
+        return it->second.get();
     }
     return nullptr;
 }
@@ -309,7 +303,7 @@ void Map::displayCurrentPosition() const {
     Area* area = getCurrentArea();
     if (!area) return;
 
-    cout << "\n📍 [" << area->name << "]" << endl;
+    cout << "\n[位置] " << area->name << endl;
     cout << "────────────────────────" << endl;
 
     // 敌怪
@@ -332,14 +326,13 @@ void Map::displayCurrentPosition() const {
         cout << endl;
     }
 
-    // 可前往的地方
-    cout << "出口: ";
+    cout << "可前往的区域: ";
     if (area->connectedAreas.empty()) {
         cout << "无" << endl;
     }
     else {
         for (size_t i = 0; i < area->connectedAreas.size(); i++) {
-            if (i > 0) cout << " → ";
+            if (i > 0) cout << " | ";
             int targetId = area->connectedAreas[i];
             Area* targetArea = getArea(targetId);
             if (targetArea) {

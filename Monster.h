@@ -16,7 +16,7 @@ public:
 		bool has_special_ability = false,
 		std::vector<std::string> special_ability = {}
 	);
-	~Monster() {}
+	virtual ~Monster() = default;
 
 	virtual void showInfo() const = 0;  // 显示怪物属性面板
 	virtual bool useSpecialAbility(int random_number) const = 0;  // 判断该回合是否使用特殊能力

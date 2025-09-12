@@ -1,17 +1,25 @@
 ﻿#include "Battle.h"
+#include "Skill.h"
 #include <iostream>
 #include <algorithm>
 #include <thread>
 #include <chrono>
+#include <Windows.h>
+
+using namespace std;
 
 Battle::Battle(Player& player, Monster& monster)
-    : player(player), monster(monster) {
+    : player(player), monster(monster), round(0) {
 }
 
 void Battle::start() {
-    std::cout << "战斗开始! " << player.getName() << " vs " << monster.getName() << std::endl;
+    system("cls");
+    cout << "战斗开始! " << player.getName() << " vs " << monster.getName() << endl;
+    Sleep(1200);
 
     while (!isBattleOver()) {
+        round++;
+
         // 玩家回合
         playerTurn();
         if (isBattleOver()) 
@@ -20,68 +28,59 @@ void Battle::start() {
         // 怪物回合
         monsterTurn();
     }
-
-    // 战斗结果
-    if (player.getHealthCur() <= 0) {
-        std::cout << player.getName() << " 被击败了!" << std::endl;
-    }
-    else {
-        std::cout << monster.getName() << " 被击败了!" << std::endl;
-        // 玩家获得奖励
-        int moneyEarned = monster.dropMoney(rand() % 100); // 随机掉落绿宝石
-        player.setMoney(player.getMoney() + moneyEarned);
-        std::cout << player.getName() << " 获得了 " << moneyEarned << " 绿宝石!" << std::endl;
-    }
 }
 
 void Battle::playerTurn() {
     // 回合开始处理
     player.updateBuffs();
-    std::vector<std::unique_ptr<Skill>>& skills = player.getSkill();
+    vector<unique_ptr<Skill>>& skills = player.getSkill();
     for (auto& skill : skills) {
         skill->reduceCooldown();
     }
-    
-    std::cout << "\n--- " << player.getName() << " 的回合 ---" << std::endl;
+
+    system("cls");
+    cout << "--- " << player.getName() << " 的回合 ---" << endl;
     player.showInfo();
-    std::cout << monster.getName() << " 生命值: " << monster.getHealthCur() << "/" << monster.getHealthMax() << std::endl;
+    cout << monster.getName() << " 生命值: " << monster.getHealthCur() << "/" << monster.getHealthMax() << endl;
 
     int choice;
     bool validChoice = false;
 
     while (!validChoice) {
-        std::cout << "0. 普通攻击" << std::endl;
+        cout << "\n0. 普通攻击" << endl;
 
         // 显示所有技能及其状态
-        std::cout << "\n技能列表:" << std::endl;
+        cout << "\n技能列表:" << endl;
         int index = 0;
         for (auto& skill : skills) {
-            std::cout << index + 1 << ". " << skill->getName();
+            cout << index + 1 << ". " << skill->getName();
 
             if (!skill->isReady()) {
-                std::cout << " (冷却中: " << skill->getCurrentCooldown() << "回合)";
+                cout << " (冷却中: " << skill->getCurrentCooldown() << "回合)";
             }
             else if (player.getMagicPowerCur() < skill->getCost()) {
-                std::cout << " (魔法不足)";
+                cout << " (魔法不足)";
             }
             else if (skill->getName() == "力量强化" && player.getTemporaryBuff().duration > 0) {
-                std::cout << "(生效中: 剩余" << player.getTemporaryBuff().duration << "回合)";
+                cout << "(生效中: 剩余" << player.getTemporaryBuff().duration << "回合)";
             }
             else {
-                std::cout << " (可用)";
+                cout << " (可用)";
             }
 
-            std::cout << " - 消耗: " << skill->getCost() << " MP" << std::endl;
+            cout << " - 消耗: " << skill->getCost() << " MP" << endl;
             index++;
         }
 
         // 获取玩家选择
-        std::cout << "\n请选择行动 (0-" << skills.size() << "): ";
-        std::cin >> choice;
+        cout << "\n请选择行动 (0-" << skills.size() << "): ";
+        cin >> choice;
 
         if (choice == 0) {
             // 普通攻击
+            cout << "玩家 " << player.getName() << " 使用了普通攻击" << endl;
             applyPlayerAttack();
+            Sleep(1200);
             validChoice = true;
         }
         else if (choice >= 1 && choice <= skills.size()) {
@@ -89,40 +88,70 @@ void Battle::playerTurn() {
 
             // 检查技能是否可用
             if (!skills[skillIndex]->isReady()) {
-                std::cout << "技能 " << skills[skillIndex]->getName() << " 还在冷却中!" << std::endl;
-                std::cout << "请重新选择。" << std::endl;
+                system("cls");
+                cout << "技能 " << skills[skillIndex]->getName() << " 还在冷却中!" << endl;
+                cout << "请重新选择。" << endl;
+                Sleep(1200);
             }
             else if (player.getMagicPowerCur() < skills[skillIndex]->getCost()) {
-                std::cout << "魔力值不足，无法使用 " << skills[skillIndex]->getName() << "!" << std::endl;
-                std::cout << "请重新选择。" << std::endl;
+                system("cls");
+                cout << "魔力值不足，无法使用 " << skills[skillIndex]->getName() << "!" << endl;
+                cout << "请重新选择。" << endl;
+                Sleep(1200);
             }
             else if (skills[skillIndex]->getName() == "力量强化" && player.getTemporaryBuff().duration > 0) {
-                std::cout << "技能 " << skills[skillIndex]->getName() << " 仍在生效中！" << std::endl;
-                std::cout << "请重新选择。" << std::endl;
+                system("cls");
+                cout << "技能 " << skills[skillIndex]->getName() << " 仍在生效中！" << endl;
+                cout << "请重新选择。" << endl;
+                Sleep(1200);
             }
             else {
                 // 使用技能
                 if (skills[skillIndex]->use(player, monster)) {
-                    std::cout << "技能释放成功!" << std::endl;
+                    system("cls");
+                    cout << "技能释放成功!" << endl;
+                    Sleep(1200);
                     validChoice = true;
                 }
                 else {
-                    std::cout << "技能释放失败!" << std::endl;
-                    std::cout << "请重新选择。" << std::endl;
+                    system("cls");
+                    cout << "技能释放失败!" << endl;
+                    cout << "请重新选择。" << endl;
+                    Sleep(1200);
                 }
             }
         }
         else {
-            std::cout << "无效的选择，请重新输入!" << std::endl;
+            system("cls");
+            cout << "无效的选择，请重新输入!" << endl;
+            Sleep(1200);
         }
+    }
+
+    // 每三回合回复一点魔力值
+    if (round % 3 == 0) {
+        player.setMagicPowerCur(max(player.getMagicPowerCur() + 1, player.getMagicPowerMax()));
     }
 }
 
 void Battle::monsterTurn() {
-    std::cout << "\n--- " << monster.getName() << " 的回合 ---" << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000)); // 短暂暂停
+    system("cls");
+    cout << "--- " << monster.getName() << " 的回合 ---" << endl;
+    Sleep(1200);
 
+    cout << "怪物 " << monster.getName() << " 使用了普通攻击" << endl;
     applyMonsterAttack();
+    Sleep(1200);
+    /*
+    if (monster.useSpecialAbility(rand())) {
+        cout << "怪物 " << monster.getName() << " 使用了 " << monster.getAbility(0) << endl;
+    }
+    else {
+        cout << "怪物 " << monster.getName() << " 使用了普通攻击" << endl;
+        applyMonsterAttack();
+        Sleep(1200);
+    }
+    */
 }
 
 bool Battle::isBattleOver() const {
@@ -131,17 +160,19 @@ bool Battle::isBattleOver() const {
 
 void Battle::applyPlayerAttack() {
     int playerAttack = player.getAttack() + player.getWeapon().getAttack() + player.getTemporaryBuff().attack_bonus;
-    int damage = std::max(1, playerAttack); // 至少造成1点伤害
+    int damage = max(1, playerAttack); // 至少造成1点伤害
 
-    std::cout << player.getName() << " 对 " << monster.getName() << " 造成了 " << damage << " 点伤害!" << std::endl;
-    monster.setHealthCur(std::max(0, monster.getHealthCur() - damage));
+    cout << player.getName() << " 对 " << monster.getName() << " 造成了 " << damage << " 点伤害!" << endl;
+    monster.setHealthCur(max(0, monster.getHealthCur() - damage));
+    Sleep(1200);
 }
 
 void Battle::applyMonsterAttack() {
     int monsterAttack = monster.getAttack();
     int playerDefense = player.getDefense() + player.getArmor().getDefense() + player.getTemporaryBuff().defense_bonus;
-    int damage = std::max(1, monsterAttack - playerDefense); // 至少造成1点伤害
+    int damage = max(1, monsterAttack - playerDefense); // 至少造成1点伤害
 
-    std::cout << monster.getName() << " 对 " << player.getName() << " 造成了 " << damage << " 点伤害!" << std::endl;
-    player.setHealthCur(std::max(0, player.getHealthCur() - damage));
+    cout << monster.getName() << " 对 " << player.getName() << " 造成了 " << damage << " 点伤害!" << endl;
+    player.setHealthCur(max(0, player.getHealthCur() - damage));
+    Sleep(1200);
 }

@@ -14,6 +14,7 @@
 #include <memory>
 #include <string>
 #include <map>
+#include <vector>
 
 // 区域类型枚举
 enum AreaType {
@@ -50,7 +51,15 @@ struct Area {
 class Map {
 public:
     Map();
-    ~Map();
+    ~Map() = default;
+
+    // 允许移动
+    Map(Map&&) noexcept = default;
+    Map& operator=(Map&&) noexcept = default;
+
+    // 禁止拷贝
+    Map(const Map&) = delete;
+    Map& operator=(const Map&) = delete;
 
     // 地图操作
     void initializeMap();
@@ -88,7 +97,7 @@ public:
     int getVisitedAreaCount() const;
 
 private:
-    std::map<int, Area*> areas;
+    std::map<int, std::unique_ptr<Area>> areas;
     int currentAreaId;
 
     // 固定怪物生成辅助方法

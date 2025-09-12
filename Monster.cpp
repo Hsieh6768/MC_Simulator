@@ -13,8 +13,6 @@ type(type),
 has_special_ability(has_special_ability),
 special_ability(special_ability) {}
 
-Monster::~Monster() {}
-
 std::string Monster::getType() const {
     return this->type;
 }

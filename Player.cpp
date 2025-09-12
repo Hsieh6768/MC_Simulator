@@ -21,17 +21,44 @@ magic_power_cur(magic_power_cur),
 money(money),
 weapon(weapon),
 armor(armor),
-skill(skill),
+skill(std::move(skill)),
 buff(buff) {}
 
 Player::~Player() {}
 
+Player::Player(Player&& other) noexcept
+    : Creature(std::move(other)),
+    defense(other.defense),
+    magic_power_max(other.magic_power_max),
+    magic_power_cur(other.magic_power_cur),
+    money(other.money),
+    weapon(std::move(other.weapon)),
+    armor(std::move(other.armor)),
+    skill(std::move(other.skill)),
+    buff(other.buff) {
+}
+
+Player& Player::operator=(Player&& other) noexcept {
+    if (this != &other) {
+        Creature::operator=(std::move(other));
+        defense = other.defense;
+        magic_power_max = other.magic_power_max;
+        magic_power_cur = other.magic_power_cur;
+        money = other.money;
+        weapon = std::move(other.weapon);
+        armor = std::move(other.armor);
+        skill = std::move(other.skill);
+        buff = other.buff;
+    }
+    return *this;
+}
+
 void Player::showInfo() const {
-    std::cout << "生命值：" << getHealthCur()
-        << "\t攻击力：" << getAttack() + equipment.attack + buff.attack_bonus
-        << "\t护甲值：" << defense + equipment.defense + buff.defense_bonus
-        << "\n魔力值：" << magic_power_cur
-        << "\t绿宝石：" << money << std::endl;
+    std::cout << "生命值: " << getHealthCur()
+              << "\t攻击力: " << getAttack() << " + " <<  weapon.getAttack() << " + " << buff.attack_bonus
+              << "\t护甲值: " << defense << " + " << armor.getDefense() << " + " << buff.defense_bonus
+              << "\t魔力值: " << magic_power_cur << " (每三回合回复一点)"
+              << "\t绿宝石: " << money << std::endl;
 }
 
 int Player::getDefense() const {

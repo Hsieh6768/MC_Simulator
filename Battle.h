@@ -12,6 +12,7 @@ public:
 private:
     Player& player;
     Monster& monster;
+    int round;
 
     void playerTurn();  // 玩家回合
     void monsterTurn(); // 怪物回合
