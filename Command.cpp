@@ -69,9 +69,11 @@ bool Command::saveGame(const string& filename) {
 }
 
 bool Command::loadGame(const string& filename) {
+    system("cls");
     ifstream inFile(filename, ios::binary);
     if (!inFile) {
         cerr << "无法读取存档文件: " << filename << endl;
+        Sleep(1200);
         return false;
     }
 
@@ -84,10 +86,12 @@ bool Command::loadGame(const string& filename) {
 
         inFile.close();
         cout << "游戏已从 " << filename << " 加载" << endl;
+        Sleep(1200);
         return true;
     }
     catch (...) {
         cerr << "加载游戏时发生错误" << endl;
+        Sleep(1200);
         inFile.close();
         return false;
     }
@@ -319,8 +323,9 @@ void Command::battleSelection() {
 
     cout << "选择要战斗的怪物:" << endl;
     for (size_t i = 0; i < monsters.size(); i++) {
-        cout << i + 1 << ". " << monsters[i]->getName() << " (生命: "
-            << monsters[i]->getHealthCur() << "/" << monsters[i]->getHealthMax() << ")" << endl;
+        cout << i + 1 << ". " << monsters[i]->getName() << endl;
+        monsters[i]->showInfo();
+        cout << endl;
     }
     cout << "0. 取消" << endl;
 

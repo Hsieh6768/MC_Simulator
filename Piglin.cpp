@@ -5,8 +5,8 @@ Piglin::Piglin() : Monster("猪灵", health_max, health_max, attack, "普通", f
 void Piglin::showInfo() const {
     std::cout << "生命值: " << getHealthCur()
               << "\t攻击力: " << attack
-              << "\n级别: " << getType()
-              << "\t特殊能力: " << getAbility(0) << std::endl;
+              << "\t级别: " << getType()
+              << "\n特殊能力: " << getAbility(0) << std::endl;
 }
 
 bool Piglin::useSpecialAbility(int random_number) const {

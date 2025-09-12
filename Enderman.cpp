@@ -1,12 +1,15 @@
 ﻿#include "Enderman.h"
 
-Enderman::Enderman() : Monster("终界使者", health_max, health_max, attack, "精英", true, { "瞬间移动" }) {}
+Enderman::Enderman() : Monster("终界使者", health_max, health_max, attack, "精英", true, 
+    { "瞬间移动" }, { "可闪避至战场上的任意位置，免疫下回合所有伤害。"}) {}
 
 void Enderman::showInfo() const {
     std::cout << "生命值: " << getHealthCur()
               << "\t攻击力: " << attack
-              << "\n级别: " << getType()
-              << "\t特殊能力: 1. " << getAbility(0) << std::endl;
+              << "\t级别: " << getType()
+              << "\n特殊能力: 1. " << getAbility(0) 
+              << "\t效果: " << getAbilityDescription(0)
+              << std::endl;
 }
 
 bool Enderman::useSpecialAbility(int random_number) const {

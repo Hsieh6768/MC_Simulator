@@ -9,7 +9,7 @@
 using namespace std;
 
 Battle::Battle(Player& player, Monster& monster)
-    : player(player), monster(monster), round(0) {
+    : player(player), monster(monster), round(0), monsterBuff{ 0, 0 }, monsterDodged(false) {
 }
 
 void Battle::start() {
@@ -24,6 +24,15 @@ void Battle::start() {
         playerTurn();
         if (isBattleOver()) 
             break;
+
+        // 更新怪物增益状态
+        if (monsterBuff.duration > 0) {
+            monsterBuff.duration--;
+            if (monsterBuff.duration == 0) {
+                monsterBuff.attack_bonus = 0;
+            }
+        }
+        monsterDodged = false; // 重置闪避状态
 
         // 怪物回合
         monsterTurn();
@@ -47,10 +56,10 @@ void Battle::playerTurn() {
     bool validChoice = false;
 
     while (!validChoice) {
-        cout << "\n0. 普通攻击" << endl;
-
         // 显示所有技能及其状态
-        cout << "\n技能列表:" << endl;
+        cout << "\n行动列表:" << endl;
+
+        cout << "\n0. 普通攻击" << endl;
         int index = 0;
         for (auto& skill : skills) {
             cout << index + 1 << ". " << skill->getName();
@@ -139,19 +148,56 @@ void Battle::monsterTurn() {
     cout << "--- " << monster.getName() << " 的回合 ---" << endl;
     Sleep(1200);
 
-    cout << "怪物 " << monster.getName() << " 使用了普通攻击" << endl;
-    applyMonsterAttack();
-    Sleep(1200);
-    /*
     if (monster.useSpecialAbility(rand())) {
-        cout << "怪物 " << monster.getName() << " 使用了 " << monster.getAbility(0) << endl;
+        string abilityName = monster.getAbility(0); // 获取第一个特殊能力名称
+
+        // 根据怪物类型和能力名称处理特殊效果
+        if (monster.getName() == "凋零骷髅" && abilityName == "凋零诅咒") {
+            cout << "怪物 " << monster.getName() << " 使用了 " << abilityName << endl;
+            monsterBuff.attack_bonus += 1;
+            monsterBuff.duration = 3;
+            cout << monster.getName() << " 使你每回合额外受到 1 点凋零伤害，持续 3 回合" << endl;
+            applyMonsterAttack();
+        }
+        else if (monster.getName() == "终界使者" && abilityName == "瞬间移动") {
+            cout << "怪物 " << monster.getName() << " 使用了 " << abilityName << endl;
+            monsterDodged = true;
+            cout << monster.getName() << " 闪避了下一次攻击" << endl;
+        }
+        else if (monster.getName() == "烈焰使者" && abilityName == "火球攻击") {
+            cout << "怪物 " << monster.getName() << " 使用了 " << abilityName << endl;
+            monsterBuff.attack_bonus += 4;
+            monsterBuff.duration = 1;
+            cout << monster.getName() << " 本回合攻击力提升 4 点" << endl;
+            applyMonsterAttack();
+        }
+        else if (monster.getName() == "终界龙") {
+            // 终界龙随机选择一个特殊能力，
+            int abilityIndex = rand() % 2;
+            abilityName = monster.getAbility(abilityIndex);
+            cout << "怪物 " << monster.getName() << " 使用了 " << abilityName << endl;
+
+            if (abilityName == "冲撞攻击") {
+                int damage = 18;
+                player.setHealthCur(max(0, player.getHealthCur() - damage));
+                cout << monster.getName() << " 冲撞攻击造成 " << damage << " 点伤害!" << endl;
+            }
+            else if (abilityName == "龙息腐蚀") {
+                monsterBuff.attack_bonus += 3;
+                monsterBuff.duration = 3;
+                cout << monster.getName() << " 使你每回合受到 3 点腐蚀伤害，持续 3 回合" << endl;
+            }
+        }
+        else {
+            cout << "怪物 " << monster.getName() << " 使用了 " << abilityName << endl;
+        }
+        Sleep(1200);
     }
     else {
         cout << "怪物 " << monster.getName() << " 使用了普通攻击" << endl;
         applyMonsterAttack();
         Sleep(1200);
     }
-    */
 }
 
 bool Battle::isBattleOver() const {
@@ -159,20 +205,24 @@ bool Battle::isBattleOver() const {
 }
 
 void Battle::applyPlayerAttack() {
+    // 检查怪物是否闪避
+    if (monsterDodged) {
+        cout << monster.getName() << " 闪避了攻击！" << endl;
+        return;
+    }
+
     int playerAttack = player.getAttack() + player.getWeapon().getAttack() + player.getTemporaryBuff().attack_bonus;
     int damage = max(1, playerAttack); // 至少造成1点伤害
 
     cout << player.getName() << " 对 " << monster.getName() << " 造成了 " << damage << " 点伤害!" << endl;
     monster.setHealthCur(max(0, monster.getHealthCur() - damage));
-    Sleep(1200);
 }
 
 void Battle::applyMonsterAttack() {
-    int monsterAttack = monster.getAttack();
+    int monsterAttack = monster.getAttack() + monsterBuff.attack_bonus;
     int playerDefense = player.getDefense() + player.getArmor().getDefense() + player.getTemporaryBuff().defense_bonus;
     int damage = max(1, monsterAttack - playerDefense); // 至少造成1点伤害
 
     cout << monster.getName() << " 对 " << player.getName() << " 造成了 " << damage << " 点伤害!" << endl;
     player.setHealthCur(max(0, player.getHealthCur() - damage));
-    Sleep(1200);
 }

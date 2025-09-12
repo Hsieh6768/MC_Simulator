@@ -14,7 +14,8 @@ public:
 		int attack = 0,
 		std::string type = "",
 		bool has_special_ability = false,
-		std::vector<std::string> special_ability = {}
+		std::vector<std::string> special_ability = {}, 
+		std::vector<std::string> special_ability_description = {}
 	);
 	virtual ~Monster() = default;
 
@@ -25,11 +26,13 @@ public:
 	std::string getType() const;  // 获取怪物级别
 	bool hasSpecialAbility() const;  // 判断是否拥有特殊能力
 	std::string getAbility(int index = 0) const;  // 获取怪物特殊能力
+	std::string getAbilityDescription(int index = 0) const;  // 获取怪物特殊能力描述
 
 private:
 	std::string type;  // 级别
 	bool has_special_ability;  // 是否拥有特殊能力
 	std::vector<std::string> special_ability;  // 特殊能力列表
+	std::vector<std::string> special_ability_description;  // 特殊能力描述
 };
 
 #endif
