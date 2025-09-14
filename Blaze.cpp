@@ -1,13 +1,15 @@
 ﻿#include "Blaze.h"
 
-Blaze::Blaze() : Monster("烈焰使者", health_max, health_max, attack, "精英", true, 
+Blaze::Blaze() : Monster("烈焰使者", health_max, health_max, attack, "精英", 
+    "来自下界的火焰生物，能在空中悬浮并发射致命的火球。", true,
     { "火球攻击" }, { "本回合凝聚烈焰，发射一枚火球，造成额外 4 点火焰伤害。"}) {}
 
 void Blaze::showInfo() const {
     std::cout << "生命值: " << getHealthCur()
               << "\t攻击力: " << attack
               << "\t级别: " << getType()
-              << "\n特殊能力: 1. " << getAbility(0) 
+              << "\n特点: " << getDescription()
+              << "\n特殊能力: \n1. " << getAbility(0) 
               << "\t效果: " << getAbilityDescription(0) 
               << std::endl;
 }

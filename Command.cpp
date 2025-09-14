@@ -141,7 +141,16 @@ void Command::trade() {
         cout << "\t2. 护甲";
         cout << "\t3. 离开商店" << endl;
         cout << "请选择: ";
-        cin >> choice;
+        if (!(cin >> choice)) {
+            // 清除错误状态并清空输入缓冲区
+            cin.clear();
+            cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+            system("cls");
+            cout << "无效的选择，请重新输入！" << endl;
+            Sleep(1200);
+            system("cls");
+            continue;
+        }
         cout << endl;
 
         switch (choice) {
@@ -168,7 +177,16 @@ void Command::trade() {
 
             int weaponChoice = 0;
             cout << "请选择武器: ";
-            cin >> weaponChoice;
+            if (!(cin >> weaponChoice)) {
+                // 清除错误状态并清空输入缓冲区
+                cin.clear();
+                cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+                system("cls");
+                cout << "无效的选择，请重新输入！" << endl;
+                Sleep(1200);
+                system("cls");
+                continue;
+            }
 
             if (weaponChoice == 4) {
                 system("cls");
@@ -236,7 +254,16 @@ void Command::trade() {
 
             int armorChoice = 0;
             cout << "请选择护甲: ";
-            cin >> armorChoice;
+            if (!(cin >> armorChoice)) {
+                // 清除错误状态并清空输入缓冲区
+                cin.clear();
+                cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+                system("cls");
+                cout << "无效的选择，请重新输入！" << endl;
+                Sleep(1200);
+                system("cls");
+                continue;
+            }
 
             if (armorChoice == 4) {
                 system("cls");
@@ -343,9 +370,17 @@ void Command::battleSelection() {
     }
     cout << "0. 取消" << endl;
 
-    int choice;
+    int choice = 0;
     cout << "请选择: ";
-    cin >> choice;
+
+    if (!(cin >> choice)) {
+        // 清除错误状态并清空输入缓冲区
+        cin.clear();
+        cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+        system("cls");
+        cout << "无效的选择，请重新输入！" << endl;
+        Sleep(1200);
+    }
 
     if (choice > 0 && choice <= static_cast<int>(monsters.size())) {
         system("cls");
@@ -419,9 +454,17 @@ void Command::move() {
     }
     cout << "0. 取消" << endl;
 
-    int choice;
+    int choice = 0;
     cout << "请选择: ";
-    cin >> choice;
+
+    if (!(cin >> choice)) {
+        // 清除错误状态并清空输入缓冲区
+        cin.clear();
+        cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+        system("cls");
+        cout << "无效的选择，请重新输入！" << endl;
+        Sleep(1200);
+    }
 
     if (choice > 0 && choice <= static_cast<int>(connectedAreas.size())) {
         system("cls");

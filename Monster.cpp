@@ -6,17 +6,23 @@ Monster::Monster(
     int health_cur,
     int attack,
     std::string type,
+    std::string description,
     bool has_special_ability,
     std::vector<std::string> special_ability, 
     std::vector<std::string> special_ability_description
 ) : Creature(name, health_max, health_cur, attack),
 type(type),
+description(description),
 has_special_ability(has_special_ability),
 special_ability(special_ability), 
 special_ability_description(special_ability_description) {}
 
 std::string Monster::getType() const {
     return this->type;
+}
+
+std::string Monster::getDescription() const {
+    return this->description;
 }
 
 bool Monster::hasSpecialAbility() const {

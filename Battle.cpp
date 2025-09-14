@@ -51,7 +51,6 @@ void Battle::playerTurn() {
         skill->reduceCooldown();
     }
 
-
     int choice = 0;
     bool validChoice = false;
 
@@ -95,7 +94,16 @@ void Battle::playerTurn() {
 
         // 获取玩家选择
         cout << "\n请选择行动 (0-" << skills.size() << "): ";
-        cin >> choice;
+
+        if (!(cin >> choice)) {
+            // 清除错误状态并清空输入缓冲区
+            cin.clear();
+            cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+            system("cls");
+            cout << "无效的选择，请重新输入！" << endl;
+            Sleep(1200);
+            continue;
+        }
 
         if (choice == 0) {
             // 普通攻击

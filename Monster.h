@@ -13,6 +13,7 @@ public:
 		int health_cur = 0,
 		int attack = 0,
 		std::string type = "",
+		std::string description = "",
 		bool has_special_ability = false,
 		std::vector<std::string> special_ability = {}, 
 		std::vector<std::string> special_ability_description = {}
@@ -24,12 +25,15 @@ public:
 	virtual int dropMoney(int random_number) const = 0;  // 随机掉落绿宝石
 
 	std::string getType() const;  // 获取怪物级别
+	std::string getDescription() const;  // 获取怪物描述
+
 	bool hasSpecialAbility() const;  // 判断是否拥有特殊能力
 	std::string getAbility(int index = 0) const;  // 获取怪物特殊能力
 	std::string getAbilityDescription(int index = 0) const;  // 获取怪物特殊能力描述
 
 private:
 	std::string type;  // 级别
+	std::string description;  // 怪物描述
 	bool has_special_ability;  // 是否拥有特殊能力
 	std::vector<std::string> special_ability;  // 特殊能力列表
 	std::vector<std::string> special_ability_description;  // 特殊能力描述

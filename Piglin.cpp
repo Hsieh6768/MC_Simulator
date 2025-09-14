@@ -1,11 +1,13 @@
 ﻿#include "Piglin.h"
 
-Piglin::Piglin() : Monster("猪灵", health_max, health_max, attack, "普通", false, { "无" }) {}
+Piglin::Piglin() : Monster("猪灵", health_max, health_max, attack, "普通", 
+    "下界的智慧住民，热爱黄金，会对没有金装备的玩家发动攻击。", false, {"无"}) {}
 
 void Piglin::showInfo() const {
     std::cout << "生命值: " << getHealthCur()
               << "\t攻击力: " << attack
               << "\t级别: " << getType()
+              << "\n特点: " << getDescription()
               << "\n特殊能力: " << getAbility(0) << std::endl;
 }
 
