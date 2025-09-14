@@ -338,7 +338,8 @@ void Map::displayCurrentPosition() const {
     if (!area) return;
 
     cout << "\n[位置] " << area->name << endl;
-    cout << "────────────────────────" << endl;
+    ColorManager::COLOR_PRINT(area->description, YELLOW);
+    cout << "\n─────────────────────────────────" << endl;
 
     // 敌怪
     vector<string> monsters;
@@ -355,7 +356,7 @@ void Map::displayCurrentPosition() const {
         cout << "敌怪: ";
         for (size_t i = 0; i < monsters.size(); i++) {
             if (i > 0) cout << ", ";
-            cout << monsters[i];
+            ColorManager::COLOR_PRINT(monsters[i], RED);
         }
         cout << endl;
     }
@@ -375,7 +376,7 @@ void Map::displayCurrentPosition() const {
         }
         cout << endl;
     }
-    cout << "────────────────────────" << endl;
+    cout << "─────────────────────────────────" << endl;
 }
 bool Map::hasMonstersInCurrentArea() const {
     Area* area = getArea(currentAreaId);

@@ -18,7 +18,7 @@ void Command::newGame() {
         "史蒂夫",    // 名称
         20,         // 最大生命值
         20,         // 当前生命值
-        2,          // 基础攻击力
+        200,          // 基础攻击力
         0,          // 基础防御力
         5,          // 最大魔力值
         5,          // 当前魔力值
@@ -424,6 +424,11 @@ void Command::battleSelection() {
 
             // 检查游戏是否通关
             if (selectedMonster->getName() == "终界龙") {
+                ColorManager::COLOR_PRINT(player.getName(), YELLOW);
+                cout << " 获得了进度";
+                ColorManager::COLOR_PRINT("[解放末地]", GREEN);
+                Sleep(3000);
+                system("cls");
                 gameOver();
             }
         }
