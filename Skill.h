@@ -17,18 +17,14 @@ protected:
     int cost;           // 魔法消耗
     int cooldown;       // 冷却回合
     int currentCooldown;// 当前冷却
-    int level;          // 技能等级
 
 public:
     Skill(const std::string& name = "", const std::string& desc = "",
-        int cost = 0, int cooldown = 0, int level = 1);
+        int cost = 0, int cooldown = 0);
     virtual ~Skill() = default;
 
     // 使用技能（纯虚函数）
     virtual bool use(Player& caster, Monster& target) = 0;
-
-    // 升级技能
-    virtual void upgrade();
 
     // 冷却处理
     void reduceCooldown();
@@ -40,7 +36,6 @@ public:
     int getCost() const;
     int getCooldown() const;
     int getCurrentCooldown() const;
-    int getLevel() const;
     bool isReady() const;
 
     // 显示技能信息
@@ -50,29 +45,26 @@ public:
 // 攻击技能
 class AttackSkill : public Skill {
 private:
-    int damage;
-    double multiplier;  // 攻击倍率
+    int damage;  // 瞬时伤害
 
 public:
     AttackSkill(const std::string& name, const std::string& desc,
-        int cost, int cooldown, int damage, double multiplier = 1.0);
+        int cost, int cooldown, int damage);
 
     bool use(Player& caster, Monster& target) override;
-    void upgrade() override;
     void displayInfo() const override;
 };
 
 // 治疗技能
 class HealSkill : public Skill {
 private:
-    int healAmount;
+    int healAmount;  // 回复生命值
 
 public:
     HealSkill(const std::string& name, const std::string& desc,
         int cost, int cooldown, int healAmount);
 
     bool use(Player& caster, Monster& target) override;
-    void upgrade() override;
     void displayInfo() const override;
 };
 
@@ -88,14 +80,13 @@ public:
         int cost, int cooldown, int duration, int atkBonus, int defBonus);
 
     bool use(Player& caster, Monster& target) override;
-    void upgrade() override;
     void displayInfo() const override;
 };
 
 // 技能管理器
 class SkillManager {
 public:
-    static std::unique_ptr<Skill> createSkill(const std::string& skillType, int level = 1);
+    static std::unique_ptr<Skill> createSkill(const std::string& skillType);
 };
 
 #endif // SKILL_H

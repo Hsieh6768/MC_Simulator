@@ -30,9 +30,9 @@ void Command::newGame() {
     );
 
     // 添加初始技能
-    player.addSkill(SkillManager::createSkill("fireball", 1));
-    player.addSkill(SkillManager::createSkill("heal", 1));
-    player.addSkill(SkillManager::createSkill("powerup", 1));
+    player.addSkill(SkillManager::createSkill("fireball"));
+    player.addSkill(SkillManager::createSkill("heal"));
+    player.addSkill(SkillManager::createSkill("powerup"));
 
     // 初始化地图
     map = Map();
@@ -733,8 +733,6 @@ void Command::serializePlayer(ofstream& out) {
         size_t skillNameLength = skillName.size();
         out.write(reinterpret_cast<const char*>(&skillNameLength), sizeof(size_t));
         out.write(skillName.c_str(), skillNameLength);
-        int level = skill->getLevel();
-        out.write(reinterpret_cast<const char*>(&level), sizeof(int));
     }
 
     // 写入增益状态
@@ -844,13 +842,13 @@ void Command::deserializePlayer(ifstream& in) {
         in.read(reinterpret_cast<char*>(&level), sizeof(int));
 
         if (skillName == "火球术") {
-            player.addSkill(SkillManager::createSkill("fireball", level));
+            player.addSkill(SkillManager::createSkill("fireball"));
         }
         else if (skillName == "治疗术") {
-            player.addSkill(SkillManager::createSkill("heal", level));
+            player.addSkill(SkillManager::createSkill("heal"));
         }
         else if (skillName == "力量强化") {
-            player.addSkill(SkillManager::createSkill("powerup", level));
+            player.addSkill(SkillManager::createSkill("powerup"));
         }
     }
 
