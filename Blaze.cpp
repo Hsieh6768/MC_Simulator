@@ -9,7 +9,7 @@ void Blaze::showInfo() const {
               << "\t攻击力: " << attack
               << "\t级别: " << getType()
               << "\n特点: " << getDescription()
-              << "\n特殊能力: 1." << getAbility(0) 
+              << "\n特殊能力: \n  1." << getAbility(0) 
               << "\t效果: " << getAbilityDescription(0) 
               << std::endl;
 }

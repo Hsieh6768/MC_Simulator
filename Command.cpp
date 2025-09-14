@@ -474,7 +474,7 @@ void Command::move() {
     if (choice > 0 && choice <= static_cast<int>(connectedAreas.size())) {
         system("cls");
         if (map.moveToConnectedArea(choice - 1)) {
-            cout << "已移动到: " << map.getCurrentArea()->name << endl;
+            cout << "已移动到: " << map.getCurrentArea()->name << endl << endl;
             map.displayCurrentPosition();
             cin.ignore((numeric_limits<streamsize>::max)(), '\n');
             cout << "\n按回车键继续...";
@@ -546,7 +546,6 @@ void Command::displayMainMenu() const {
 }
 
 void Command::displayGameMenu() const {
-    system("cls");
     ColorManager::COLOR_PRINT("========================================\n", YELLOW);
     ColorManager::COLOR_PRINT("                游戏菜单\n", YELLOW);
     ColorManager::COLOR_PRINT("========================================\n", YELLOW);
@@ -566,6 +565,7 @@ void Command::displayGameMenu() const {
 void Command::gameOver() const {
     // 游戏通关文本
     std::vector<std::string> texts = {
+        "============================== 终末之诗 ==============================\n",
         "I see the player you mean.\n我看到你所指的那位玩家了。",
         "Steve?\n史蒂夫?",
         "Yes. Take care. It has reached a higher level now. It can read our thoughts.\n是的。小心。它已达到了更高的境界。它能够阅读我们的思想。",

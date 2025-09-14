@@ -12,9 +12,9 @@ Map::Map() : currentAreaId(0) {
 void Map::initializeMap() {
     // 创建所有区域
     areas[0] = std::make_unique<Area>(0, VILLAGE, "村庄",
-        "一个宁静的小村庄，村民们正在忙碌。这里是冒险的起点。", true);
+        "一个宁静的小村庄，村民们正在忙碌。\n这里是冒险的起点。", true);
     areas[1] = std::make_unique<Area>(1, BLACKSMITH, "铁匠铺",
-        "铁匠正在打造武器，炉火熊熊燃烧。可以在这里升级装备。", true);
+        "铁匠正在打造武器，炉火熊熊燃烧。\n可以在这里升级装备。", true);
     areas[2] = std::make_unique<Area>(2, PLAIN, "平原",
         "广阔的平原，风吹草低见牛羊。");
     areas[3] = std::make_unique<Area>(3, MINE, "矿井",
@@ -337,9 +337,9 @@ void Map::displayCurrentPosition() const {
     Area* area = getCurrentArea();
     if (!area) return;
 
-    cout << "\n[位置] " << area->name << endl;
+    cout << "[位置] " << area->name << endl;
     ColorManager::COLOR_PRINT(area->description, YELLOW);
-    cout << "\n─────────────────────────────────" << endl;
+    cout << "\n────────────────────────────────────────" << endl;
 
     // 敌怪
     vector<string> monsters;
@@ -376,7 +376,7 @@ void Map::displayCurrentPosition() const {
         }
         cout << endl;
     }
-    cout << "─────────────────────────────────" << endl;
+    cout << "────────────────────────────────────────" << endl << endl;
 }
 bool Map::hasMonstersInCurrentArea() const {
     Area* area = getArea(currentAreaId);

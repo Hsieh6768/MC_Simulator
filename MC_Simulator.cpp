@@ -56,6 +56,7 @@ int main() {
         // 游戏主循环
         bool game_running = true;
         while (game_running) {
+            system("cls");
             // 显示当前位置信息
             map.displayCurrentPosition();
 
