@@ -4,6 +4,7 @@
 #include "Creature.h"
 #include "Equipment.h"
 #include "Skill.h"
+#include "ColorManager.h"
 #include <vector>
 #include <memory>
 

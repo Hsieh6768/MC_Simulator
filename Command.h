@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "Battle.h"
+#include "ColorManager.h"
 #include <string>
 #include <fstream>
 #include <vector>
@@ -24,7 +25,9 @@ public:
     void battleSelection();            // 选择战斗目标
     void move();                       // 移动至其他区域
     void panel();                      // 显示玩家属性面板
-    void showMap() const;                    // 显示游戏地图
+    void showMap() const;              // 显示游戏地图
+    void displayMainMenu() const;      // 显示游戏首页
+    void displayGameMenu() const;      // 显示游戏菜单
 
     // 辅助函数
     bool isInBlacksmith() const;       // 检查是否在铁匠铺

@@ -5,47 +5,31 @@
 #include "Map.h"
 #include "Player.h"
 #include "Monster.h"
+#include "ColorManager.h"
 
 using namespace std;
 
-void displayMainMenu() {
-    system("cls");
-    cout << "========================================" << endl;
-    cout << "            MC Simulator" << endl;
-    cout << "========================================" << endl;
-    cout << "1. 开始新游戏" << endl;
-    cout << "2. 加载游戏" << endl;
-    cout << "3. 退出游戏" << endl;
-    cout << "请选择: ";
-}
-
-void displayGameMenu() {
-    system("cls");
-    cout << "\n========================================" << endl;
-    cout << "                游戏菜单" << endl;
-    cout << "========================================" << endl;
-    cout << "1. 移动" << endl;
-    cout << "2. 战斗" << endl;
-    cout << "3. 交易" << endl;
-    cout << "4. 恢复" << endl;
-    cout << "5. 查看面板" << endl;
-    cout << "6. 查看地图" << endl;
-    cout << "7. 保存游戏" << endl;
-    cout << "8. 退出游戏" << endl;
-    cout << "请选择: ";
-}
 int main() {
     while (true) {
         Player player;
         Map map;
         Command command(player, map);
 
-        // 进入主页面
+        // 进入游戏首页
         bool in_game = false;
         while (!in_game) {
-            displayMainMenu();
+            command.displayMainMenu();
             int game_choice;
-            cin >> game_choice;
+
+            if (!(cin >> game_choice)) {
+                // 清除错误状态并清空输入缓冲区
+                cin.clear();
+                cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+                system("cls");
+                cout << "无效的选择，请重新输入！" << endl;
+                Sleep(1200);
+                continue;
+            }
 
             if (game_choice == 1) {
                 command.newGame();
@@ -76,9 +60,18 @@ int main() {
             map.displayCurrentPosition();
 
             // 显示游戏菜单
-            displayGameMenu();
+            command.displayGameMenu();
             int operation_choice;
-            cin >> operation_choice;
+
+            if (!(cin >> operation_choice)) {
+                // 清除错误状态并清空输入缓冲区
+                cin.clear();
+                cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+                system("cls");
+                cout << "无效的选择，请重新输入！" << endl;
+                Sleep(1200);
+                continue;
+            }
 
             switch (operation_choice) {
             case 1:
@@ -114,6 +107,12 @@ int main() {
                 command.exitGame();
                 game_running = false;
                 break;
+            case 9:
+                system("cls");
+                cout << "返回游戏首页。" << endl;
+                Sleep(1200);
+                game_running = false;
+                break;
             default:
                 system("cls");
                 cout << "无效的选择，请重新输入！" << endl;
@@ -122,38 +121,58 @@ int main() {
 
             // 检查玩家是否死亡
             if (player.getHealthCur() <= 0) {
-                system("cls");
-                cout << "\n========================================" << endl;
-                cout << "            你已被击败！" << endl;
-                cout << "========================================" << endl;
-                cout << "1. 回到战斗前" << endl;
-                cout << "2. 退出到主菜单" << endl;
-                cout << "请选择: ";
+                bool player_dead = true;
+                while (player_dead) {
+                    system("cls");
+                    cout << "\n========================================" << endl;
+                    cout << "            你已被击败！" << endl;
+                    cout << "========================================" << endl;
+                    cout << "1. 回到战斗前" << endl;
+                    cout << "2. 退回到游戏首页" << endl;
+                    cout << "请选择: ";
 
-                int death_choice;
-                cin >> death_choice;
+                    int death_choice = 0;
 
-                if (death_choice == 1) {
-                    if (command.loadGame("autosave.txt")) {
+                    if (!(cin >> death_choice)) {
+                        // 清除错误状态并清空输入缓冲区
+                        cin.clear();
+                        cin.ignore((numeric_limits<streamsize>::max)(), '\n');
                         system("cls");
-                        cout << "已加载，回到战斗前状态。" << endl;
+                        cout << "无效的选择，请重新输入！" << endl;
                         Sleep(1200);
+                        continue;
+                    }
+
+                    if (death_choice == 1) {
+                        if (command.loadGame("autosave.txt")) {
+                            system("cls");
+                            cout << "已加载，回到战斗前状态。" << endl;
+                            Sleep(1200);
+                            player_dead = false;
+                        }
+                        else {
+                            system("cls");
+                            cout << "加载失败！返回游戏首页。" << endl;
+                            Sleep(1200);
+                            player_dead = false;
+                            game_running = false;
+                        }
+                    }
+                    else if (death_choice == 2) {
+                        system("cls");
+                        cout << "返回游戏首页..." << endl;
+                        Sleep(1200);
+                        player_dead = false;
+                        game_running = false;
                     }
                     else {
                         system("cls");
-                        cout << "加载失败！返回主页面。" << endl;
+                        cout << "无效的选择，请重新输入！" << endl;
                         Sleep(1200);
-                        game_running = false;  // 跳出游戏循环，回到主页面
                     }
-                }
-                else {
-                    game_running = false;  // 跳出游戏循环，回到主页面
                 }
             }
         }
-        system("cls");
-        cout << "返回主页面..." << endl;
-        Sleep(1200);
     }
 
     return 0;

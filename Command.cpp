@@ -423,8 +423,9 @@ void Command::move() {
 }
 
 void Command::panel() {
-    cout << "========== 玩家属性 ==========" << endl;
-    cout << player.getName() << endl;
+    ColorManager::COLOR_PRINT("========== 玩家属性 ==========\n", YELLOW);
+    ColorManager::COLOR_PRINT(player.getName(), YELLOW);
+    cout << endl;
     player.showInfo();
     player.getWeapon().displayInfo();
     player.getArmor().displayInfo();
@@ -446,6 +447,51 @@ void Command::showMap() const {
     cin.ignore((numeric_limits<streamsize>::max)(), '\n');
     cout << "\n按回车键返回...";
     cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+}
+
+void Command::displayMainMenu() const {
+    system("cls");
+    ColorManager::COLOR_PRINT("============================================\n", GREEN);
+    ColorManager::COLOR_PRINT("============================================\n", GREEN);
+    ColorManager::COLOR_PRINT("=============== MC Simulator ===============\n", GREEN);
+    ColorManager::COLOR_PRINT("============================================\n", GREEN);
+    ColorManager::COLOR_PRINT("============================================\n", GREEN);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("============================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("\n1. 新的游戏", RED);
+    ColorManager::COLOR_PRINT("\t2. 加载游戏", RED);
+    ColorManager::COLOR_PRINT("\t3. 退出游戏\n\n", RED);
+}
+
+void Command::displayGameMenu() const {
+    system("cls");
+    ColorManager::COLOR_PRINT("========================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("                游戏菜单\n", YELLOW);
+    ColorManager::COLOR_PRINT("========================================\n", YELLOW);
+    ColorManager::COLOR_PRINT("1. 移动\n", YELLOW);
+    ColorManager::COLOR_PRINT("2. 战斗\n", YELLOW);
+    ColorManager::COLOR_PRINT("3. 交易\n", YELLOW);
+    ColorManager::COLOR_PRINT("4. 恢复\n", YELLOW);
+    ColorManager::COLOR_PRINT("5. 查看面板\n", YELLOW);
+    ColorManager::COLOR_PRINT("6. 查看地图\n", YELLOW);
+    ColorManager::COLOR_PRINT("7. 保存游戏\n", YELLOW);
+    ColorManager::COLOR_PRINT("8. 退出游戏\n", YELLOW);
+    ColorManager::COLOR_PRINT("9. 退回到游戏首页\n", YELLOW);
+    ColorManager::COLOR_PRINT("\n请选择: \n\n", YELLOW);
 }
 
 bool Command::isInBlacksmith() const {

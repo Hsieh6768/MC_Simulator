@@ -144,7 +144,7 @@ void BuffSkill::displayInfo() const {
     Skill::displayInfo();
     int displayAtk = static_cast<int>(attackBonus * (1 + (level - 1) * 0.1));
     int displayDef = static_cast<int>(defenseBonus * (1 + (level - 1) * 0.1));
-    cout << "\t增益: 攻击+" << displayAtk << " 防御+" << displayDef;
+    cout << "\t增益: 攻击+" << displayAtk << ", 防御+" << displayDef;
     cout << "\t持续: " << duration << " 回合" << endl;
 }
 

@@ -148,17 +148,17 @@ void Map::displayMinimap() const {
     cout
         << "    ╔══════════════════════════════════╗" << endl;
     cout
-        << "    ║            终界(5)               ║" << endl;
+        << "    ║                       终界(5)    ║" << endl;
     cout
-        << "    ║               │                  ║" << endl;
+        << "    ║                         │        ║" << endl;
     cout
-        << "    ║             地牢(4)              ║" << endl;
+        << "    ║                       地牢(4)    ║" << endl;
     cout
-        << "    ║               │                  ║" << endl;
+        << "    ║                         │        ║" << endl;
     cout
-        << "    ║             矿井(3)              ║" << endl;
+        << "    ║                       矿井(3)    ║" << endl;
     cout
-        << "    ║               │                  ║" << endl;
+        << "    ║                         │        ║" << endl;
     cout
         << "    ║   铁匠(1)───村庄(0)───平原(2)    ║" << endl;
     cout
@@ -166,7 +166,7 @@ void Map::displayMinimap() const {
     cout
         << "    ║                   黑森林入口(6)  ║" << endl;
     cout
-        << "    ║                    ╱     |       ║" << endl;
+        << "    ║                    ╱     │       ║" << endl;
     cout
         << "    ║              洞穴(9)  森林深处(7)║" << endl;
     cout
@@ -176,7 +176,41 @@ void Map::displayMinimap() const {
     cout
         << "    ╚══════════════════════════════════╝" << endl;
 }
-
+/*
+void Map::displayMinimap() const {
+    cout << "      探索地图：" << endl;
+    cout
+        << "    ╔══════════════════════════════════╗" << endl;
+    cout
+        << "    ║                         堡垒(8)  ║" << endl;
+    cout
+        << "    ║                          │       ║" << endl;
+    cout
+        << "    ║              洞穴(9)  森林深处(7)║" << endl;
+    cout
+        << "    ║                    ╲     │       ║" << endl;
+    cout
+        << "    ║                   黑森林入口(6)  ║" << endl;
+    cout
+        << "    ║                         │        ║" << endl;
+    cout
+        << "    ║   铁匠(1)───村庄(0)───平原(2)    ║" << endl;
+    cout
+        << "    ║                         │        ║" << endl;
+    cout
+        << "    ║                       矿井(3)    ║" << endl;
+    cout
+        << "    ║                         │        ║" << endl;
+    cout
+        << "    ║                       地牢(4)    ║" << endl;
+    cout
+        << "    ║                         │        ║" << endl;
+    cout
+        << "    ║                       终界(5)    ║" << endl;
+    cout
+        << "    ╚══════════════════════════════════╝" << endl;
+}
+*/
 void Map::displayAvailableDirections() const {
     Area* area = getCurrentArea();
     if (!area || area->connectedAreas.empty()) {
