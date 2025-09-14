@@ -431,6 +431,10 @@ void Command::battleSelection() {
                 system("cls");
                 gameOver();
             }
+
+            cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+            cout << "\n按回车键继续...";
+            cin.ignore((numeric_limits<streamsize>::max)(), '\n');
         }
     }
     else if (choice != 0) {
@@ -718,7 +722,7 @@ void Command::serializePlayer(ofstream& out) {
     }
 
     // 写入增益状态
-    TemporaryBuff buff = player.getTemporaryBuff();
+    PlayerBuff buff = player.getPlayerBuff();
     out.write(reinterpret_cast<const char*>(&buff.attack_bonus), sizeof(int));
     out.write(reinterpret_cast<const char*>(&buff.defense_bonus), sizeof(int));
     out.write(reinterpret_cast<const char*>(&buff.duration), sizeof(int));
@@ -835,11 +839,11 @@ void Command::deserializePlayer(ifstream& in) {
     }
 
     // 读取增益状态
-    TemporaryBuff buff = { 0, 0, 0 };
+    PlayerBuff buff = { 0, 0, 0 };
     in.read(reinterpret_cast<char*>(&buff.attack_bonus), sizeof(int));
     in.read(reinterpret_cast<char*>(&buff.defense_bonus), sizeof(int));
     in.read(reinterpret_cast<char*>(&buff.duration), sizeof(int));
-    player.setTemporaryBuff(buff);
+    player.setPlayerBuff(buff);
 }
 
 void Command::deserializeMap(ifstream& in) {

@@ -149,7 +149,7 @@ bool BuffSkill::use(Player& caster, Monster& target) {
     int finalAtkBonus = static_cast<int>(attackBonus * (1 + (level - 1) * 0.1));
     int finalDefBonus = static_cast<int>(defenseBonus * (1 + (level - 1) * 0.1));
 
-    caster.setTemporaryBuff({ finalAtkBonus, finalDefBonus, duration });
+    caster.setPlayerBuff({ finalAtkBonus, finalDefBonus, duration });
 
     cout << caster.getName() << " 使用了 ";
     ColorManager::COLOR_PRINT(name, BLUE);

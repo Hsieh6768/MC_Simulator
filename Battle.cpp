@@ -8,8 +8,8 @@
 
 using namespace std;
 
-Battle::Battle(Player& player, Monster& monster)
-    : player(player), monster(monster), round(0), monsterBuff{ 0, 0 }, monsterDodged(false) {
+Battle::Battle(Player& player, Monster& monster, int round)
+    : player(player), monster(monster), round(round) {
 }
 
 void Battle::start() {
@@ -29,15 +29,6 @@ void Battle::start() {
         if (isBattleOver()) 
             break;
 
-        // 更新怪物增益状态
-        if (monsterBuff.duration > 0) {
-            monsterBuff.duration--;
-            if (monsterBuff.duration == 0) {
-                monsterBuff.attack_bonus = 0;
-            }
-        }
-        monsterDodged = false; // 重置闪避状态
-
         // 怪物回合
         monsterTurn();
     }
@@ -45,7 +36,7 @@ void Battle::start() {
 
 void Battle::playerTurn() {
     // 回合开始处理
-    player.updateBuffs();
+    player.updatePlayerBuffs();
     vector<unique_ptr<Skill>>& skills = player.getSkill();
     for (auto& skill : skills) {
         skill->reduceCooldown();
@@ -81,8 +72,8 @@ void Battle::playerTurn() {
             else if (player.getMagicPowerCur() < skill->getCost()) {
                 cout << " (魔法不足)";
             }
-            else if (skill->getName() == "力量强化" && player.getTemporaryBuff().duration > 0) {
-                cout << "(生效中: 剩余" << player.getTemporaryBuff().duration << "回合)";
+            else if (skill->getName() == "力量强化" && player.getPlayerBuff().duration > 0) {
+                cout << "(生效中: 剩余" << player.getPlayerBuff().duration << "回合)";
             }
             else {
                 cout << " (可用)";
@@ -134,7 +125,7 @@ void Battle::playerTurn() {
                 cout << "请重新选择。" << endl;
                 Sleep(1200);
             }
-            else if (skills[skillIndex]->getName() == "力量强化" && player.getTemporaryBuff().duration > 0) {
+            else if (skills[skillIndex]->getName() == "力量强化" && player.getPlayerBuff().duration > 0) {
                 system("cls");
                 cout << "技能 ";
                 ColorManager::COLOR_PRINT(skills[skillIndex]->getName(), BLUE);
@@ -176,6 +167,8 @@ void Battle::playerTurn() {
 }
 
 void Battle::monsterTurn() {
+    monster.updateMonsterBuffs();
+
     system("cls");
     ColorManager::COLOR_PRINT("--- ", RED);
     ColorManager::COLOR_PRINT(monster.getName(), RED);
@@ -186,13 +179,12 @@ void Battle::monsterTurn() {
         string abilityName = monster.getAbility(0); // 获取第一个特殊能力名称
 
         // 根据怪物类型和能力名称处理特殊效果
-        if (monster.getName() == "凋零骷髅" && abilityName == "凋零诅咒") {
+        if (monster.getName() == "凋零骷髅" && abilityName == "凋零诅咒" && !monster.getMonsterBuff().activated) {
             cout << "怪物 ";
             ColorManager::COLOR_PRINT(monster.getName(), RED);
             cout << " 使用了 " << abilityName << endl;
 
-            monsterBuff.attack_bonus += 1;
-            monsterBuff.duration = 3;
+            monster.setMonsterBuff({ 1, 3, true, false });
 
             ColorManager::COLOR_PRINT(monster.getName(), RED);
             cout << " 使你每回合额外受到 1 点凋零伤害，持续 3 回合" << endl;
@@ -203,18 +195,23 @@ void Battle::monsterTurn() {
             ColorManager::COLOR_PRINT(monster.getName(), RED);
             cout << " 使用了 " << abilityName << endl;
 
-            monsterDodged = true;
+            monster.setMonsterBuff({ 
+                monster.getMonsterBuff().attack_bonus, 
+                monster.getMonsterBuff().duration, 
+                monster.getMonsterBuff().activated, 
+                true 
+                });
 
             ColorManager::COLOR_PRINT(monster.getName(), RED);
             cout << " 闪避了下一次攻击" << endl;
+            applyMonsterAttack();
         }
         else if (monster.getName() == "烈焰使者" && abilityName == "火球攻击") {
             cout << "怪物 ";
             ColorManager::COLOR_PRINT(monster.getName(), RED);
             cout << " 使用了 " << abilityName << endl;
 
-            monsterBuff.attack_bonus += 4;
-            monsterBuff.duration = 1;
+            monster.setMonsterBuff({ 4, 1, true, false });
 
             ColorManager::COLOR_PRINT(monster.getName(), RED);
             cout << " 本回合攻击力提升 4 点" << endl;
@@ -226,38 +223,42 @@ void Battle::monsterTurn() {
             abilityName = monster.getAbility(abilityIndex);
 
             cout << "怪物 ";
-            ColorManager::COLOR_PRINT(monster.getName(), RED); 
+            ColorManager::COLOR_PRINT(monster.getName(), RED);
             cout << " 使用了 " << abilityName << endl;
 
             if (abilityName == "冲撞攻击") {
-                int monsterAttack = 18 + monsterBuff.attack_bonus;
-                int playerDefense = player.getDefense() + player.getArmor().getDefense() + player.getTemporaryBuff().defense_bonus;
+                // 不使用 MonsterBuff 方法以避免与 "龙息腐蚀" 技能发生冲突
+                int monsterAttack = 18 + monster.getMonsterBuff().attack_bonus;
+                int playerDefense = player.getDefense() + player.getArmor().getDefense() + player.getPlayerBuff().defense_bonus;
                 int damage = monsterAttack - playerDefense;
                 player.setHealthCur(max(0, player.getHealthCur() - damage));
 
                 ColorManager::COLOR_PRINT(monster.getName(), RED);
                 cout << " 冲撞攻击造成 " << damage << " 点伤害!" << endl;
             }
-            else if (abilityName == "龙息腐蚀") {
-                monsterBuff.attack_bonus += 2;
-                monsterBuff.duration = 3;
+            else if (abilityName == "龙息腐蚀" && !monster.getMonsterBuff().activated) {
+                monster.setMonsterBuff({ 2, 3, true, false });
 
                 ColorManager::COLOR_PRINT(monster.getName(), RED);
-                cout << " 使你每回合受到 2 点腐蚀伤害，持续 3 回合" << endl;
+                cout << " 使 ";
+                ColorManager::COLOR_PRINT(player.getName(), YELLOW);
+                cout << " 每回合受到 2 点腐蚀伤害，持续 3 回合" << endl;
             }
         }
         else {
             cout << "怪物 " << monster.getName() << " 使用了 " << abilityName << endl;
         }
-        Sleep(1200);
     }
     else {
         cout << "怪物 ";
         ColorManager::COLOR_PRINT(monster.getName(), RED);
         cout << " 使用了普通攻击" << endl;
         applyMonsterAttack();
-        Sleep(1200);
     }
+    Sleep(1200);
+    cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+    cout << "\n按回车键继续...";
+    cin.ignore((numeric_limits<streamsize>::max)(), '\n');
 }
 
 bool Battle::isBattleOver() const {
@@ -266,13 +267,13 @@ bool Battle::isBattleOver() const {
 
 void Battle::applyPlayerAttack() {
     // 检查怪物是否闪避
-    if (monsterDodged) {
+    if (monster.getMonsterBuff().dodged) {
         ColorManager::COLOR_PRINT(monster.getName(), RED);
         cout << " 闪避了攻击！" << endl;
         return;
     }
 
-    int playerAttack = player.getAttack() + player.getWeapon().getAttack() + player.getTemporaryBuff().attack_bonus;
+    int playerAttack = player.getAttack() + player.getWeapon().getAttack() + player.getPlayerBuff().attack_bonus;
     int damage = max(1, playerAttack);  // 至少造成1点伤害
 
     ColorManager::COLOR_PRINT(player.getName(), YELLOW);
@@ -283,8 +284,8 @@ void Battle::applyPlayerAttack() {
 }
 
 void Battle::applyMonsterAttack() {
-    int monsterAttack = monster.getAttack() + monsterBuff.attack_bonus;
-    int playerDefense = player.getDefense() + player.getArmor().getDefense() + player.getTemporaryBuff().defense_bonus;
+    int monsterAttack = monster.getAttack() + monster.getMonsterBuff().attack_bonus;
+    int playerDefense = player.getDefense() + player.getArmor().getDefense() + player.getPlayerBuff().defense_bonus;
     int damage = max(1, monsterAttack - playerDefense);  // 至少造成1点伤害
 
     ColorManager::COLOR_PRINT(monster.getName(), RED);

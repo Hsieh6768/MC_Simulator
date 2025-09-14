@@ -3,7 +3,15 @@
 
 #include "Creature.h"
 #include "MonsterConstants.h"
+#include "ColorManager.h"
 #include <vector>
+
+struct MonsterBuff {  // 怪物增益状态
+	int attack_bonus;
+	int duration;
+	bool activated;  // 增益是否已触发
+	bool dodged;  // 怪物下回合是否闪避
+};
 
 class Monster : public Creature {
 public:
@@ -14,6 +22,7 @@ public:
 		int attack = 0,
 		std::string type = "",
 		std::string description = "",
+		MonsterBuff buff = { 0, 0, false, false },
 		bool has_special_ability = false,
 		std::vector<std::string> special_ability = {}, 
 		std::vector<std::string> special_ability_description = {}
@@ -27,6 +36,10 @@ public:
 	std::string getType() const;  // 获取怪物级别
 	std::string getDescription() const;  // 获取怪物描述
 
+	MonsterBuff getMonsterBuff() const;  // 获取怪物增益
+	void setMonsterBuff(const MonsterBuff buff);  // 设定怪物增益
+	void updateMonsterBuffs();  // 更新怪物增益状态
+
 	bool hasSpecialAbility() const;  // 判断是否拥有特殊能力
 	std::string getAbility(int index = 0) const;  // 获取怪物特殊能力
 	std::string getAbilityDescription(int index = 0) const;  // 获取怪物特殊能力描述
@@ -34,6 +47,7 @@ public:
 private:
 	std::string type;  // 级别
 	std::string description;  // 怪物描述
+	MonsterBuff buff;  // 怪物增益效果
 	bool has_special_ability;  // 是否拥有特殊能力
 	std::vector<std::string> special_ability;  // 特殊能力列表
 	std::vector<std::string> special_ability_description;  // 特殊能力描述

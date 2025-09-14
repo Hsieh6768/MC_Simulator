@@ -1,13 +1,14 @@
 ﻿#include "Spider.h"
 
 Spider::Spider() : Monster("蜘蛛", health_max, health_max, attack, "普通", 
-    "夜间出没的敏捷生物，能爬墙并在黑暗中追逐玩家。", false, {"无"}) {}
+    "夜间出没的敏捷生物，能爬墙并在黑暗中追逐玩家。", { 0, 0, false, false }, false, {"无"}) {}
 
 void Spider::showInfo() const {
     std::cout << "生命值: " << getHealthCur()
-              << "\t攻击力: " << attack
-              << "\t级别: " << getType()
-              << "\n特点: " << getDescription()
+              << "\t攻击力: " << getAttack()
+              << "\t级别: ";
+    ColorManager::COLOR_PRINT(getType(), BLUE);
+    std::cout << "\n特点: " << getDescription()
               << "\n特殊能力: " << getAbility(0) << std::endl;
 }
 

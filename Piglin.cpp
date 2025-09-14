@@ -1,13 +1,14 @@
 ﻿#include "Piglin.h"
 
 Piglin::Piglin() : Monster("猪灵", health_max, health_max, attack, "普通", 
-    "下界的智慧住民，热爱黄金，会对没有金装备的玩家发动攻击。", false, {"无"}) {}
+    "下界的智慧住民，热爱黄金，会对没有金装备的玩家发动攻击。", { 0, 0, false, false }, false, {"无"}) {}
 
 void Piglin::showInfo() const {
     std::cout << "生命值: " << getHealthCur()
-              << "\t攻击力: " << attack
-              << "\t级别: " << getType()
-              << "\n特点: " << getDescription()
+              << "\t攻击力: " << getAttack()
+              << "\t级别: ";
+    ColorManager::COLOR_PRINT(getType(), BLUE);
+    std::cout << "\n特点: " << getDescription()
               << "\n特殊能力: " << getAbility(0) << std::endl;
 }
 

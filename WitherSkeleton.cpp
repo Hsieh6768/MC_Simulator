@@ -1,14 +1,15 @@
 ﻿#include "WitherSkeleton.h"
 
 WitherSkeleton::WitherSkeleton() : Monster("凋零骷髅", health_max, health_max, attack, "普通",
-    "下界要塞中的恐怖守卫，攻击会施加凋零效果。", true,
+    "下界要塞中的恐怖守卫，攻击会施加凋零效果。", { 0, 0, false, false }, true,
     { "凋零诅咒" }, { "攻击命中后施加凋零诅咒，使目标在 3 回合内额外受到 1 点凋零伤害。" }) {}
 
 void WitherSkeleton::showInfo() const {
     std::cout << "生命值: " << getHealthCur()
-              << "\t攻击力: " << attack
-              << "\t级别: " << getType()
-              << "\n特点: " << getDescription()
+              << "\t攻击力: " << getAttack()
+              << "\t级别: ";
+    ColorManager::COLOR_PRINT(getType(), BLUE);
+    std::cout << "\n特点: " << getDescription()
               << "\n特殊能力: \n  1." << getAbility(0) 
               << "\t效果: " << getAbilityDescription(0)
               << std::endl;

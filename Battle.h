@@ -6,20 +6,13 @@
 
 class Battle {
 public:
-    Battle(Player& player, Monster& monster);
+    Battle(Player& player, Monster& monster, int round = 0);
     void start(); // 开始战斗
 
 private:
     Player& player;
     Monster& monster;
     int round;
-    
-    struct MonsterBuff {  // 添加怪物增益状态
-        int attack_bonus;
-        int duration;
-    } monsterBuff;
-
-    bool monsterDodged; // 怪物是否闪避
 
     void playerTurn();  // 玩家回合
     void monsterTurn(); // 怪物回合

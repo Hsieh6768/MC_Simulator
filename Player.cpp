@@ -13,7 +13,7 @@ Player::Player(
     Weapon weapon,
     Armor armor,
     std::vector<std::unique_ptr<Skill>> skill,
-    struct TemporaryBuff buff
+    struct PlayerBuff buff
 ) : Creature(name, health_max, health_cur, attack),
 defense(defense),
 magic_power_max(magic_power_max),
@@ -56,21 +56,26 @@ Player& Player::operator=(Player&& other) noexcept {
 void Player::showInfo() const {
     ColorManager::COLOR_PRINT("生命值: ", YELLOW);
     std::cout << getHealthCur();
+    ColorManager::COLOR_PRINT(" (每两回合回复一点)", YELLOW);
+
     ColorManager::COLOR_PRINT("\n攻击力: ", YELLOW);
     std::cout << getAttack();
     ColorManager::COLOR_PRINT(" + ", YELLOW);
     std::cout << weapon.getAttack();
     ColorManager::COLOR_PRINT(" + ", YELLOW);
     std::cout << buff.attack_bonus;
+
     ColorManager::COLOR_PRINT("\t护甲值: ", YELLOW);
     std::cout << defense;
     ColorManager::COLOR_PRINT(" + ", YELLOW);
     std::cout << armor.getDefense();
     ColorManager::COLOR_PRINT(" + ", YELLOW);
     std::cout << buff.defense_bonus;
+
     ColorManager::COLOR_PRINT("\n魔力值: ", YELLOW);
     std::cout << magic_power_cur;
     ColorManager::COLOR_PRINT(" (每三回合回复一点)", YELLOW);
+
     ColorManager::COLOR_PRINT("\t绿宝石: ", YELLOW);
     std::cout << money << std::endl;
 }
@@ -139,15 +144,15 @@ void Player::clearSkills() {
     this->skill.clear();
 }
 
-TemporaryBuff Player::getTemporaryBuff() const {
+PlayerBuff Player::getPlayerBuff() const {
     return this->buff;
 }
 
-void Player::setTemporaryBuff(const TemporaryBuff buff) {
+void Player::setPlayerBuff(const PlayerBuff buff) {
     this->buff = buff;
 }
 
-void Player::updateBuffs() {
+void Player::updatePlayerBuffs() {
     if (buff.duration <= 0) {  // 增益持续时间结束
         buff.attack_bonus = 0;
         buff.defense_bonus = 0;

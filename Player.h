@@ -8,7 +8,7 @@
 #include <vector>
 #include <memory>
 
-struct TemporaryBuff {
+struct PlayerBuff {
 	int attack_bonus;
 	int defense_bonus;
 	int duration;
@@ -29,7 +29,7 @@ public:
 		Weapon weapon = Weapon(), 
 		Armor armor = Armor(), 
 		std::vector<std::unique_ptr<Skill>> skill = {},
-		TemporaryBuff buff = {0, 0, 0}
+		PlayerBuff buff = {0, 0, 0}
 	);
 	~Player();
 
@@ -63,9 +63,9 @@ public:
 	void addSkill(std::unique_ptr<Skill> skill);  // 添加玩家技能
 	void clearSkills();  // 清除玩家技能
 
-	TemporaryBuff getTemporaryBuff() const;  // 获取玩家增益
-	void setTemporaryBuff(const TemporaryBuff buff);  // 设定玩家增益
-	void updateBuffs();  // 更新玩家增益状态
+	PlayerBuff getPlayerBuff() const;  // 获取玩家增益
+	void setPlayerBuff(const PlayerBuff buff);  // 设定玩家增益
+	void updatePlayerBuffs();  // 更新玩家增益状态
 
 private:
 	int defense;  // 玩家护甲值
@@ -75,7 +75,7 @@ private:
 	Weapon weapon;  // 玩家佩戴的武器
 	Armor armor;  // 玩家穿戴的护甲
 	std::vector<std::unique_ptr<Skill>> skill;  // 玩家拥有的技能
-	TemporaryBuff buff;  // 玩家短时增益
+	PlayerBuff buff;  // 玩家短时增益
 };
 
 #endif

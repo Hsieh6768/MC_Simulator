@@ -1,16 +1,17 @@
 ﻿#include "EnderDragon.h"
 
 EnderDragon::EnderDragon() : Monster("终界龙", health_max, health_max, attack, "史诗", 
-    "终界的最终 Boss，拥有强大的冲撞攻击和腐蚀性龙息。", true,
+    "终界的最终 Boss，拥有强大的冲撞攻击和腐蚀性龙息。", { 0, 0, false, false }, true,
     { "冲撞攻击", "龙息腐蚀" }, 
     { "本回合发动一次势不可挡的俯冲，对目标造成 18 点巨额伤害。", 
       "喷吐出一团浓郁的龙息，使目标在 3 回合内持续受到 2 点腐蚀伤害。"}) {}
 
 void EnderDragon::showInfo() const {
     std::cout << "生命值: " << getHealthCur()
-              << "\t攻击力: " << attack
-              << "\t级别: " << getType()
-              << "\n特点: " << getDescription()
+              << "\t攻击力: " << getAttack()
+              << "\t级别: ";
+    ColorManager::COLOR_PRINT(getType(), RED);
+    std::cout << "\n特点: " << getDescription()
               << "\n特殊能力: \n  1. " << getAbility(0) 
               << "\t效果: " << getAbilityDescription(0)
               << "\n  2. " << getAbility(1)
