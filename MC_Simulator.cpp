@@ -113,6 +113,12 @@ int main() {
                 Sleep(1200);
                 game_running = false;
                 break;
+            case 10:
+                system("cls");
+                cout << "播放终末之诗。" << endl;
+                Sleep(1200);
+                command.gameOver();
+                break;
             default:
                 system("cls");
                 cout << "无效的选择，请重新输入！" << endl;

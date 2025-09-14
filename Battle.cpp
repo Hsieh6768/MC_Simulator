@@ -57,7 +57,9 @@ void Battle::playerTurn() {
 
     while (!validChoice) {
         system("cls");
-        ColorManager::COLOR_PRINT("--- ", YELLOW);
+        ColorManager::COLOR_PRINT("回合 ", YELLOW);
+        cout << round << endl;
+        ColorManager::COLOR_PRINT("\n--- ", YELLOW);
         ColorManager::COLOR_PRINT(player.getName(), YELLOW);
         ColorManager::COLOR_PRINT(" 的回合 ---\n", YELLOW);
         player.showInfo();

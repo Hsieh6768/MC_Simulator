@@ -28,6 +28,7 @@ public:
     void showMap() const;              // 显示游戏地图
     void displayMainMenu() const;      // 显示游戏首页
     void displayGameMenu() const;      // 显示游戏菜单
+    void gameOver() const;             // 显示游戏通关画面
 
     // 辅助函数
     bool isInBlacksmith() const;       // 检查是否在铁匠铺
