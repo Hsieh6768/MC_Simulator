@@ -148,11 +148,11 @@ void Player::setTemporaryBuff(const TemporaryBuff buff) {
 }
 
 void Player::updateBuffs() {
+    if (buff.duration == 0) {  // 增益持续时间结束
+        buff.attack_bonus = 0;
+        buff.defense_bonus = 0;
+    }
     if (buff.duration > 0) {
         buff.duration--;
-        if (buff.duration == 0) {  // 增益持续时间结束
-            buff.attack_bonus = 0;
-            buff.defense_bonus = 0;
-        }
     }
 }
