@@ -155,17 +155,17 @@ void Map::displayMinimap() const {
     cout
         << "    ╔══════════════════════════════════╗" << endl;
     cout
-        << "    ║             终界(5)              ║" << endl;
+        << "    ║                        终界(5)   ║" << endl;
     cout
-        << "    ║                │                 ║" << endl;
+        << "    ║                          │       ║" << endl;
     cout
-        << "    ║              地牢(4)             ║" << endl;
+        << "    ║                        地牢(4)   ║" << endl;
     cout
-        << "    ║                │                 ║" << endl;
+        << "    ║                          │       ║" << endl;
     cout
-        << "    ║              矿井(3)             ║" << endl;
+        << "    ║                        矿井(3)   ║" << endl;
     cout
-        << "    ║                │                 ║" << endl;
+        << "    ║                          │       ║" << endl;
     cout
         << "    ║    铁匠(1)───村庄(0)───平原(2)   ║" << endl;
     cout
@@ -397,4 +397,5 @@ int Map::getVisitedAreaCount() const {
         }
     }
     return count;
+
 }
