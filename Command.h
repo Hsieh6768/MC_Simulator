@@ -24,6 +24,7 @@ public:
     void recover();                    // 恢复玩家状态
     void battleSelection();            // 选择战斗目标
     void move();                       // 移动至其他区域
+    void openTreasure();               // 打开地图中的宝藏
     void panel();                      // 显示玩家属性面板
     void showMap() const;              // 显示游戏地图
     void displayMainMenu() const;      // 显示游戏首页

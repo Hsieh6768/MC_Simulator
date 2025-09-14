@@ -63,7 +63,6 @@ public:
 
     // 地图操作
     void initializeMap();
-    void displayCurrentArea() const;
     void displayMinimap() const;
     void displayAvailableDirections() const;
     void displayCurrentPosition() const;

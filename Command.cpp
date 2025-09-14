@@ -495,6 +495,19 @@ void Command::move() {
     }
 }
 
+void Command::openTreasure() {
+    ColorManager::COLOR_PRINT("你打开了散落在世界各处的宝藏! 获得了 ", PURPLE);
+    Sleep(1200);
+    int treasure = rand() % 11 + 5;  // 宝藏: 5 ~ 15 个绿宝石
+    cout << treasure;
+    Sleep(1200);
+    ColorManager::COLOR_PRINT(" 绿宝石! ", PURPLE);
+    Sleep(1200);
+
+    player.setMoney(player.getMoney() + treasure);
+    map.getCurrentArea()->hasTreasure = false;
+}
+
 void Command::panel() {
     ColorManager::COLOR_PRINT("================== 玩家属性 ==================\n", YELLOW);
     ColorManager::COLOR_PRINT(player.getName(), YELLOW);
@@ -563,6 +576,9 @@ void Command::displayGameMenu() const {
     ColorManager::COLOR_PRINT("8. 退出游戏\n", YELLOW);
     ColorManager::COLOR_PRINT("9. 退回游戏首页\n", YELLOW);
     ColorManager::COLOR_PRINT("10. 播放终末之诗 (游戏通关画面)\n", YELLOW);
+    if (map.getCurrentArea()->hasTreasure) {
+        ColorManager::COLOR_PRINT("11. 打开宝藏\n", PURPLE);
+    }
     ColorManager::COLOR_PRINT("\n请选择: \n\n", YELLOW);
 }
 

@@ -114,35 +114,6 @@ shared_ptr<Monster> Map::createMonsterByType(const string& monsterType) {
     return nullptr;
 }
 
-
-void Map::displayCurrentArea() const {
-    Area* area = getCurrentArea();
-    if (!area) return;
-
-    cout << "\n════════════════════════════════════════" << endl;
-    cout << "位置: " << area->name << " [" << getAreaTypeName(area->type) << "]" << endl;
-    cout << "════════════════════════════════════════" << endl;
-    cout << area->description << endl;
-
-    if (area->hasTreasure) {
-        cout << "\n[宝藏] 这里似乎藏有宝藏！" << endl;
-    }
-
-    if (!area->creatures.empty()) {
-        cout << "\n生物列表：" << endl;
-        for (const auto& creature : area->creatures) {
-            if (auto monster = dynamic_pointer_cast<Monster>(creature)) {
-                cout << "   [怪物] " << creature->getName() << endl;
-            }
-            else if (auto player = dynamic_pointer_cast<Player>(creature)) {
-                cout << "   [玩家] " << creature->getName() << endl;
-            }
-        }
-    }
-
-    displayAvailableDirections();
-}
-
 void Map::displayMinimap() const {
     ColorManager::COLOR_PRINT("      探索地图：\n", YELLOW);
 
@@ -176,41 +147,7 @@ void Map::displayMinimap() const {
 
     ColorManager::COLOR_PRINT("    ╚══════════════════════════════════╝\n", YELLOW);
 }
-/*
-void Map::displayMinimap() const {
-    cout << "      探索地图：" << endl;
-    cout
-        << "    ╔══════════════════════════════════╗" << endl;
-    cout
-        << "    ║                         堡垒(8)  ║" << endl;
-    cout
-        << "    ║                          │       ║" << endl;
-    cout
-        << "    ║              洞穴(9)  森林深处(7)║" << endl;
-    cout
-        << "    ║                    ╲     │       ║" << endl;
-    cout
-        << "    ║                   黑森林入口(6)  ║" << endl;
-    cout
-        << "    ║                         │        ║" << endl;
-    cout
-        << "    ║   铁匠(1)───村庄(0)───平原(2)    ║" << endl;
-    cout
-        << "    ║                         │        ║" << endl;
-    cout
-        << "    ║                       矿井(3)    ║" << endl;
-    cout
-        << "    ║                         │        ║" << endl;
-    cout
-        << "    ║                       地牢(4)    ║" << endl;
-    cout
-        << "    ║                         │        ║" << endl;
-    cout
-        << "    ║                       终界(5)    ║" << endl;
-    cout
-        << "    ╚══════════════════════════════════╝" << endl;
-}
-*/
+
 void Map::displayAvailableDirections() const {
     Area* area = getCurrentArea();
     if (!area || area->connectedAreas.empty()) {
@@ -224,9 +161,13 @@ void Map::displayAvailableDirections() const {
         Area* targetArea = getArea(targetId);
         if (targetArea) {
             string visitedMark = targetArea->visited ? "[已探索] " : "[未探索] ";
-            cout << "  " << i + 1 << ". " << visitedMark << targetArea->name;
-            if (targetArea->isSafe) cout << " [安全区域]";
-            if (targetArea->hasTreasure) cout << " [宝藏]";
+            cout << i + 1 << ". " << visitedMark << targetArea->name;
+            if (targetArea->isSafe) {
+                ColorManager::COLOR_PRINT(" [安全区域]", GREEN);
+            }
+            if (targetArea->hasTreasure) {
+                ColorManager::COLOR_PRINT(" [宝藏]", PURPLE);
+            }
             cout << endl;
         }
     }
@@ -361,21 +302,8 @@ void Map::displayCurrentPosition() const {
         cout << endl;
     }
 
-    cout << "可前往的区域: ";
-    if (area->connectedAreas.empty()) {
-        cout << "无" << endl;
-    }
-    else {
-        for (size_t i = 0; i < area->connectedAreas.size(); i++) {
-            if (i > 0) cout << " | ";
-            int targetId = area->connectedAreas[i];
-            Area* targetArea = getArea(targetId);
-            if (targetArea) {
-                cout << targetArea->name;
-            }
-        }
-        cout << endl;
-    }
+    displayAvailableDirections();
+
     cout << "────────────────────────────────────────" << endl << endl;
 }
 bool Map::hasMonstersInCurrentArea() const {

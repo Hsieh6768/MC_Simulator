@@ -120,6 +120,13 @@ int main() {
                 Sleep(1200);
                 command.gameOver();
                 break;
+            case 11:
+                // 若该房间无宝藏则仍按无效输入处理
+                if (map.getCurrentArea()->hasTreasure) {
+                    system("cls");
+                    command.openTreasure();
+                    break;
+                }
             default:
                 system("cls");
                 cout << "无效的选择，请重新输入！" << endl;
