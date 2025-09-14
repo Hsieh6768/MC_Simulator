@@ -165,6 +165,10 @@ void Battle::playerTurn() {
         }
     }
 
+    // 每两回合回复一点生命值
+    if (round % 2 == 0) {
+        player.setHealthCur(min(player.getHealthCur() + 1, player.getHealthMax()));
+    }
     // 每三回合回复一点魔力值
     if (round % 3 == 0) {
         player.setMagicPowerCur(min(player.getMagicPowerCur() + 1, player.getMagicPowerMax()));
@@ -226,18 +230,20 @@ void Battle::monsterTurn() {
             cout << " 使用了 " << abilityName << endl;
 
             if (abilityName == "冲撞攻击") {
-                int damage = 18;
+                int monsterAttack = 18 + monsterBuff.attack_bonus;
+                int playerDefense = player.getDefense() + player.getArmor().getDefense() + player.getTemporaryBuff().defense_bonus;
+                int damage = monsterAttack - playerDefense;
                 player.setHealthCur(max(0, player.getHealthCur() - damage));
 
                 ColorManager::COLOR_PRINT(monster.getName(), RED);
                 cout << " 冲撞攻击造成 " << damage << " 点伤害!" << endl;
             }
             else if (abilityName == "龙息腐蚀") {
-                monsterBuff.attack_bonus += 3;
+                monsterBuff.attack_bonus += 2;
                 monsterBuff.duration = 3;
 
                 ColorManager::COLOR_PRINT(monster.getName(), RED);
-                cout << " 使你每回合受到 3 点腐蚀伤害，持续 3 回合" << endl;
+                cout << " 使你每回合受到 2 点腐蚀伤害，持续 3 回合" << endl;
             }
         }
         else {
@@ -267,7 +273,7 @@ void Battle::applyPlayerAttack() {
     }
 
     int playerAttack = player.getAttack() + player.getWeapon().getAttack() + player.getTemporaryBuff().attack_bonus;
-    int damage = max(1, playerAttack); // 至少造成1点伤害
+    int damage = max(1, playerAttack);  // 至少造成1点伤害
 
     ColorManager::COLOR_PRINT(player.getName(), YELLOW);
     cout << " 对 ";
@@ -279,7 +285,7 @@ void Battle::applyPlayerAttack() {
 void Battle::applyMonsterAttack() {
     int monsterAttack = monster.getAttack() + monsterBuff.attack_bonus;
     int playerDefense = player.getDefense() + player.getArmor().getDefense() + player.getTemporaryBuff().defense_bonus;
-    int damage = max(1, monsterAttack - playerDefense); // 至少造成1点伤害
+    int damage = max(1, monsterAttack - playerDefense);  // 至少造成1点伤害
 
     ColorManager::COLOR_PRINT(monster.getName(), RED);
     cout << " 对 ";

@@ -4,7 +4,7 @@ EnderDragon::EnderDragon() : Monster("终界龙", health_max, health_max, attack
     "终界的最终 Boss，拥有强大的冲撞攻击和腐蚀性龙息。", true,
     { "冲撞攻击", "龙息腐蚀" }, 
     { "本回合发动一次势不可挡的俯冲，对目标造成 18 点巨额伤害。", 
-      "喷吐出一团浓郁的龙息，使目标在 3 回合内持续受到 3 点腐蚀伤害。"}) {}
+      "喷吐出一团浓郁的龙息，使目标在 3 回合内持续受到 2 点腐蚀伤害。"}) {}
 
 void EnderDragon::showInfo() const {
     std::cout << "生命值: " << getHealthCur()

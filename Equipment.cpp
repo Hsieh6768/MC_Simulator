@@ -67,12 +67,12 @@ void Armor::displayInfo() const {
 // 预定义装备实现
 namespace EquipmentTypes {
     // 武器
-    const Weapon WOODEN_SWORD("木剑", 5, 10);
-    const Weapon IRON_SWORD("铁剑", 9, 40);
-    const Weapon DIAMOND_SWORD("钻石剑", 15, 80);
+    const Weapon WOODEN_SWORD("木剑", 5, 5);
+    const Weapon IRON_SWORD("铁剑", 9, 20);
+    const Weapon DIAMOND_SWORD("钻石剑", 15, 40);
 
     // 防具
-    const Armor LEATHER_ARMOR("皮革甲", 2, 15);
-    const Armor IRON_ARMOR("铁甲", 6, 35);
-    const Armor DIAMOND_ARMOR("钻石甲", 12, 70);
+    const Armor LEATHER_ARMOR("皮革甲", 2, 8);
+    const Armor IRON_ARMOR("铁甲", 6, 18);
+    const Armor DIAMOND_ARMOR("钻石甲", 12, 35);
 }
