@@ -54,13 +54,13 @@ Player& Player::operator=(Player&& other) noexcept {
 }
 
 void Player::showInfo() const {
-    ColorManager::COLOR_PRINT("生命值: ", GREEN);
+    ColorManager::COLOR_PRINT("生命值: ", YELLOW);
     std::cout << getHealthCur();
-    ColorManager::COLOR_PRINT("\t攻击力: ", RED);
+    ColorManager::COLOR_PRINT("\n攻击力: ", YELLOW);
     std::cout << getAttack();
-    ColorManager::COLOR_PRINT(" + ", RED);
+    ColorManager::COLOR_PRINT(" + ", YELLOW);
     std::cout << weapon.getAttack();
-    ColorManager::COLOR_PRINT(" + ", RED);
+    ColorManager::COLOR_PRINT(" + ", YELLOW);
     std::cout << buff.attack_bonus;
     ColorManager::COLOR_PRINT("\t护甲值: ", YELLOW);
     std::cout << defense;
@@ -68,10 +68,10 @@ void Player::showInfo() const {
     std::cout << armor.getDefense();
     ColorManager::COLOR_PRINT(" + ", YELLOW);
     std::cout << buff.defense_bonus;
-    ColorManager::COLOR_PRINT("\t魔力值: ", BLUE);
+    ColorManager::COLOR_PRINT("\n魔力值: ", YELLOW);
     std::cout << magic_power_cur;
-    ColorManager::COLOR_PRINT(" (每三回合回复一点)", BLUE);
-    ColorManager::COLOR_PRINT("\t绿宝石: ", GREEN);
+    ColorManager::COLOR_PRINT(" (每三回合回复一点)", YELLOW);
+    ColorManager::COLOR_PRINT("\t绿宝石: ", YELLOW);
     std::cout << money << std::endl;
 }
 

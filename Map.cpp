@@ -144,37 +144,37 @@ void Map::displayCurrentArea() const {
 }
 
 void Map::displayMinimap() const {
-    cout << "      探索地图：" << endl;
-    cout
-        << "    ╔══════════════════════════════════╗" << endl;
-    cout
-        << "    ║                       终界(5)    ║" << endl;
-    cout
-        << "    ║                         │        ║" << endl;
-    cout
-        << "    ║                       地牢(4)    ║" << endl;
-    cout
-        << "    ║                         │        ║" << endl;
-    cout
-        << "    ║                       矿井(3)    ║" << endl;
-    cout
-        << "    ║                         │        ║" << endl;
-    cout
-        << "    ║   铁匠(1)───村庄(0)───平原(2)    ║" << endl;
-    cout
-        << "    ║                        ╱         ║" << endl;
-    cout
-        << "    ║                   黑森林入口(6)  ║" << endl;
-    cout
-        << "    ║                    ╱     │       ║" << endl;
-    cout
-        << "    ║              洞穴(9)  森林深处(7)║" << endl;
-    cout
-        << "    ║                          │       ║" << endl;
-    cout
-        << "    ║                         堡垒(8)  ║" << endl;
-    cout
-        << "    ╚══════════════════════════════════╝" << endl;
+    ColorManager::COLOR_PRINT("      探索地图：\n", YELLOW);
+
+    ColorManager::COLOR_PRINT("    ╔══════════════════════════════════╗\n", YELLOW);
+
+    ColorManager::COLOR_PRINT("    ║                       终界(5)    ║\n", YELLOW);
+
+    ColorManager::COLOR_PRINT("    ║                         │        ║\n", YELLOW);
+
+    ColorManager::COLOR_PRINT("    ║                       地牢(4)    ║\n", YELLOW);
+
+    ColorManager::COLOR_PRINT("    ║                         │        ║\n", YELLOW);
+
+    ColorManager::COLOR_PRINT("    ║                       矿井(3)    ║\n", YELLOW);
+
+    ColorManager::COLOR_PRINT("    ║                         │        ║\n", YELLOW);
+
+    ColorManager::COLOR_PRINT("    ║   铁匠(1)───村庄(0)───平原(2)    ║\n", YELLOW);
+
+    ColorManager::COLOR_PRINT("    ║                        ╱         ║\n", YELLOW);
+
+    ColorManager::COLOR_PRINT("    ║                   黑森林入口(6)  ║\n", YELLOW);
+
+    ColorManager::COLOR_PRINT("    ║                    ╱     │       ║\n", YELLOW);
+
+    ColorManager::COLOR_PRINT("    ║              洞穴(9)  森林深处(7)║\n", YELLOW);
+
+    ColorManager::COLOR_PRINT("    ║                          │       ║\n", YELLOW);
+
+    ColorManager::COLOR_PRINT("    ║                         堡垒(8)  ║\n", YELLOW);
+
+    ColorManager::COLOR_PRINT("    ╚══════════════════════════════════╝\n", YELLOW);
 }
 /*
 void Map::displayMinimap() const {

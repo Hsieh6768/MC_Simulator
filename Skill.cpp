@@ -34,12 +34,23 @@ int Skill::getLevel() const { return level; }
 bool Skill::isReady() const { return currentCooldown == 0; }
 
 void Skill::displayInfo() const {
-    cout << "技能: " << name << " (等级 " << level << ")";
-    cout << "\t描述: " << description;
-    cout << "\n消耗: " << cost << " MP";
-    cout << "\t冷却: " << cooldown << " 回合";
+    ColorManager::COLOR_PRINT("技能: ", BLUE);
+    cout << name;
+    ColorManager::COLOR_PRINT(" (等级 ", BLUE);
+    cout << level;
+    ColorManager::COLOR_PRINT(")", BLUE);
+
+    ColorManager::COLOR_PRINT("\n消耗: ", BLUE);
+    cout << cost;
+    ColorManager::COLOR_PRINT(" MP", BLUE);
+
+    ColorManager::COLOR_PRINT("\t冷却: ", BLUE);
+    cout << cooldown;
+    ColorManager::COLOR_PRINT(" 回合", BLUE);
     if (currentCooldown > 0) {
-        cout << " (剩余 " << currentCooldown << " 回合)";
+        ColorManager::COLOR_PRINT(" (剩余 ", BLUE);
+        cout << currentCooldown;
+        ColorManager::COLOR_PRINT(" 回合)", BLUE);
     }
 }
 
@@ -59,7 +70,10 @@ bool AttackSkill::use(Player& caster, Monster& target) {
     int finalDamage = static_cast<int>(damage * multiplier * (1 + (level - 1) * 0.1));
     target.setHealthCur(max(0, target.getHealthCur() - finalDamage));
 
-    cout << caster.getName() << " 使用了 " << name << "! 造成 " << finalDamage << " 点伤害!" << endl;
+    cout << caster.getName() << " 使用了 ";
+    ColorManager::COLOR_PRINT(name, RED);
+    cout << "! 造成 " << finalDamage << " 点伤害!" << endl;
+    Sleep(1200);
 
     return true;
 }
@@ -73,7 +87,10 @@ void AttackSkill::upgrade() {
 void AttackSkill::displayInfo() const {
     Skill::displayInfo();
     int displayDamage = static_cast<int>(damage * multiplier * (1 + (level - 1) * 0.1));
-    cout << "\t伤害: " << displayDamage << endl;
+    ColorManager::COLOR_PRINT("\n描述: ", RED);
+    ColorManager::COLOR_PRINT(description, RED);
+    ColorManager::COLOR_PRINT("\n伤害: ", RED);
+    cout << displayDamage << endl;
 }
 
 // HealSkill 实现
@@ -92,7 +109,10 @@ bool HealSkill::use(Player& caster, Monster& target) {
     int finalHeal = static_cast<int>(healAmount * (1 + (level - 1) * 0.15));
     caster.setHealthCur(min(caster.getHealthCur() + finalHeal, caster.getHealthMax()));
 
-    cout << caster.getName() << " 使用了 " << name << "! 恢复 " << finalHeal << " 点生命值!" << endl;
+    cout << caster.getName() << " 使用了 ";
+    ColorManager::COLOR_PRINT(name, GREEN);
+    cout << "! 恢复 " << finalHeal << " 点生命值!" << endl;
+    Sleep(1200);
 
     return true;
 }
@@ -105,7 +125,11 @@ void HealSkill::upgrade() {
 void HealSkill::displayInfo() const {
     Skill::displayInfo();
     int displayHeal = static_cast<int>(healAmount * (1 + (level - 1) * 0.15));
-    cout << "\t治疗: " << displayHeal << " HP" << endl;
+    ColorManager::COLOR_PRINT("\n描述: ", GREEN);
+    ColorManager::COLOR_PRINT(description, GREEN);
+    ColorManager::COLOR_PRINT("\n治疗: ", GREEN);
+    cout << displayHeal;
+    ColorManager::COLOR_PRINT(" HP\n", GREEN);
 }
 
 // BuffSkill 实现
@@ -127,9 +151,11 @@ bool BuffSkill::use(Player& caster, Monster& target) {
 
     caster.setTemporaryBuff({ finalAtkBonus, finalDefBonus, duration });
 
-    cout << caster.getName() << " 使用了 " << name << "! ";
-    cout << "攻击+" << finalAtkBonus << " 防御+" << finalDefBonus;
+    cout << caster.getName() << " 使用了 ";
+    ColorManager::COLOR_PRINT(name, BLUE);
+    cout << "! 攻击+" << finalAtkBonus << " 防御+" << finalDefBonus;
     cout << " (持续 " << duration << " 回合)" << endl;
+    Sleep(1200);
 
     return true;
 }
@@ -144,8 +170,15 @@ void BuffSkill::displayInfo() const {
     Skill::displayInfo();
     int displayAtk = static_cast<int>(attackBonus * (1 + (level - 1) * 0.1));
     int displayDef = static_cast<int>(defenseBonus * (1 + (level - 1) * 0.1));
-    cout << "\t增益: 攻击+" << displayAtk << ", 防御+" << displayDef;
-    cout << "\t持续: " << duration << " 回合" << endl;
+    ColorManager::COLOR_PRINT("\n描述: ", PURPLE);
+    ColorManager::COLOR_PRINT(description, PURPLE);
+    ColorManager::COLOR_PRINT("\n增益: 攻击+ ", PURPLE);
+    cout << displayAtk;
+    ColorManager::COLOR_PRINT(", 防御+ ", PURPLE);
+    cout << displayDef;
+    ColorManager::COLOR_PRINT("\t持续: ", PURPLE);
+    cout << duration;
+    ColorManager::COLOR_PRINT(" 回合\n", PURPLE);
 }
 
 // SkillManager 实现

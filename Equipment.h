@@ -1,6 +1,7 @@
 ﻿#ifndef EQUIPMENT_H
 #define EQUIPMENT_H
 
+#include "ColorManager.h"
 #include <string>
 #include <iostream>
 
@@ -12,7 +13,7 @@ public:
         int value = 0, std::string type = "无");
 
     // 显示装备信息
-    virtual void displayInfo() const;
+    virtual void displayInfo() const = 0;
 
     // 获取装备名称
     std::string getName() const;

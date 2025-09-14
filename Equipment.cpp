@@ -5,17 +5,6 @@ using namespace std;
 Equipment::Equipment(string name, int atk, int def, int value, string type)
     : name(name), attack(atk), defense(def), value(value), type(type) {}
 
-void Equipment::displayInfo() const {
-    cout << "装备: " << name << " [" << type << "]" << endl;
-    if (attack > 0) {
-        cout << "攻击: +" << attack << endl;
-    }
-    if (defense > 0) {
-        cout << "防御: +" << defense << endl;
-    }
-    cout << "价值: " << value << " 绿宝石" << endl;
-}
-
 std::string Equipment::getName() const {
     return name;
 }
@@ -46,9 +35,16 @@ Weapon::Weapon(string name, int atk, int value)
     : Equipment(name, atk, 0, value, "weapon") {}
 
 void Weapon::displayInfo() const {
-    cout << "武器: " << getName();
-    cout << "\t攻击: +" << getAttack();
-    cout << "\t价值: " << getValue() << " 绿宝石" << endl;
+    ColorManager::COLOR_PRINT("武器: ", YELLOW);
+    ColorManager::COLOR_PRINT(getName(), YELLOW);
+
+    ColorManager::COLOR_PRINT("\t攻击: +", YELLOW);
+    cout << getAttack();
+
+    ColorManager::COLOR_PRINT("\t价值: ", YELLOW);
+    cout << getValue();
+
+    ColorManager::COLOR_PRINT(" 绿宝石\n", YELLOW);
 }
 
 // Armor 实现
@@ -56,9 +52,16 @@ Armor::Armor(string name, int def, int value)
     : Equipment(name, 0, def, value, "armor") {}
 
 void Armor::displayInfo() const {
-    cout << "护甲: " << getName();
-    cout << "\t防御: +" << getDefense();
-    cout << "\t价值: " << getValue() << " 绿宝石" << endl;
+    ColorManager::COLOR_PRINT("护甲: ", YELLOW);
+    ColorManager::COLOR_PRINT(getName(), YELLOW);
+
+    ColorManager::COLOR_PRINT("\t防御: +", YELLOW);
+    cout << getAttack();
+
+    ColorManager::COLOR_PRINT("\t价值: ", YELLOW);
+    cout << getValue();
+
+    ColorManager::COLOR_PRINT(" 绿宝石\n", YELLOW);
 }
 
 // 预定义装备实现

@@ -1,6 +1,7 @@
 ﻿#ifndef SKILL_H
 #define SKILL_H
 
+#include "ColorManager.h"
 #include <string>
 #include <memory>
 #include <algorithm>

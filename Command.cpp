@@ -132,7 +132,7 @@ void Command::trade() {
     player.getArmor().displayInfo();
     cout << "\n你有 " << player.getMoney() << " 绿宝石" << endl << endl;
 
-    int choice;
+    int choice = 0;
     bool shopping = true;
 
     while (shopping) {
@@ -149,18 +149,24 @@ void Command::trade() {
         {
             system("cls");
             cout << "可购买的武器:" << endl;
-            cout << "1. " << EquipmentTypes::WOODEN_SWORD.getName() << " (攻击+"
-                << EquipmentTypes::WOODEN_SWORD.getAttack() << ") - "
-                << EquipmentTypes::WOODEN_SWORD.getValue() << " 绿宝石" << endl;
-            cout << "2. " << EquipmentTypes::IRON_SWORD.getName() << " (攻击+"
-                << EquipmentTypes::IRON_SWORD.getAttack() << ") - "
-                << EquipmentTypes::IRON_SWORD.getValue() << " 绿宝石" << endl;
-            cout << "3. " << EquipmentTypes::DIAMOND_SWORD.getName() << " (攻击+"
-                << EquipmentTypes::DIAMOND_SWORD.getAttack() << ") - "
-                << EquipmentTypes::DIAMOND_SWORD.getValue() << " 绿宝石" << endl;
+            cout << "1. ";
+            ColorManager::COLOR_PRINT(EquipmentTypes::WOODEN_SWORD.getName(), YELLOW);
+            cout << " (攻击+"
+                 << EquipmentTypes::WOODEN_SWORD.getAttack() << ") - "
+                 << EquipmentTypes::WOODEN_SWORD.getValue() << " 绿宝石" << endl;
+            cout << "2. ";
+            ColorManager::COLOR_PRINT(EquipmentTypes::IRON_SWORD.getName(), BLACK);
+            cout << " (攻击+"
+                 << EquipmentTypes::IRON_SWORD.getAttack() << ") - "
+                 << EquipmentTypes::IRON_SWORD.getValue() << " 绿宝石" << endl;
+            cout << "3. ";
+            ColorManager::COLOR_PRINT(EquipmentTypes::DIAMOND_SWORD.getName(), LIGHT_BLUE);
+            cout << " (攻击+"
+                 << EquipmentTypes::DIAMOND_SWORD.getAttack() << ") - "
+                 << EquipmentTypes::DIAMOND_SWORD.getValue() << " 绿宝石" << endl;
             cout << "4. 返回" << endl;
 
-            int weaponChoice;
+            int weaponChoice = 0;
             cout << "请选择武器: ";
             cin >> weaponChoice;
 
@@ -211,18 +217,24 @@ void Command::trade() {
         {
             system("cls");
             cout << "可购买的护甲:" << endl;
-            cout << "1. " << EquipmentTypes::LEATHER_ARMOR.getName() << " (防御+"
-                << EquipmentTypes::LEATHER_ARMOR.getDefense() << ") - "
-                << EquipmentTypes::LEATHER_ARMOR.getValue() << " 绿宝石" << endl;
-            cout << "2. " << EquipmentTypes::IRON_ARMOR.getName() << " (防御+"
-                << EquipmentTypes::IRON_ARMOR.getDefense() << ") - "
-                << EquipmentTypes::IRON_ARMOR.getValue() << " 绿宝石" << endl;
-            cout << "3. " << EquipmentTypes::DIAMOND_ARMOR.getName() << " (防御+"
-                << EquipmentTypes::DIAMOND_ARMOR.getDefense() << ") - "
-                << EquipmentTypes::DIAMOND_ARMOR.getValue() << " 绿宝石" << endl;
+            cout << "1. ";
+            ColorManager::COLOR_PRINT(EquipmentTypes::LEATHER_ARMOR.getName(), YELLOW);
+            cout << " (防御+"
+                 << EquipmentTypes::LEATHER_ARMOR.getDefense() << ") - "
+                 << EquipmentTypes::LEATHER_ARMOR.getValue() << " 绿宝石" << endl;
+            cout << "2. ";
+            ColorManager::COLOR_PRINT(EquipmentTypes::IRON_ARMOR.getName(), BLACK);
+            cout << " (防御+"
+                 << EquipmentTypes::IRON_ARMOR.getDefense() << ") - "
+                 << EquipmentTypes::IRON_ARMOR.getValue() << " 绿宝石" << endl;
+            cout << "3. ";
+            ColorManager::COLOR_PRINT(EquipmentTypes::DIAMOND_ARMOR.getName(), LIGHT_BLUE);
+            cout << " (防御+"
+                 << EquipmentTypes::DIAMOND_ARMOR.getDefense() << ") - "
+                 << EquipmentTypes::DIAMOND_ARMOR.getValue() << " 绿宝石" << endl;
             cout << "4. 返回" << endl;
 
-            int armorChoice;
+            int armorChoice = 0;
             cout << "请选择护甲: ";
             cin >> armorChoice;
 
@@ -323,7 +335,9 @@ void Command::battleSelection() {
 
     cout << "选择要战斗的怪物:" << endl;
     for (size_t i = 0; i < monsters.size(); i++) {
-        cout << i + 1 << ". " << monsters[i]->getName() << endl;
+        cout << i + 1 << ". ";
+        ColorManager::COLOR_PRINT(monsters[i]->getName(), RED);
+        cout << endl;
         monsters[i]->showInfo();
         cout << endl;
     }
@@ -359,13 +373,15 @@ void Command::battleSelection() {
         // 战斗后检查怪物是否被击败
         if (selectedMonster->getHealthCur() <= 0) {
             system("cls");
-            cout << selectedMonster->getName() << " 被击败了!" << endl;
+            ColorManager::COLOR_PRINT(selectedMonster->getName(), RED);
+            cout << " 被击败了!" << endl;
             Sleep(1200);
 
             // 玩家获得奖励
             int moneyEarned = selectedMonster->dropMoney(rand() % 100); // 随机掉落绿宝石
             player.setMoney(player.getMoney() + moneyEarned);
-            cout << player.getName() << " 获得了 " << moneyEarned << " 绿宝石!" << endl;
+            ColorManager::COLOR_PRINT(player.getName(), YELLOW);
+            cout << " 获得了 " << moneyEarned << " 绿宝石!" << endl;
             Sleep(1200);
 
             // 从地图中移除被击败的怪物
@@ -423,19 +439,18 @@ void Command::move() {
 }
 
 void Command::panel() {
-    ColorManager::COLOR_PRINT("========== 玩家属性 ==========\n", YELLOW);
+    ColorManager::COLOR_PRINT("================== 玩家属性 ==================\n", YELLOW);
     ColorManager::COLOR_PRINT(player.getName(), YELLOW);
     cout << endl;
     player.showInfo();
     player.getWeapon().displayInfo();
     player.getArmor().displayInfo();
 
-    cout << "技能:" << endl;
+    ColorManager::COLOR_PRINT("\n================== 技能列表 ==================\n", BLUE);
     for (const auto& skill : player.getSkill()) {
         skill->displayInfo();
-        cout << "------------------------" << endl;
+        ColorManager::COLOR_PRINT("----------------------------------------------\n", BLUE);
     }
-    cout << "==============================" << endl;
 
     cin.ignore((numeric_limits<streamsize>::max)(), '\n');
     cout << "\n按回车键返回...";
