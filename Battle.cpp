@@ -1,5 +1,6 @@
 ﻿#include "Battle.h"
 #include "Skill.h"
+#include "CommandInput.h"
 #include <iostream>
 #include <algorithm>
 #include <thread>
@@ -86,10 +87,11 @@ void Battle::playerTurn() {
         // 获取玩家选择
         cout << "\n请选择行动 (0-" << skills.size() << "): ";
 
-        if (!(cin >> choice)) {
-            // 清除错误状态并清空输入缓冲区
-            cin.clear();
-            cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+        string input;
+        cin >> input;
+        choice = convertChineseCommand(input);
+
+        if (choice == -1) {
             system("cls");
             cout << "无效的选择，请重新输入！" << endl;
             Sleep(1200);

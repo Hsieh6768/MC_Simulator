@@ -5,6 +5,7 @@
 #include "Map.h"
 #include "Battle.h"
 #include "ColorManager.h"
+#include "CommandInput.h"
 #include <string>
 #include <fstream>
 #include <vector>

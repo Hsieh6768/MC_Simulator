@@ -352,3 +352,88 @@ int Map::getVisitedAreaCount() const {
     }
     return count;
 }
+
+void Map::serializeMonsters(std::ofstream& out) const {
+    // 写入区域数量
+    int areaCount = static_cast<int>(areas.size());
+    out.write(reinterpret_cast<const char*>(&areaCount), sizeof(int));
+
+    for (const auto& pair : areas) {
+        int areaId = pair.first;
+        const Area* area = pair.second.get();
+
+        // 写入区域ID
+        out.write(reinterpret_cast<const char*>(&areaId), sizeof(int));
+
+        // 写入该区域的怪物数量
+        int monsterCount = 0;
+        for (const auto& creature : area->creatures) {
+            if (dynamic_pointer_cast<Monster>(creature)) {
+                monsterCount++;
+            }
+        }
+        out.write(reinterpret_cast<const char*>(&monsterCount), sizeof(int));
+
+        // 写入每个怪物的信息
+        for (const auto& creature : area->creatures) {
+            if (auto monster = dynamic_pointer_cast<Monster>(creature)) {
+                // 写入怪物类型
+                string monsterType = monster->getTypeName();
+                size_t typeLength = monsterType.size();
+                out.write(reinterpret_cast<const char*>(&typeLength), sizeof(size_t));
+                out.write(monsterType.c_str(), typeLength);
+
+                // 写入怪物当前生命值
+                int healthCur = monster->getHealthCur();
+                out.write(reinterpret_cast<const char*>(&healthCur), sizeof(int));
+            }
+        }
+    }
+}
+
+void Map::deserializeMonsters(std::ifstream& in) {
+    // 清空所有区域的怪物
+    for (auto& pair : areas) {
+        if (pair.second) {
+            pair.second->creatures.clear();
+        }
+    }
+
+    // 读取区域数量
+    int areaCount = 0;
+    in.read(reinterpret_cast<char*>(&areaCount), sizeof(int));
+
+    for (int i = 0; i < areaCount; i++) {
+        // 读取区域ID
+        int areaId = 0;
+        in.read(reinterpret_cast<char*>(&areaId), sizeof(int));
+
+        Area* area = getArea(areaId);
+        if (!area) continue;
+
+        // 读取该区域的怪物数量
+        int monsterCount = 0;
+        in.read(reinterpret_cast<char*>(&monsterCount), sizeof(int));
+
+        // 读取每个怪物的信息
+        for (int j = 0; j < monsterCount; j++) {
+            // 读取怪物类型
+            size_t typeLength = 0;
+            in.read(reinterpret_cast<char*>(&typeLength), sizeof(size_t));
+            vector<char> typeBuffer(typeLength);
+            in.read(typeBuffer.data(), typeLength);
+            string monsterType(typeBuffer.data(), typeLength);
+
+            // 读取怪物当前生命值
+            int healthCur = 0;
+            in.read(reinterpret_cast<char*>(&healthCur), sizeof(int));
+
+            // 创建怪物
+            auto monster = createMonsterByType(monsterType);
+            if (monster) {
+                monster->setHealthCur(healthCur);
+                area->creatures.push_back(monster);
+            }
+        }
+    }
+}

@@ -1,13 +1,19 @@
 ﻿#include <iostream>
 #include <windows.h>
+#include <algorithm>
+#include <map>
+#include <string>
+#include <limits>
 #include "Command.h"
 #include "Battle.h"
 #include "Map.h"
 #include "Player.h"
 #include "Monster.h"
 #include "ColorManager.h"
+#include "CommandInput.h"
 
 using namespace std;
+
 
 int main() {
     while (true) {
@@ -19,12 +25,11 @@ int main() {
         bool in_game = false;
         while (!in_game) {
             command.displayMainMenu();
-            int game_choice;
+            string input;
+            cin >> input;
+            int game_choice = convertChineseCommand(input);
 
-            if (!(cin >> game_choice)) {
-                // 清除错误状态并清空输入缓冲区
-                cin.clear();
-                cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+            if (game_choice == -1) {
                 system("cls");
                 cout << "无效的选择，请重新输入！" << endl;
                 Sleep(1200);
@@ -36,7 +41,7 @@ int main() {
                 in_game = true;
             }
             else if (game_choice == 2) {
-                if (command.loadGame("Mc_Simulator.txt")) {
+                if (command.loadGame("MC_Simulator.txt")) {
                     in_game = true;
                 }
             }
@@ -62,12 +67,11 @@ int main() {
 
             // 显示游戏菜单
             command.displayGameMenu();
-            int operation_choice;
+            string input;
+            cin >> input;
+            int operation_choice = convertChineseCommand(input);
 
-            if (!(cin >> operation_choice)) {
-                // 清除错误状态并清空输入缓冲区
-                cin.clear();
-                cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+            if (operation_choice == -1) {
                 system("cls");
                 cout << "无效的选择，请重新输入！" << endl;
                 Sleep(1200);
@@ -101,7 +105,7 @@ int main() {
                 break;
             case 7:
                 system("cls");
-                command.saveGame("Mc_Simulator.txt");
+                command.saveGame("MC_Simulator.txt");
                 break;
             case 8:
                 system("cls");
@@ -119,6 +123,9 @@ int main() {
                 cout << "播放终末之诗。" << endl;
                 Sleep(1200);
                 command.gameOver();
+                cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+                cout << "\n按回车键继续...";
+                cin.ignore((numeric_limits<streamsize>::max)(), '\n');
                 break;
             case 11:
                 // 若该房间无宝藏则仍按无效输入处理
@@ -145,12 +152,12 @@ int main() {
                     cout << "2. 退回到游戏首页" << endl;
                     cout << "请选择: ";
 
-                    int death_choice = 0;
+                    string death_input;
+                    cin >> death_input;
 
-                    if (!(cin >> death_choice)) {
-                        // 清除错误状态并清空输入缓冲区
-                        cin.clear();
-                        cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+                    int death_choice = convertChineseCommand(death_input);
+
+                    if (death_choice == -1) {
                         system("cls");
                         cout << "无效的选择，请重新输入！" << endl;
                         Sleep(1200);

@@ -12,6 +12,10 @@ void Spider::showInfo() const {
               << "\n特殊能力: " << getAbility(0) << std::endl;
 }
 
+std::string Spider::getTypeName() const {
+    return "Spider";
+}
+
 bool Spider::useSpecialAbility(int random_number) const {
     return false;  // 无特殊能力
 }

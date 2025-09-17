@@ -19,6 +19,10 @@ void EnderDragon::showInfo() const {
               << std::endl;
 }
 
+std::string EnderDragon::getTypeName() const {
+    return "EnderDragon";
+}
+
 bool EnderDragon::useSpecialAbility(int random_number) const {
     // 余数为1时在本回合使用特殊能力
     if (random_number % SpecialAbilityConstants::ENDER_DRAGON_N == 1) {

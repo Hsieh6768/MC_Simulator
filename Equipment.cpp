@@ -56,7 +56,7 @@ void Armor::displayInfo() const {
     ColorManager::COLOR_PRINT(getName(), YELLOW);
 
     ColorManager::COLOR_PRINT("\t防御: +", YELLOW);
-    cout << getAttack();
+    cout << getDefense();
 
     ColorManager::COLOR_PRINT("\t价值: ", YELLOW);
     cout << getValue();

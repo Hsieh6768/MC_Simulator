@@ -32,6 +32,7 @@ public:
 	virtual void showInfo() const = 0;  // 显示怪物属性面板
 	virtual bool useSpecialAbility(int random_number) const = 0;  // 判断该回合是否使用特殊能力
 	virtual int dropMoney(int random_number) const = 0;  // 随机掉落绿宝石
+	virtual std::string getTypeName() const = 0;  // 显示怪物名称
 
 	std::string getType() const;  // 获取怪物级别
 	std::string getDescription() const;  // 获取怪物描述

@@ -12,7 +12,7 @@ public:
 		int health_cur = 0,
 		int attack = 0
 	);
-	virtual ~Creature();
+	virtual ~Creature() = default;
 
 	std::string getName() const;  // 获取生物名称
 	void setName(std::string name);  // 设定生物名称

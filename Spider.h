@@ -9,6 +9,7 @@ public:
     Spider();
 
     void showInfo() const override;
+    std::string getTypeName() const override;
     bool useSpecialAbility(int random_number) const override;
     int dropMoney(int random_number) const override;
 

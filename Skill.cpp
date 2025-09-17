@@ -30,7 +30,6 @@ bool Skill::isReady() const { return currentCooldown == 0; }
 void Skill::displayInfo() const {
     ColorManager::COLOR_PRINT("技能: ", BLUE);
     cout << name;
-    ColorManager::COLOR_PRINT(")", BLUE);
 
     ColorManager::COLOR_PRINT("\n消耗: ", BLUE);
     cout << cost;

@@ -11,6 +11,7 @@
 #include "Enderman.h"
 #include "Blaze.h"
 #include "EnderDragon.h"
+#include <fstream>
 #include <memory>
 #include <string>
 #include <map>
@@ -93,7 +94,11 @@ public:
     // 探索相关
     void markAreaVisited(int areaId);
     bool isAreaVisited(int areaId) const;
-    int getVisitedAreaCount() const;
+    int getVisitedAreaCount() const; 
+    
+    // 存档功能相关
+    void serializeMonsters(std::ofstream& out) const;
+    void deserializeMonsters(std::ifstream& in);
 
 private:
     std::map<int, std::unique_ptr<Area>> areas;

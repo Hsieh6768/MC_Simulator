@@ -15,6 +15,10 @@ void WitherSkeleton::showInfo() const {
               << std::endl;
 }
 
+std::string WitherSkeleton::getTypeName() const {
+    return "WitherSkeleton";
+}
+
 bool WitherSkeleton::useSpecialAbility(int random_number) const {
     // 余数为1时在本回合使用特殊能力
     return random_number % SpecialAbilityConstants::WITHER_SKELETON_N == 1;

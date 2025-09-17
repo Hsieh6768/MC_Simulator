@@ -10,8 +10,6 @@ health_max(health_max),
 health_cur(health_cur),
 attack(attack) {}
 
-Creature::~Creature() {}
-
 std::string Creature::getName() const {
     return this->name;
 }

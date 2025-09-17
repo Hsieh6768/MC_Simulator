@@ -12,6 +12,10 @@ void Zombie::showInfo() const {
               << "\n特殊能力: " << getAbility(0) << std::endl;
 }
 
+std::string Zombie::getTypeName() const {
+    return "Zombie"; 
+}
+
 bool Zombie::useSpecialAbility(int random_number) const {
     return false;  // 无特殊能力
 }

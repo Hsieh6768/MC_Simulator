@@ -9,6 +9,7 @@ public:
     EnderDragon();
 
     void showInfo() const override;
+    std::string getTypeName() const override;
     bool useSpecialAbility(int random_number) const override;
     int selectAbility(int random_number) const;  // 本回合触发特殊能力时选择应触发哪个特殊能力
     int dropMoney(int random_number) const override;

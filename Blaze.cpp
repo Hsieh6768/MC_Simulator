@@ -15,6 +15,10 @@ void Blaze::showInfo() const {
               << std::endl;
 }
 
+std::string Blaze::getTypeName() const {
+    return "Blaze";
+}
+
 bool Blaze::useSpecialAbility(int random_number) const {
     // 余数为1时在本回合使用特殊能力
     return random_number % SpecialAbilityConstants::BLAZE_N == 1;

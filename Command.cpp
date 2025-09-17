@@ -99,7 +99,7 @@ bool Command::loadGame(const string& filename) {
 
 void Command::exitGame() {
     cout << "正在保存游戏并退出..." << endl;
-    if (saveGame("Mc_Simulator.txt")) {
+    if (saveGame("MC_Simulator.txt")) {
         cout << "游戏已自动保存。" << endl;
     }
     else {
@@ -141,16 +141,19 @@ void Command::trade() {
         cout << "\t2. 护甲";
         cout << "\t3. 离开商店" << endl;
         cout << "请选择: ";
-        if (!(cin >> choice)) {
-            // 清除错误状态并清空输入缓冲区
-            cin.clear();
-            cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+
+        string input;
+        cin >> input;
+        choice = convertChineseCommand(input);
+
+        if (choice == -1) {
             system("cls");
             cout << "无效的选择，请重新输入！" << endl;
             Sleep(1200);
             system("cls");
             continue;
         }
+
         cout << endl;
 
         switch (choice) {
@@ -161,26 +164,28 @@ void Command::trade() {
             cout << "1. ";
             ColorManager::COLOR_PRINT(EquipmentTypes::WOODEN_SWORD.getName(), YELLOW);
             cout << " (攻击+"
-                 << EquipmentTypes::WOODEN_SWORD.getAttack() << ") - "
-                 << EquipmentTypes::WOODEN_SWORD.getValue() << " 绿宝石" << endl;
+                << EquipmentTypes::WOODEN_SWORD.getAttack() << ") - "
+                << EquipmentTypes::WOODEN_SWORD.getValue() << " 绿宝石" << endl;
             cout << "2. ";
             ColorManager::COLOR_PRINT(EquipmentTypes::IRON_SWORD.getName(), BLACK);
             cout << " (攻击+"
-                 << EquipmentTypes::IRON_SWORD.getAttack() << ") - "
-                 << EquipmentTypes::IRON_SWORD.getValue() << " 绿宝石" << endl;
+                << EquipmentTypes::IRON_SWORD.getAttack() << ") - "
+                << EquipmentTypes::IRON_SWORD.getValue() << " 绿宝石" << endl;
             cout << "3. ";
             ColorManager::COLOR_PRINT(EquipmentTypes::DIAMOND_SWORD.getName(), LIGHT_BLUE);
             cout << " (攻击+"
-                 << EquipmentTypes::DIAMOND_SWORD.getAttack() << ") - "
-                 << EquipmentTypes::DIAMOND_SWORD.getValue() << " 绿宝石" << endl;
+                << EquipmentTypes::DIAMOND_SWORD.getAttack() << ") - "
+                << EquipmentTypes::DIAMOND_SWORD.getValue() << " 绿宝石" << endl;
             cout << "4. 返回" << endl;
 
             int weaponChoice = 0;
             cout << "请选择武器: ";
-            if (!(cin >> weaponChoice)) {
-                // 清除错误状态并清空输入缓冲区
-                cin.clear();
-                cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+
+            string weaponInput;
+            cin >> weaponInput;
+            weaponChoice = convertChineseCommand(weaponInput);
+
+            if (weaponChoice == -1) {
                 system("cls");
                 cout << "无效的选择，请重新输入！" << endl;
                 Sleep(1200);
@@ -238,26 +243,28 @@ void Command::trade() {
             cout << "1. ";
             ColorManager::COLOR_PRINT(EquipmentTypes::LEATHER_ARMOR.getName(), YELLOW);
             cout << " (防御+"
-                 << EquipmentTypes::LEATHER_ARMOR.getDefense() << ") - "
-                 << EquipmentTypes::LEATHER_ARMOR.getValue() << " 绿宝石" << endl;
+                << EquipmentTypes::LEATHER_ARMOR.getDefense() << ") - "
+                << EquipmentTypes::LEATHER_ARMOR.getValue() << " 绿宝石" << endl;
             cout << "2. ";
             ColorManager::COLOR_PRINT(EquipmentTypes::IRON_ARMOR.getName(), BLACK);
             cout << " (防御+"
-                 << EquipmentTypes::IRON_ARMOR.getDefense() << ") - "
-                 << EquipmentTypes::IRON_ARMOR.getValue() << " 绿宝石" << endl;
+                << EquipmentTypes::IRON_ARMOR.getDefense() << ") - "
+                << EquipmentTypes::IRON_ARMOR.getValue() << " 绿宝石" << endl;
             cout << "3. ";
             ColorManager::COLOR_PRINT(EquipmentTypes::DIAMOND_ARMOR.getName(), LIGHT_BLUE);
             cout << " (防御+"
-                 << EquipmentTypes::DIAMOND_ARMOR.getDefense() << ") - "
-                 << EquipmentTypes::DIAMOND_ARMOR.getValue() << " 绿宝石" << endl;
+                << EquipmentTypes::DIAMOND_ARMOR.getDefense() << ") - "
+                << EquipmentTypes::DIAMOND_ARMOR.getValue() << " 绿宝石" << endl;
             cout << "4. 返回" << endl;
 
             int armorChoice = 0;
             cout << "请选择护甲: ";
-            if (!(cin >> armorChoice)) {
-                // 清除错误状态并清空输入缓冲区
-                cin.clear();
-                cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+
+            string armorInput;
+            cin >> armorInput;
+            armorChoice = convertChineseCommand(armorInput);
+
+            if (armorChoice == -1) {
                 system("cls");
                 cout << "无效的选择，请重新输入！" << endl;
                 Sleep(1200);
@@ -373,13 +380,15 @@ void Command::battleSelection() {
     int choice = 0;
     cout << "请选择: ";
 
-    if (!(cin >> choice)) {
-        // 清除错误状态并清空输入缓冲区
-        cin.clear();
-        cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+    string input;
+    cin >> input;
+    choice = convertChineseCommand(input);
+
+    if (choice == -1) {
         system("cls");
         cout << "无效的选择，请重新输入！" << endl;
         Sleep(1200);
+        return;
     }
 
     if (choice > 0 && choice <= static_cast<int>(monsters.size())) {
@@ -392,9 +401,10 @@ void Command::battleSelection() {
         }
         else {
             cout << "自动保存失败，是否继续战斗？(y/n): ";
-            char confirm = 'n';
-            cin >> confirm;
-            if (confirm != 'y' && confirm != 'Y') {
+            string confirmInput;
+            cin >> confirmInput;
+            int confirm = convertChineseCommand(confirmInput);
+            if (confirm != 1) {
                 cout << "取消战斗。" << endl;
                 Sleep(1200);
                 return;
@@ -443,7 +453,6 @@ void Command::battleSelection() {
     }
 }
 
-
 void Command::move() {
     auto connectedAreas = map.getConnectedAreas();
     if (connectedAreas.empty()) {
@@ -466,13 +475,15 @@ void Command::move() {
     int choice = 0;
     cout << "请选择: ";
 
-    if (!(cin >> choice)) {
-        // 清除错误状态并清空输入缓冲区
-        cin.clear();
-        cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+    string input;
+    cin >> input;
+    choice = convertChineseCommand(input);
+
+    if (choice == -1) {
         system("cls");
         cout << "无效的选择，请重新输入！" << endl;
         Sleep(1200);
+        return;
     }
 
     if (choice > 0 && choice <= static_cast<int>(connectedAreas.size())) {
@@ -756,8 +767,15 @@ void Command::serializeMap(ofstream& out) {
         if (area) {
             bool visited = map.isAreaVisited(i);
             out.write(reinterpret_cast<const char*>(&visited), sizeof(bool));
+
+            // 写入宝藏状态
+            bool hasTreasure = area->hasTreasure;
+            out.write(reinterpret_cast<const char*>(&hasTreasure), sizeof(bool));
         }
     }
+
+    // 写入怪物信息
+    map.serializeMonsters(out);
 }
 
 void Command::deserializePlayer(ifstream& in) {
@@ -838,9 +856,6 @@ void Command::deserializePlayer(ifstream& in) {
         in.read(skillBuffer.data(), skillNameLength);
         string skillName(skillBuffer.data(), skillNameLength);
 
-        int level = 1;
-        in.read(reinterpret_cast<char*>(&level), sizeof(int));
-
         if (skillName == "火球术") {
             player.addSkill(SkillManager::createSkill("fireball"));
         }
@@ -874,11 +889,20 @@ void Command::deserializeMap(ifstream& in) {
         bool visited = false;
         in.read(reinterpret_cast<char*>(&visited), sizeof(bool));
 
+        bool hasTreasure = false;
+        in.read(reinterpret_cast<char*>(&hasTreasure), sizeof(bool));
+
         if (visited) {
             map.markAreaVisited(i);
         }
+
+        // 设置宝藏状态
+        Area* area = map.getArea(i);
+        if (area) {
+            area->hasTreasure = hasTreasure;
+        }
     }
 
-    // 重新生成怪物
-    map.spawnFixedMonsters();
+    // 读取怪物信息
+    map.deserializeMonsters(in);
 }

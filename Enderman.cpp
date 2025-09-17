@@ -15,6 +15,10 @@ void Enderman::showInfo() const {
               << std::endl;
 }
 
+std::string Enderman::getTypeName() const {
+    return "Enderman";
+}
+
 bool Enderman::useSpecialAbility(int random_number) const {
     // 余数为1时在本回合使用特殊能力
     return random_number % SpecialAbilityConstants::ENDERMAN_N == 1;
